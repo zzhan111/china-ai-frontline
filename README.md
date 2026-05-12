@@ -6,6 +6,20 @@
 
 ---
 
+## 📊 文章进度总览
+
+| # | 标题 | 支柱 | 状态 | 终稿 | 发布 |
+|---|---|---|---|---|---|
+| 001 | [我认识的 7 个 UIUC 校友，过去 12 个月里 4 个回国了](drafts/001/README.md) | 四 | ✅ final-candidate | [`001-final-final.md`](drafts/001-final-final.md) | — |
+| 002 | DeepSeek 替代 GPT-4 账单实测 | 二 | 💡 idea | — | — |
+| 003 | Anthropic vs DeepSeek 推理对比 | 三 | 💡 idea | — | — |
+| 004 | 海外用中国 AI API 指南 | 五 | 💡 idea | — | — |
+| 005 | 回还是留：UIUC 深度对话 | 四 | 💡 idea | — | — |
+
+> 状态说明：💡 idea → 📝 drafting → ✅ final-candidate → 🚀 published
+
+---
+
 ## ⚠️ 协作准则:先读 GOVERNANCE
 
 **任何对本仓库做写操作的 agent / 工具 / 人,在动手之前必须读 [`GOVERNANCE.md`](GOVERNANCE.md)。**
@@ -25,12 +39,48 @@
 
 ## 仓库地图
 
+```
+china-ai-frontline/
+├── README.md                    ← 你在这里
+├── GOVERNANCE.md                ← 治理规则（最高优先级）
+├── docs/                        ← 战略层
+│   ├── strategy.md
+│   ├── audience-personas.md
+│   ├── content-pillars.md
+│   └── cold-start-plan.md
+├── raw/                         ← 原始素材归档（只追加，不可变）
+│   ├── 2026-05-11-opus-brainstorm.md
+│   ├── 2026-05-11-git-branching-dialogue-memory.md
+│   ├── 2026-05-12-cowork-001-article-constitution.md
+│   └── 2026-05-12-cowork-comments-revision-guide.md
+├── topics/                      ← 选题卡片
+│   ├── _template.md
+│   ├── pillar-1/  pillar-2/  pillar-3/
+│   ├── pillar-4/
+│   │   ├── 001-uiuc-7-alumni-returning.md   ← #001 完整执行母版
+│   │   └── 005-return-or-stay-uiuc-deep-talk.md
+│   └── pillar-5/
+│       └── 004-overseas-china-api-guide.md
+├── drafts/                      ← 文章草稿
+│   ├── 001/README.md            ← #001 项目首页（进度、文件索引、发布数据）
+│   ├── 001-draft-v1.md
+│   ├── 001-draft(refactor)-v2.md
+│   ├── 001-draft-v2.1.md
+│   ├── 001-Final.md
+│   └── 001-final-final.md       ← #001 终稿候选
+└── ops/                         ← 运营流程
+    ├── publishing-checklist.md
+    ├── distribution-channels.md
+    └── pr-checklist.md
+```
+
 | 目录 | 用途 | 改动频率 | 可变性 |
 |---|---|---|---|
 | `GOVERNANCE.md` | **治理规则,最高优先级** | 极低,需 `governance/*` 分支 | 通过 PR |
 | `docs/` | 战略层:定位、受众画像、内容支柱、冷启动计划 | 低 | 通过 PR |
 | `raw/` | 原始对话/素材归档 | 仅追加 | **不可修改** |
 | `topics/` | 选题卡片,每篇一个 markdown,按支柱分子目录 | 高 | 通过 PR |
+| `drafts/` | 文章草稿,每篇一个子目录含 README + 版本文件 | 高 | 通过 PR |
 | `ops/` | 发布流程、渠道矩阵、自查清单、PR checklist | 中 | 通过 PR(部分 §3.5 豁免) |
 
 ## 当前阶段
@@ -43,14 +93,16 @@
 
 1. 新选题 → **切 `topic/NNN-slug` 分支** → 在 `topics/pillar-X/` 下复制 `_template.md`,新建 `NNN-slug.md` → 提 PR
 2. 选题成熟 → 在卡片里把 `status` 改为 `drafting` / `ready` / `published`,**通过新 PR 提交**
-3. 发布 → 在卡片底部补 `published_url` 和 `published_at`,在 `ops/distribution-channels.md` 同步分发记录
-   - 仅"分发记录表填一行"可走 §3.5 豁免
+3. 写作完成 → 在 `drafts/NNN/README.md` 中更新状态和终稿链接
+4. 发布 → 在 `drafts/NNN/README.md` 补发布数据,在 `ops/distribution-channels.md` 同步分发记录
+   - 仅"分发记录表填一行"和"发布数据填充"可走 §3.5 豁免
 
 合并任何 PR 前 → 走 [`ops/pr-checklist.md`](ops/pr-checklist.md)。
 
 ## 命名约定
 
 - 选题卡片:三位数字编号 + 短 slug,例如 `001-uiuc-7-alumni-returning.md`
+- 草稿目录:三位数字编号,例如 `drafts/001/README.md`
 - 编号在**全仓库内全局唯一**(不按支柱重置),方便引用和检索
 - raw 归档:`YYYY-MM-DD-source-topic.md`
 - 分支命名:见 [`GOVERNANCE.md`](GOVERNANCE.md) §4
