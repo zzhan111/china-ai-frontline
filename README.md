@@ -10,8 +10,8 @@
 
 | # | 标题 | 支柱 | 状态 | 终稿 | 发布 |
 |---|---|---|---|---|---|
-| 001 | [我认识的 7 个 UIUC 校友，过去 12 个月里 4 个回国了](drafts/001/README.md) | 四 | ✅ final-candidate | [`001-final-final.md`](drafts/001-final-final.md) | — |
-| 002 | DeepSeek 替代 GPT-4 账单实测 | 二 | 💡 idea | — | — |
+| 001 | [我认识的 7 个 UIUC 校友，过去 12 个月里 4 个回国了](drafts/001/README.md) | 四 | ✅ final-candidate | [`001-final-final.md`](drafts/001/001-final-final.md) | — |
+| 002 | [海外华人团队正在重做 AI 家教：教育 AI 出海的第一批用户从哪来？](drafts/002/README.md) | 四 | ✅ final-candidate | [`002-preview.md`](drafts/002/002-preview.md) | — |
 | 003 | Anthropic vs DeepSeek 推理对比 | 三 | 💡 idea | — | — |
 | 004 | 海外用中国 AI API 指南 | 五 | 💡 idea | — | — |
 | 005 | 回还是留：UIUC 深度对话 | 四 | 💡 idea | — | — |
@@ -57,17 +57,25 @@ china-ai-frontline/
 │   ├── _template.md
 │   ├── pillar-1/  pillar-2/  pillar-3/
 │   ├── pillar-4/
-│   │   ├── 001-uiuc-7-alumni-returning.md   ← #001 完整执行母版
+│   │   ├── 001-uiuc-7-alumni-returning.md       ← #001 完整执行母版
+│   │   ├── 002-overseas-education-ai-growth.md  ← #002 选题卡片
+│   │   ├── 003-anthropic-vs-deepseek-reasoning.md
 │   │   └── 005-return-or-stay-uiuc-deep-talk.md
 │   └── pillar-5/
 │       └── 004-overseas-china-api-guide.md
-├── drafts/                      ← 文章草稿
-│   ├── 001/README.md            ← #001 项目首页（进度、文件索引、发布数据）
-│   ├── 001-draft-v1.md
-│   ├── 001-draft(refactor)-v2.md
-│   ├── 001-draft-v2.1.md
-│   ├── 001-Final.md
-│   └── 001-final-final.md       ← #001 终稿候选
+├── drafts/                      ← 文章草稿（每篇一个子目录）
+│   ├── 001/                     ← #001 项目目录
+│   │   ├── README.md            ← 进度、版本演进分析、发布数据
+│   │   ├── 001-draft-v1.md
+│   │   ├── 001-draft(refactor)-v2.md
+│   │   ├── 001-draft-v2.1.md
+│   │   ├── 001-Final.md
+│   │   └── 001-final-final.md   ← #001 终稿候选
+│   └── 002/                     ← #002 项目目录
+│       ├── README.md            ← 进度、三版演进分析（v1.1→V2→Preview）、发布数据
+│       ├── 002-draft-v1.1.md
+│       ├── 002-draft-V2.md
+│       └── 002-preview.md       ← #002 终稿候选（发送前预览稿）
 └── ops/                         ← 运营流程
     ├── publishing-checklist.md
     ├── distribution-channels.md
