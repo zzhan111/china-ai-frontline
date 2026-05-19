@@ -10,11 +10,9 @@
 
 | # | 标题 | 支柱 | 状态 | 终稿 | 发布 |
 |---|---|---|---|---|---|
-| 001 | [我认识的 7 个 UIUC 校友，过去 12 个月里 4 个回国了](drafts/001/README.md) | 四 | ✅ final-candidate | [`001-final-final.md`](drafts/001/001-final-final.md) | — |
+| 001 | [我认识的 7 个 UIUC 校友，过去 12 个月里 4 个回国了](drafts/001/README.md) | 四 | ✅ 已发 | [`001-final-final.md`](drafts/001/001-final-final.md) | 2026-05-12 |
 | 002 | [海外华人团队正在重做 AI 家教：教育 AI 出海的第一批用户从哪来？](drafts/002/README.md) | 二+五 | ✅ 已发 | [`002-preview.md`](drafts/002/002-preview.md) | 2026-05-? |
 | 003 | 中国 AI 生态地图:海外华人最容易误读的差异 | 二 | 💡 idea | — | — |
-| 004 | 海外身份合规调用国内大模型 API | 五 | 💡 idea | — | — |
-| 005 | 栏目宣告 + 长期承诺 | 元层 | 💡 idea | — | — |
 
 > 状态说明：💡 idea → 📝 drafting → ✅ final-candidate → 🚀 published
 
@@ -61,18 +59,16 @@ china-ai-frontline/
 │   ├── pillar-1/
 │   │   └── README.md
 │   ├── pillar-2/
-│   │   └── README.md
+│   │   ├── README.md
+│   │   ├── 002-overseas-education-ai-growth.md    ← #002 实操轴(本支柱+五交叉)
+│   │   └── 003-china-ai-ecosystem-map-misread-differences.md  ← #003 待写
 │   ├── pillar-3/
 │   │   └── README.md
 │   ├── pillar-4/
 │   │   ├── README.md
-│   │   ├── 001-uiuc-7-alumni-returning.md        ← #001 完整执行母版
-│   │   ├── 002-overseas-education-ai-growth.md   ← #002 选题卡片(暂归档,属支柱二)
-│   │   ├── 003-anthropic-vs-deepseek-reasoning.md← #003(暂归档,属支柱二)
-│   │   └── 005-return-or-stay-uiuc-deep-talk.md  ← #005(暂归档,属元层)
+│   │   └── 001-uiuc-7-alumni-returning.md        ← #001 完整执行母版/已发
 │   └── pillar-5/
-│       ├── README.md
-│       └── 004-overseas-china-api-guide.md        ← #004 选题卡片
+│       └── README.md
 ├── data/                        ← 结构化数据明细
 │   ├── README.md
 │   ├── 001/
