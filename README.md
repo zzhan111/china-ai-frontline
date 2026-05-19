@@ -11,10 +11,10 @@
 | # | 标题 | 支柱 | 状态 | 终稿 | 发布 |
 |---|---|---|---|---|---|
 | 001 | [我认识的 7 个 UIUC 校友，过去 12 个月里 4 个回国了](drafts/001/README.md) | 四 | ✅ final-candidate | [`001-final-final.md`](drafts/001/001-final-final.md) | — |
-| 002 | [海外华人团队正在重做 AI 家教：教育 AI 出海的第一批用户从哪来？](drafts/002/README.md) | 四 | ✅ final-candidate | [`002-preview.md`](drafts/002/002-preview.md) | — |
-| 003 | Anthropic vs DeepSeek 推理对比 | 三 | 💡 idea | — | — |
-| 004 | 海外用中国 AI API 指南 | 五 | 💡 idea | — | — |
-| 005 | 回还是留：UIUC 深度对话 | 四 | 💡 idea | — | — |
+| 002 | [海外华人团队正在重做 AI 家教：教育 AI 出海的第一批用户从哪来？](drafts/002/README.md) | 二+五 | ✅ 已发 | [`002-preview.md`](drafts/002/002-preview.md) | 2026-05-? |
+| 003 | 中国 AI 生态地图:海外华人最容易误读的差异 | 二 | 💡 idea | — | — |
+| 004 | 海外身份合规调用国内大模型 API | 五 | 💡 idea | — | — |
+| 005 | 栏目宣告 + 长期承诺 | 元层 | 💡 idea | — | — |
 
 > 状态说明：💡 idea → 📝 drafting → ✅ final-candidate → 🚀 published
 
@@ -52,17 +52,33 @@ china-ai-frontline/
 │   ├── 2026-05-11-opus-brainstorm.md
 │   ├── 2026-05-11-git-branching-dialogue-memory.md
 │   ├── 2026-05-12-cowork-001-article-constitution.md
-│   └── 2026-05-12-cowork-comments-revision-guide.md
+│   ├── 2026-05-12-cowork-comments-revision-guide.md
+│   ├── 2026-05-18-china-ai-wechat-account-resurrection-cross-analysis-90day-roadmap.md
+│   └── 2026-05-18-china-ai-wechat-account-resurrection-longitudinal-horizontal-analysis.md
 ├── topics/                      ← 选题卡片
+│   ├── README.md                ← 支柱总览表
 │   ├── _template.md
-│   ├── pillar-1/  pillar-2/  pillar-3/
+│   ├── pillar-1/
+│   │   └── README.md
+│   ├── pillar-2/
+│   │   └── README.md
+│   ├── pillar-3/
+│   │   └── README.md
 │   ├── pillar-4/
-│   │   ├── 001-uiuc-7-alumni-returning.md       ← #001 完整执行母版
-│   │   ├── 002-overseas-education-ai-growth.md  ← #002 选题卡片
-│   │   ├── 003-anthropic-vs-deepseek-reasoning.md
-│   │   └── 005-return-or-stay-uiuc-deep-talk.md
+│   │   ├── README.md
+│   │   ├── 001-uiuc-7-alumni-returning.md        ← #001 完整执行母版
+│   │   ├── 002-overseas-education-ai-growth.md   ← #002 选题卡片(暂归档,属支柱二)
+│   │   ├── 003-anthropic-vs-deepseek-reasoning.md← #003(暂归档,属支柱二)
+│   │   └── 005-return-or-stay-uiuc-deep-talk.md  ← #005(暂归档,属元层)
 │   └── pillar-5/
-│       └── 004-overseas-china-api-guide.md
+│       ├── README.md
+│       └── 004-overseas-china-api-guide.md        ← #004 选题卡片
+├── data/                        ← 结构化数据明细
+│   ├── README.md
+│   ├── 001/
+│   │   └── 20260513_数据明细(毕业9年后,我认识的4个UIUC...).xls
+│   └── 002/
+│       └── 20260517_数据明细(AI行业薪资与融资).xls
 ├── drafts/                      ← 文章草稿（每篇一个子目录）
 │   ├── 001/                     ← #001 项目目录
 │   │   ├── README.md            ← 进度、版本演进分析、发布数据
@@ -87,8 +103,9 @@ china-ai-frontline/
 | `GOVERNANCE.md` | **治理规则,最高优先级** | 极低,需 `governance/*` 分支 | 通过 PR |
 | `docs/` | 战略层:定位、受众画像、内容支柱、冷启动计划 | 低 | 通过 PR |
 | `raw/` | 原始对话/素材归档 | 仅追加 | **不可修改** |
-| `topics/` | 选题卡片,每篇一个 markdown,按支柱分子目录 | 高 | 通过 PR |
+| `topics/` | 选题卡片 + README 总览,按支柱分子目录 | 高 | 通过 PR |
 | `drafts/` | 文章草稿,每篇一个子目录含 README + 版本文件 | 高 | 通过 PR |
+| `data/` | 结构化数据明细(Excel/CSV/JSON),按文章编号分子目录 | 低 | 通过 PR |
 | `ops/` | 发布流程、渠道矩阵、自查清单、PR checklist | 中 | 通过 PR(部分 §3.5 豁免) |
 
 ## 当前阶段
