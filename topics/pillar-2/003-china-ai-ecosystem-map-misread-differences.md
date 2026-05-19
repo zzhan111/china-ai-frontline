@@ -2,10 +2,10 @@
 id: 003
 title: "中国 AI 生态地图:海外华人最容易误读的那些差异"
 pillar: 2
-status: idea
-target_persona: B
-uiuc_anchor: false
-hook_type: insight
+status: idea          # idea / drafting / ready / published / shelved
+target_persona: B     # A / B / C / 多个
+uiuc_anchor: false    # 是否打 UIUC 锚点
+hook_type: insight    # insight / utility / story / data
 created: 2026-05-19
 updated: 2026-05-19
 ---
