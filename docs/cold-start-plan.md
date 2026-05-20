@@ -32,6 +32,12 @@
 
 每篇详细卡片应建在 `topics/pillar-X/NNN-*.md`。
 
+#### 素材库积累
+
+`materials/003/` 已积累 10 个素材文件，覆盖生态地图所需的中美 Agent 对比数据。详见该目录 README。
+
+**值得关注的分支方向**（支柱二生态地图/Agent 对比子方向）：海外 Agent 生态精选分析（Anthropic/OpenAI/Google/Microsoft 四阵营对比 + 美国 SME 认知数据），已整理为精选分析文件，素材足够的单独成文。
+
 ### 003 设计要点
 
 - **不做**百科式罗列
