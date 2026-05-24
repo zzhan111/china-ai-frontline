@@ -1,8 +1,16 @@
 # 中国 AI 前线 (china-ai-frontline)
 
-面向海外华人(UIUC 校友圈为辐射锚点)的中国 AI 生态观察自媒体的**内容运营仓库**。
+面向海外华人、AI 创业者与中国 AI 生态观察者的**多平台内容操作系统**。
 
-公众号现状:6400 关注,断更 ~12 个月,处于流量池低端。本仓库用于支撑**复更冷启动 + 长期内容运营**。
+本仓库不只服务公众号长文，也服务 X、小红书、朋友圈等碎片化输出渠道。公众号负责长文沉淀；X、小红书、朋友圈负责想法验证、反馈收集和同好连接。
+
+核心闭环：
+
+```
+idea → AI 整理 → 找近似实现 → 平台草稿 → 发布检查 → 手动发布 → 反馈记录 → 升级成长文或归档
+```
+
+公众号现状：6400 关注，断更 ~12 个月，处于流量池低端。本仓库用于支撑**复更冷启动 + 长期内容运营 + 多平台执行闭环**。
 
 ---
 
@@ -45,7 +53,15 @@ china-ai-frontline/
 │   ├── strategy.md
 │   ├── audience-personas.md
 │   ├── content-pillars.md
-│   └── cold-start-plan.md
+│   ├── cold-start-plan.md
+│   └── platform-strategy.md     ← 多平台职责与升级规则
+├── inbox/                       ← 碎片想法捕捉（按月份一个文件）
+│   ├── README.md
+│   └── 2026-05.md
+├── posts/                       ← 社媒发布包（X / 小红书 / 朋友圈）
+│   ├── README.md
+│   ├── x.md
+│   └── moments.md               ← 小红书 xiaohongshu.md 按需添加
 ├── raw/                         ← 原始素材归档（只追加，不可变）
 │   ├── 2026-05-11-opus-brainstorm.md
 │   ├── 2026-05-11-git-branching-dialogue-memory.md
@@ -88,21 +104,27 @@ china-ai-frontline/
 │       ├── 002-draft-v1.1.md
 │       ├── 002-draft-V2.md
 │       └── 002-preview.md       ← #002 终稿候选（发送前预览稿）
-└── ops/                         ← 运营流程
-    ├── publishing-checklist.md
-    ├── distribution-channels.md
-    └── pr-checklist.md
+├── ops/                         ← 运营流程
+│   ├── publishing-checklist.md
+│   ├── distribution-channels.md
+│   ├── pr-checklist.md
+│   └── social-post-checklist.md ← 社媒统一发布检查
+└── skills/                      ← coding agent 工作说明
+    └── social-content-loop.md   ← inbox → posts 闭环工作流
 ```
 
 | 目录 | 用途 | 改动频率 | 可变性 |
 |---|---|---|---|
 | `GOVERNANCE.md` | **治理规则,最高优先级** | 极低,需 `governance/*` 分支 | 通过 PR |
-| `docs/` | 战略层:定位、受众画像、内容支柱、冷启动计划 | 低 | 通过 PR |
+| `docs/` | 战略层:定位、受众画像、内容支柱、冷启动计划、平台策略 | 低 | 通过 PR |
 | `raw/` | 原始对话/素材归档 | 仅追加 | **不可修改** |
+| `inbox/` | 碎片想法捕捉（按月份一个文件） | 极高（每日） | 通过 PR（可批量） |
+| `posts/` | 社媒发布包（X / 小红书 / 朋友圈） | 高（每周批量） | 通过 PR |
 | `topics/` | 选题卡片 + README 总览,按支柱分子目录 | 高 | 通过 PR |
 | `drafts/` | 文章草稿,每篇一个子目录含 README + 版本文件 | 高 | 通过 PR |
 | `data/` | 结构化数据明细(Excel/CSV/JSON),按文章编号分子目录 | 低 | 通过 PR |
-| `ops/` | 发布流程、渠道矩阵、自查清单、PR checklist | 中 | 通过 PR(部分 §3.5 豁免) |
+| `ops/` | 发布流程、渠道矩阵、自查清单、PR checklist、社媒检查 | 中 | 通过 PR(部分 §3.5 豁免) |
+| `skills/` | coding agent 工作说明（如 social-content-loop） | 低 | 通过 PR |
 
 ## 当前阶段
 
@@ -112,11 +134,22 @@ china-ai-frontline/
 
 ## 工作流(在 PR 框架下)
 
+### 长文工作流（公众号）
+
 1. 新选题 → **切 `topic/NNN-slug` 分支** → 在 `topics/pillar-X/` 下复制 `_template.md`,新建 `NNN-slug.md` → 提 PR
 2. 选题成熟 → 在卡片里把 `status` 改为 `drafting` / `ready` / `published`,**通过新 PR 提交**
 3. 写作完成 → 在 `drafts/NNN/README.md` 中更新状态和终稿链接
 4. 发布 → 在 `drafts/NNN/README.md` 补发布数据,在 `ops/distribution-channels.md` 同步分发记录
    - 仅"分发记录表填一行"和"发布数据填充"可走 §3.5 豁免
+
+### 社媒工作流（X / 小红书 / 朋友圈）
+
+1. 想法捕捉 → 追加到 `inbox/YYYY-MM.md`
+2. AI 处理 → 按 [`skills/social-content-loop.md`](skills/social-content-loop.md) 生成 `posts/` 草稿
+3. 发布前检查 → [`ops/social-post-checklist.md`](ops/social-post-checklist.md)
+4. 手动发布 → 在 post block 内回填链接和反馈
+5. 周复盘 → 决定是否升级为 `topics/` 长文选题
+6. PR 节奏：`inbox/` 可日批量，`posts/` 周批量，结构性变更单独 PR
 
 合并任何 PR 前 → 走 [`ops/pr-checklist.md`](ops/pr-checklist.md)。
 
