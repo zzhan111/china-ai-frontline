@@ -19,8 +19,8 @@ idea → AI 整理 → 找近似实现 → 平台草稿 → 发布检查 → 手
 | # | 标题 | 支柱 | 状态 | 终稿 | 发布 |
 |---|---|---|---|---|---|
 | 001 | [我认识的 7 个 UIUC 校友，过去 12 个月里 4 个回国了](drafts/001/README.md) | 四 | ✅ 已发 | [`001-final-final.md`](drafts/001/001-final-final.md) | 2026-05-12 |
-| 002 | [海外华人团队正在重做 AI 家教：教育 AI 出海的第一批用户从哪来？](drafts/002/README.md) | 二+五 | ✅ 已发 | [`002-preview.md`](drafts/002/002-preview.md) | 2026-05-? |
-| 003 | 中国 AI 生态地图:海外华人最容易误读的差异 | 二 | 💡 idea | — | — |
+| 002 | [海外华人团队正在重做 AI 家教：教育 AI 出海的第一批用户从哪来？](drafts/002/README.md) | 二+五 | ✅ 已发 | [`002-preview.md`](drafts/002/002-preview.md) | 2026-05-16 |
+| 003 | 中国 AI 生态地图:海外华人最容易误读的差异 | 二 | ✅ 已发  | [`003-preview.md`](drafts/003/003-preview.md)  | 2026-05-21 |
 
 > 状态说明：💡 idea → 📝 drafting → ✅ final-candidate → 🚀 published
 
