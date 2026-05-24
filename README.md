@@ -61,7 +61,8 @@ china-ai-frontline/
 ├── posts/                       ← 社媒发布包（X / 小红书 / 朋友圈）
 │   ├── README.md
 │   ├── x.md
-│   └── moments.md               ← 小红书 xiaohongshu.md 按需添加
+│   ├── xiaohongshu.md
+│   └── moments.md
 ├── raw/                         ← 原始素材归档（只追加，不可变）
 │   ├── 2026-05-11-opus-brainstorm.md
 │   ├── 2026-05-11-git-branching-dialogue-memory.md
