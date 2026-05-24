@@ -110,6 +110,8 @@ self-merge 由用户本人在走完 [`ops/pr-checklist.md`](ops/pr-checklist.md)
 | 链接修复 | 任意文件**除 `raw/` 外** | 修复失效的相对路径 |
 | ops/ 下的非关键运营改动 | `ops/distribution-channels.md` 的分发记录表填充 | 填一行"#001 已在 X 同步" |
 | 选题卡片的发布后记录填充 | `topics/**/*.md` 的"发布后记录"区 | 填入 published_url / 阅读数 |
+| inbox 原始想法追加 | `inbox/YYYY-MM.md`（追加已有文件，或新建当月文件） | 追加当日碎片想法；月初新建 `inbox/2026-06.md` |
+| 社媒发布后反馈回填 | `posts/*.md` 中已有 post block 的"发布后反馈"区 | 填入发布链接、回复数、高质量反馈 |
 
 **不可豁免的改动(黑名单,任何一条命中就必须走 PR)**:
 
@@ -117,7 +119,7 @@ self-merge 由用户本人在走完 [`ops/pr-checklist.md`](ops/pr-checklist.md)
 - 任何对 `GOVERNANCE.md` 自身的修改
 - 任何对 `docs/strategy.md` / `docs/audience-personas.md` / `docs/content-pillars.md` / `docs/cold-start-plan.md` 的修改
 - 任何对选题卡片**核心字段**的修改(`title` / `pillar` / `status` 从 ready 变 published 之外的变更 / `target_persona` / `hook_type`)
-- 任何**新增**文件
+- 任何**新增**文件（例外：新建当月 `inbox/YYYY-MM.md` 见上方白名单）
 - 任何**删除**文件
 - 任何**重命名**文件
 
