@@ -92,10 +92,45 @@ bb-adapter-evolver 的 bb-eval 也是同样设计：13 个静态 check 全是 PA
 
 ### Open items before Phase 2 SKILL
 
-- [ ] 写 `skills/posts-author.md`（参考 bb-adapter-evolver 的 `SKILL.md`）：inviolable rules + authoring workflow + posts-eval 集成
-- [ ] 把 posts-eval wire 进 `skills/social-content-loop.md` step 5/6（草稿生成后强制跑 eval，FAIL 直接打回）
+- [x] 写 `skills/posts-author.md` — done in stacked PR after posts-eval v1
+- [x] 把 posts-eval wire 进 `skills/social-content-loop.md` step 5/6 — done (step 5 = posts-eval, step 6 = humanizer; 顺序约束写明)
 - [ ] 累积下一批样本（≥3 个新 draft）后看 v1.2 修订点
-- [ ] 决定 audience 字段是否硬性必填（影响 contract v1.2）
+- [ ] 决定 audience 字段是否硬性必填（SKILL 已要求 agent 必填，但 contract 仍为 WARN——可在 v1.2 升 FAIL）
+
+---
+
+## 2026-05-25 — Phase 2 SKILL: posts-author.md + social-content-loop wired
+
+`skills/posts-author.md` 落地（参考 bb-adapter-author/SKILL.md 结构）：
+- 7 条 inviolable rules（contract first、不发明维度、audience 必填、eval-before-humanize、dig-hole-must-have-candy、不绕过 FAIL）
+- 8 步 authoring workflow（read → identify → draft → self-review → eval → write → humanize → checklist）
+- 8 个 anti-patterns（从 EVOLUTION dogfood 和 v1.1 修订证据总结）
+- 6 个 workflow gates（必须停下来问人的决定）
+
+`skills/social-content-loop.md` step 5 拆成：
+- step 5: posts-eval（FAIL 必须修，不允许 soften 绕过）
+- step 6: humanizer（保持原 PR #17 设计，加上**顺序约束**：humanize 必须在 eval 之后跑）
+
+### Phase 2 完成度
+
+| Phase | Deliverable | 状态 |
+|---|---|---|
+| 1 | Contract + bb-eval + validate against ysbang | ✅ (PR #18 + #19) |
+| 2a | Eval tool (`tools/posts-eval.py`) | ✅ (PR #20) |
+| 2b | SKILL (`skills/posts-author.md`) + wire to social-content-loop | ✅ (this PR) |
+| 3 | Cross-platform 实战 + 反例驱动 refine | 等下一批 draft |
+| 4 | (Conditional) evolver | 不动 |
+
+### 下一步触发条件
+
+按 `2026-04-22-why-not-evolver-first.md` 决定，phase 3 的触发是"用 SKILL 跑 cross-site validation"。本 repo 的 cross-site = cross-platform，即：
+
+- 用 posts-author SKILL 写出 ≥3 个新 draft（每平台至少 1 个）
+- 跑完整链路 step 1-7
+- 把"SKILL 没说清、agent 仍犯的错"append 到本文件
+- 当累积 ≥3 个新错误类型时，准备 v1.2 contract 修订
+
+phase 4 evolver 的触发是"单次 SKILL 成功率 <30%"。当前样本太少无法计算，先不评估。
 
 ---
 

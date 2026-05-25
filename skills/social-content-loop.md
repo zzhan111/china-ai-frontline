@@ -22,17 +22,22 @@
 1. 从 inbox 中选择最多 3 条最值得处理的想法
 2. 每条提炼一句话观点
 3. 为每条寻找近似产品、近似实现或相似内容方向
-4. 生成平台草稿（写入对应 `posts/*.md` 的"平台草稿"区）
-5. **去 AI 味**（详见 [`skills/humanizer-usage.md`](humanizer-usage.md)）
+4. 生成平台草稿（写入对应 `posts/*.md` 的"平台草稿"区，**按 [`skills/posts-author.md`](posts-author.md) 的 authoring workflow**——读 contract、原生写作、self-review）
+5. **跑 posts-eval 静态检查**（详见 [`tools/README.md`](../tools/README.md)）
+   - `python tools/posts-eval.py <draft 文件路径>`
+   - 任何 FAIL → 回 step 4 重写，**不允许 soften 绕过**（特别是 audience-mismatch、ad-law 极限词、AI red flag ≥3）
+   - 每个 WARN → 修复（首选）或在 post block 加 `acknowledged: <reason>`
+6. **去 AI 味**（详见 [`skills/humanizer-usage.md`](humanizer-usage.md)）
    - 中文草稿 → 调用 `humanizer-zh` 能力
    - 英文草稿 → 调用 `humanizer` 能力
    - 调用入口因 agent 而异（Claude Code、Codex、Hermes、OpenClaw 等），统一约定见 humanizer-usage.md
    - 用 humanized 版本覆盖"平台草稿"区
    - 在 post block 末尾追加 `humanizer: zh@<version> | en@<version> | skipped(reason: ...)`
-6. 用 [`ops/social-post-checklist.md`](../ops/social-post-checklist.md) 做发布前检查
-7. 标记是否建议发布
-8. 发布后根据用户提供的数据补反馈
-9. 判断是否升级成长文 topic（标准见 [`docs/platform-strategy.md`](../docs/platform-strategy.md)）
+   - **顺序约束**：humanizer 必须在 posts-eval 之后跑——humanizer 重写自然语言会破坏链接/数字/专有名词，eval 抓不到原 draft 的真实问题
+7. 用 [`ops/social-post-checklist.md`](../ops/social-post-checklist.md) 做发布前检查
+8. 标记是否建议发布
+9. 发布后根据用户提供的数据补反馈
+10. 判断是否升级成长文 topic（标准见 [`docs/platform-strategy.md`](../docs/platform-strategy.md)）
 
 ## 限制
 
