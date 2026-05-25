@@ -19,20 +19,35 @@
 
 ## 工作步骤
 
+> **跨文件 step 编号说明**：本 loop 是 inbox → 发布的整体节奏（10 步）；每条 draft 的内部 authoring 详细流程在 [`skills/posts-author.md`](posts-author.md) 里（8 步 authoring workflow）。每个 step 末尾标了 → posts-author.md 的对应 step 引用。
+
 1. 从 inbox 中选择最多 3 条最值得处理的想法
 2. 每条提炼一句话观点
 3. 为每条寻找近似产品、近似实现或相似内容方向
 4. 生成平台草稿（写入对应 `posts/*.md` 的"平台草稿"区）
-5. **去 AI 味**（详见 [`skills/humanizer-usage.md`](humanizer-usage.md)）
+   → 详细做法见 [`skills/posts-author.md`](posts-author.md) **step 1-4 + 6**（read contract → identify route → draft → self-review → write to file）
+5. **跑 posts-eval 静态检查**（详见 [`tools/README.md`](../tools/README.md)）
+   - `python tools/posts-eval.py <draft 文件路径>`
+   - 任何 FAIL → 按类型分别回跳（详见 posts-author.md step 5）：
+     • `hard-reject:audience-mismatch` / `hard-reject:ad-law` → 回 step 1-3（路由/audience 决策错了，不是稿子问题）
+     • `len:*` / `fmt:*` / `hook:*` / `ai-flag:hard-reject` → 回 step 4 改稿
+     • 任何 FAIL **不允许** soften 绕过（rename audience / 把极限词改"次极限" / "压一压" AI 词汇等）
+   - 每个 WARN → 修复（首选）或在 post block 加 `acknowledged: <reason>`
+   → 对应 posts-author.md **step 5**
+6. **去 AI 味**（详见 [`skills/humanizer-usage.md`](humanizer-usage.md)）
    - 中文草稿 → 调用 `humanizer-zh` 能力
    - 英文草稿 → 调用 `humanizer` 能力
    - 调用入口因 agent 而异（Claude Code、Codex、Hermes、OpenClaw 等），统一约定见 humanizer-usage.md
    - 用 humanized 版本覆盖"平台草稿"区
    - 在 post block 末尾追加 `humanizer: zh@<version> | en@<version> | skipped(reason: ...)`
-6. 用 [`ops/social-post-checklist.md`](../ops/social-post-checklist.md) 做发布前检查
-7. 标记是否建议发布
-8. 发布后根据用户提供的数据补反馈
-9. 判断是否升级成长文 topic（标准见 [`docs/platform-strategy.md`](../docs/platform-strategy.md)）
+   - **顺序约束**：humanizer 必须在 posts-eval 之后跑——humanizer 重写自然语言会破坏链接/数字/专有名词，eval 抓不到原 draft 的真实问题
+   - **VERIFY**：humanize 若改了单推字数 / 列表结构 / 换行，**必须重跑 step 5 的 posts-eval**（防止 humanize 让 x-cn 单推超 140 字、小红书低于 500 字等）
+   → 对应 posts-author.md **step 7**
+7. 用 [`ops/social-post-checklist.md`](../ops/social-post-checklist.md) 做发布前检查
+   → 对应 posts-author.md **step 8**
+8. 标记是否建议发布
+9. 发布后根据用户提供的数据补反馈
+10. 判断是否升级成长文 topic（标准见 [`docs/platform-strategy.md`](../docs/platform-strategy.md)）
 
 ## 限制
 

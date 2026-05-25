@@ -63,7 +63,7 @@ class PostBlock:
 
 # ---------- Parser ----------
 
-POST_HEADER_RE = re.compile(r"^## (post-\d{4}-\d{2}-\d+(?:-\d+)?)[：:](.+?)$", re.MULTILINE)
+POST_HEADER_RE = re.compile(r"^#{1,3} (post-\d{4}-\d{2}-\d+(?:-\d+)?)[：:](.+?)$", re.MULTILINE)
 SECTION_RE = re.compile(r"^### (.+?)$", re.MULTILINE)
 META_RE = re.compile(r"^(状态|来源|首发平台|是否升级长文|audience|tone|goal)[：:]\s*(.+?)$", re.MULTILINE)
 
