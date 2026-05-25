@@ -184,6 +184,57 @@ PR #22 review 要求"在 merge 之前用 SKILL 走一遍完整流程写一篇 dr
 
 ---
 
+## 2026-05-25 — Phase 2c: apply v1.1 workflow to historical posts/x.md drafts
+
+用户要求"对现有 posts 走新工作流"。对 main 上 `posts/x.md` 3 条历史 draft 走 `skills/posts-author.md` 完整流程。
+
+**Artifact**：[`posts/x.md`](../../posts/x.md)——3 条 post block，**baseline 8P/12W/0F → 15P/0W/0F**
+
+### SKILL workflow gate ask 触发
+
+| Gate | 触发 | 人决策 |
+|---|---|---|
+| #1 audience unclear | 3 条 post 都缺 audience | 3 条统一 "AI builder + 独立创作者（海外华人 tech 圈层）"（同主题/同支线） |
+| #4 dig-hole 不可补 | post-002 "在 repo 里有完整记录" 无链接 | 整段重写不依赖 reference（不补 URL / 不走 Part 1/N 豁免） |
+| meta-value 重写策略 | post-002 推 3 的 4 个营销断言 | 换成"具体后果 + 例子" |
+
+### 改写对照
+
+| post | baseline | after | 改动类型 |
+|---|---|---|---|
+| -001 缺乏的不是想象力 | 4P/3W/0F | 5P/0W/0F | +audience, 改 hook（去"想公开一下"价值预告），压缩推 6 long-list |
+| -002 把自媒体当 GitHub repo | 4P/8W/0F | 5P/0W/0F | +audience, 重写推 1/3/4/6（去元价值断言×4、dig-hole、em dash×2、价值预告 hook、setup-question） |
+| -001 12306 查票 API | 5P/1W/0F | 5P/0W/0F | +audience |
+
+### 卡壳 / SKILL 漏洞
+
+1. **tweet[N] 0-indexed 误读**（agent 认知 + SKILL 说明缺失）
+   - 现象：eval 报 `tweet[5]: 177 chars`，我误以为是推 5，改了推 5；再跑仍报 tweet[5]
+   - 原因：`split_tweets` 0-indexed，tweet[5] 是第 6 个 part = 实际推 6（因为 part[0] 是 metadata 前导）
+   - 影响：多改了一推（推 5），改后版本仍合规所以无需 revert，但费了一轮
+   - **v1.2 候选**：`tools/README.md` 或 SKILL 加一行 "tweet[N] is 0-indexed; tweet[5] = 实际第 6 推"
+
+2. **hashtag overflow 抓 issue/PR refs**（已知 eval 限制 + 本次重写自然规避）
+   - post-002 baseline 4 hashtag 实为 `PR #14` `#15` `#001~#003`
+   - 本次重写后自然消除，问题暂时不显
+   - **v1.2 候选**：hashtag regex 排除 `#\d+` 单纯数字（issue/PR ref）只算 `#中文/#字母_中文`
+
+### Contract 验证（"v1.1 是否足够指导改稿"）
+
+- ✅ 所有 12 个 WARN 都能在 v1.1 contract 找到对应判据
+- ✅ rewrite 方向（meta-value 断言 → 具体后果、dig-hole → 自带证据、价值预告 hook → 反共识断言）全部来自 SKILL anti-patterns table，**没有引入新维度**
+- ✅ contract first / evolver later 哲学验证：12 WARN 全清，没有"contract 抓不到但直觉需要改"的项
+
+### Open items（v1.2 候选累计）
+
+- [ ] tweet[N] 0-indexed 在 SKILL / tools/README 显式说明（本次新增）
+- [ ] hashtag regex 排除单纯数字 issue/PR refs（本次新增）
+- [ ] em dash 计数 overcounts（phase 2b 已记）
+- [ ] audience 字段升 FAIL 时机：3 条 post 都已带 audience，已满足 v1.1 当时定的 "≥3 个 draft 都带了 audience" 门槛——**可以升 FAIL 了**
+- [ ] humanize step：本次只到 step 6 eval-clean，humanizer 没接入；等 humanizer skill 可用时补
+
+---
+
 ## How to append to this file
 
 - **人**：每次 contract 修订、checker 更新、或跑 dogfood 发现非显然的事，写一条

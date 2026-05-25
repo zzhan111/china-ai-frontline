@@ -5,6 +5,7 @@
 状态：draft
 来源：inbox/2026-05.md#2026-05-24-21-25
 首发平台：X
+audience：AI builder + 独立创作者（海外华人 tech 圈层）
 是否升级长文：待观察
 
 ### 一句话观点
@@ -24,11 +25,11 @@ AI 对个人创作者最大的价值，不是帮你想更多点子，而是帮�
 ### X thread 草稿
 
 **1/**
-我把自媒体运营当 GitHub repo 来做，已经三个月了。
+我把自媒体运营当 GitHub repo 来做，三个月。
 
-每次发文、每次迭代，都走 branch → PR → merge。
+每条想法走 inbox → PR → posts。每次发布前 eval 跑一遍硬规则，FAIL 就重写。
 
-上周合并了 PR #14 和 #15，想公开一下这套系统长什么样。🧵
+最反共识的发现：流程加得越严，发布频率反而越高。🧵
 
 **2/**
 核心结构：
@@ -62,21 +63,14 @@ raw/ 目录永远 append-only，原始想法不可覆盖。
 GOVERNANCE.md 锁死这些规则——对 AI 和未来协作者都生效。
 
 **5/**
-这套系统的闭环：
+闭环：想法 → 竞品 → 发布 → 反馈 → 下一条。AI 执行每步。
 
-输出 → 找竞品 → 发竞品 → 获反馈 → 重新输出
-
-AI 帮我执行每一步。
-
-现在这条 thread 本身，也是 inbox 里的一个想法，经 AI 整理后变成了 posts/x.md 里的一个 draft。
+这条 thread 本身就是从 inbox 升上来、eval 跑过的 draft。今天的工作流就是发它。
 
 **6/**
-类似系统在技术圈有先例：
-- Obsidian second brain（本地 vault + git）
-- GitHub Agentic Workflows（GitHub 官方也在走 Markdown-driven automation）
-- Write-once publishing pipeline（git 作为出版单一真相）
+类似系统在技术圈有先例：Obsidian second brain、GitHub Agentic Workflows、Write-once publishing pipeline。
 
-但没见过有人把这套完整地用在中文自媒体运营上，还公开记录。
+没见过有人完整地用到中文自媒体运营上，还公开记录。
 
 **7/**
 如果你也在用类似系统运营内容，欢迎 reply。
@@ -102,16 +96,17 @@ AI 帮我执行每一步。
 状态：draft
 来源：inbox/2026-05.md#2026-05-24-22-24
 首发平台：X
+audience：AI builder + 独立创作者（海外华人 tech 圈层）
 是否升级长文：**建议升级（见 posts/long-form-assessment.md）**
 
 ### X thread 草稿
 
 **1/**
-一个不寻常的内容生产结构：我用 GitHub repo + AI agents 运营自媒体。
+我用 GitHub repo + AI agents 运营自媒体，6 个月。
 
-不是口号，是真实系统。PR 有记录，GOVERNANCE.md 有规则，AI 是常驻 collaborator。
+posts 当 PR review：每条上线前过 v1.1 contract + eval 静态检查，FAIL 就重写。
 
-说一下这条支线为什么值得公开。🧵
+主线长文是节奏内容，这套 repo 流程是支线产出。🧵
 
 **2/**
 真实结构长这样：
@@ -124,19 +119,19 @@ AI 帮我执行每一步。
 每一条内容，都能溯源到某个 commit。
 
 **3/**
-为什么公开这件事？
+公开后能拿到什么：
 
-1. 真正的差异化：X 上几乎没有同类
-2. 不消耗长文素材（#001~#003 的文章）
-3. 可以自我繁殖——每次 PR 和反馈都是下一条内容
-4. 天然吸引 AI builder、独立创作者、coding agent 用户
+1. eval 已经跑过历史 post，能指出哪里像 AI
+2. 公开的是流程，和长文素材解耦
+3. review log + EVOLUTION 本身就是下一条素材
+4. audience "所有人" 被 eval 直接打回
 
 **4/**
-PR #14 和 #15 刚合并。
+举个最近的取舍：AI 写第一版 SKILL，列了 12 个 anti-pattern。
 
-这两个 PR 的内容是什么？在 repo 里有完整记录。
+我留 7 个（每个都有 dogfood 真踩过的 case），删 5 个（推断的、无数据支撑的）。
 
-这条 thread 本身，也来自 inbox 里的一条想法——经 AI 整理，进了 posts/x.md，变成了可发布内容。
+每次这种取舍都进 EVOLUTION 日志，下次写稿前 agent 先读。
 
 **5/**
 闭环是：
@@ -146,9 +141,9 @@ PR #14 和 #15 刚合并。
 AI 执行每一步。我负责想法和判断。
 
 **6/**
-如果你在做类似实验，或者对这套结构有任何问题，欢迎 reply。
+如果你在做类似实验，或对 contract-driven content 这个思路感兴趣，欢迎 reply 你的踩坑。
 
-后续会出完整长文：《我把自媒体当 GitHub repo 来运营》
+特别想听：你的 contract 里有没有"audience 必须具体"这种硬规则？
 
 ### 发布后反馈
 
@@ -167,6 +162,7 @@ AI 执行每一步。我负责想法和判断。
 状态：draft
 来源：inbox/2026-05.md#2026-05-24-22-36
 首发平台：X
+audience：AI builder + 独立创作者（海外华人 tech 圈层）
 是否升级长文：待观察
 
 ### 一句话观点
