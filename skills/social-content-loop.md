@@ -22,11 +22,17 @@
 1. 从 inbox 中选择最多 3 条最值得处理的想法
 2. 每条提炼一句话观点
 3. 为每条寻找近似产品、近似实现或相似内容方向
-4. 生成平台草稿
-5. 用 [`ops/social-post-checklist.md`](../ops/social-post-checklist.md) 做发布前检查
-6. 标记是否建议发布
-7. 发布后根据用户提供的数据补反馈
-8. 判断是否升级成长文 topic（标准见 [`docs/platform-strategy.md`](../docs/platform-strategy.md)）
+4. 生成平台草稿（写入对应 `posts/*.md` 的"平台草稿"区）
+5. **去 AI 味**（详见 [`skills/humanizer-usage.md`](humanizer-usage.md)）
+   - 中文草稿 → 调用 `humanizer-zh` 能力
+   - 英文草稿 → 调用 `humanizer` 能力
+   - 调用入口因 agent 而异（Claude Code、Codex、Hermes、OpenClaw 等），统一约定见 humanizer-usage.md
+   - 用 humanized 版本覆盖"平台草稿"区
+   - 在 post block 末尾追加 `humanizer: zh@<version> | en@<version> | skipped(reason: ...)`
+6. 用 [`ops/social-post-checklist.md`](../ops/social-post-checklist.md) 做发布前检查
+7. 标记是否建议发布
+8. 发布后根据用户提供的数据补反馈
+9. 判断是否升级成长文 topic（标准见 [`docs/platform-strategy.md`](../docs/platform-strategy.md)）
 
 ## 限制
 
@@ -36,6 +42,8 @@
 - 不直接改公众号长文（`drafts/`）
 - 不为单条想法创建 PR
 - 每次最多处理 3 条想法
+- 不得对 `inbox/`、`raw/`、`topics/`、`drafts/` 中的内容运行 humanizer
+- humanizer 只作用于 `posts/*.md` 的"平台草稿"区，不作用于"一句话观点"、"近似实现"、"发布后反馈"等结构化字段
 
 ## 日常 prompt 模板
 
