@@ -7,6 +7,28 @@ description: Author a posts/ draft end-to-end — read the contract for the targ
 
 You are about to write or revise a `posts/` draft. **Stop and read this in full before touching any file.** This SKILL is the agent-facing counterpart to `contracts/posts/v1.1` and `tools/posts-eval.py`. Past authoring runs have accumulated specific failure modes — they are listed below and you should not repeat them.
 
+## Reading order before authoring
+
+Read these in order. **Do not skip — each file establishes context the next one relies on.**
+
+1. **This file** (you are here)
+2. `contracts/posts/v1-common.md` — universal scoring + hard rejects
+3. `contracts/posts/<platform>/v1.md` — platform-specific dimensions + thresholds
+4. `tools/README.md` — how to run posts-eval and interpret output
+5. `posts/README.md` — post block output format
+6. `contracts/posts/EVOLUTION.md` — cross-session context (what we've learned)
+7. (only after writing) `skills/humanizer-usage.md` — humanize handoff
+8. (only after humanizing) `ops/social-post-checklist.md` — pre-publish gates
+
+### ⚠ Version check before using this SKILL
+
+本 SKILL 基于 `contracts/posts/v1.1`（编写日期 2026-05-25）。**开始 authoring 前必须确认**：
+
+- 当前 `contracts/posts/v1-common.md` 第一行声明的版本是否仍是 v1.1（或本 SKILL 已经升级）？
+- 目标平台 `contracts/posts/<platform>/v1.md` 是否仍是 v1.1？
+
+如果 contract 已升级到 v1.2+ 但本 SKILL 还是 v1.1，**先读 contract 的 Changelog 区**，本 SKILL 的 anti-patterns / workflow 可能不完全反映最新规则。如果差异较大，停下来 ask 人是否要等 SKILL 同步升级。
+
 ## Inviolable rules
 
 These rules are derived from `contracts/posts/v1-common.md` + the three platform contracts + `contracts/posts/EVOLUTION.md`. Violating any of them means the draft will either fail `posts-eval` or be rejected by the human editor.
@@ -52,12 +74,19 @@ These rules are derived from `contracts/posts/v1-common.md` + the three platform
      Not "一个不寻常的 X" / "聊聊 X" / "今天分享一个" / "说一下 X 为什么值得"
    → 营销腔: any "不是 X 是 Y" pairs? 三/四字短句堆叠? 元价值断言
      ("真正的差异化" / "稀缺性" / "天然吸引")?
+   → em dash 自查 (v1.1 SKILL dogfood): body 区 `——` 数量 ≤4？grep 一下，
+     超 5 个就考虑替换成句号/逗号/冒号（contract 设 ≥5 触发 ai-flag:em-dash-abuse）
    → 挖坑给糖: every "详见/后续/答案在" has a URL or Part N+time anchor?
    → audience 路由: does the body actually serve the declared audience?
 
 5. RUN posts-eval
    → python tools/posts-eval.py <path-to-draft-file>
-   → FAIL → go back to step 3, do not "soften" to pass
+   → FAIL — 按类型分别回跳，不允许 soften 绕过：
+     • hard-reject:audience-mismatch  → 回 step 2（路由 / audience 决策错了）
+     • hard-reject:ad-law              → 回 step 2（平台选错，或回 step 3 改词；通常是路由问题）
+     • len:* / fmt:* / hook:* / translationese:* → 回 step 3 改稿
+     • ai-flag:hard-reject (≥3 red flags) → 回 step 3 改稿
+     • 任何 FAIL 都不允许 rename audience / 把极限词改"次极限" / "压一压" AI 词汇等绕过
    → WARN → either fix (preferred) or acknowledge in post block:
      "### posts-eval
       acknowledged: hook:anti-pattern — 故意软抽象，因为...(reason)"
@@ -73,6 +102,10 @@ These rules are derived from `contracts/posts/v1-common.md` + the three platform
    → Now read skills/humanizer-usage.md
    → Run humanizer-zh on the "### 平台草稿 / X thread 草稿 / ..." section
    → Append humanizer signature to post block (see humanizer-usage.md §6)
+   → **VERIFY after humanize**: humanizer rewrites sentences — it可能改变单推字数、
+     列表结构、换行。如果出现任何这类改动，**必须重跑 posts-eval.py** 确认无新增 FAIL
+     （比如 x-cn 单推 humanize 后 > 140 字符，xiaohongshu humanize 后 < 500 或 > 1800）。
+     不要假设"humanize 只改风格，不影响 mechanical check"。
 
 8. (handoff to checklist)
    → ops/social-post-checklist.md
@@ -92,6 +125,7 @@ From `contracts/posts/EVOLUTION.md` dogfood (PR #16 → posts-eval v1) and from 
 | Humanizer before posts-eval | (process order error) | humanizer 重写自然语言，会破坏链接/数字/专有名词 → eval 抓不到原 draft 的真实问题 |
 | Soften draft to dodge FAIL (e.g. rename audience to bypass routing) | (gaming the rubric) | bb-adapter-evolver hard rule #8: honesty over politeness; if a FAIL is the right outcome, accept it |
 | List-item marketing stack ("1. 真正的差异化 / 2. 不消耗 / 3. 自我繁殖 / 4. 天然吸引") | post-002 third tweet | posts-eval can't catch this (structural, not string); SKILL is responsible: if items are all 元价值断言, rewrite them as concrete consequences with examples |
+| em dash 滥用（thread 区 `——` ≥5 个） | post-2026-05-25-001 dogfood 第 1 次跑分 | common §4.4 red flag — 现代 GPT 中文输出最爱用 `——` 制造"反差感"；posts-eval 自动抓，但 SKILL self-review step 4 应该先发现：写完后 grep 一下 `——`，超过 4 个就考虑换成句号/冒号 |
 
 ## Workflow gates — stop and ask the human
 
@@ -103,17 +137,6 @@ These are decisions you cannot make alone:
 4. **Dig-hole references that can't be supplied.** If the draft references PR/issue/commit but the repo is private / the link doesn't exist yet — ask "should I keep the reference (and accept -5) or drop it?"
 5. **Sensitive content not covered by contract.** Personal info, real names, third-party data, dated medical/legal/financial claims — common §3 hard rejects exist, but ask explicitly when borderline.
 6. **Cross-language draft.** If audience is bilingual (e.g. 海外华人 AI 圈) and the draft mixes English/Chinese heavily — ask whether to lean one way (humanizer choice depends on it).
-
-## Reading order before authoring
-
-1. **This file** (you are here)
-2. `contracts/posts/v1-common.md` — universal scoring + hard rejects
-3. `contracts/posts/<platform>/v1.md` — platform-specific dimensions + thresholds
-4. `tools/README.md` — how to run posts-eval and interpret output
-5. `posts/README.md` — post block output format
-6. `contracts/posts/EVOLUTION.md` — cross-session context (what we've learned)
-7. (only after writing) `skills/humanizer-usage.md` — humanize handoff
-8. (only after humanizing) `ops/social-post-checklist.md` — pre-publish gates
 
 ## Quick reference: posts-eval invocation
 

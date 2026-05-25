@@ -134,6 +134,56 @@ phase 4 evolver 的触发是"单次 SKILL 成功率 <30%"。当前样本太少�
 
 ---
 
+## 2026-05-25 — Phase 2b SKILL dogfood (PR #22 review #5)
+
+PR #22 review 要求"在 merge 之前用 SKILL 走一遍完整流程写一篇 draft"。Dogfood 用 inbox 2026-05-24 22:36（browse.sh 换核适配思路）作为素材，按 `skills/posts-author.md` step 1-5 跑（step 6 humanize / step 7 checklist 不在 dogfood scope）。
+
+**Artifact**：[`posts/x-2026-05-25-browse-sh-swap.md`](../../posts/x-2026-05-25-browse-sh-swap.md)（5-tweet X thread）
+
+### 跑通的事
+
+| Step | 做了什么 | 顺畅否 |
+|---|---|---|
+| 1 (read contract) | 读 v1-common + x-cn/v1.md | ✅ |
+| 2 (identify route+audience) | 平台 X（用户没指定，按 §6 路由：反共识断言 + 技术圈 → X）；audience "AI builder + 浏览器自动化研究者" | ✅ 路由清晰 |
+| 3 (draft platform-native) | 写 5 推 thread，钩子用"真正价值不是 X，是 Y"反共识断言 | ✅ |
+| 4 (self-review) | 钩子检查 / 营销腔检查 / 挖坑给糖检查 / audience 路由 — 都过 | ✅ |
+| 5 (run posts-eval) | 第一次：4 PASS / 2 WARN（em dash 滥用）→ 修 3 处 `——` → 第二次：**5 PASS / 0 WARN / 0 FAIL** ✅ | 见下方"卡壳" |
+
+### 卡壳的事 → 触发的 fix（在同 PR）
+
+1. **parser 不识别 single-draft-per-file 的 h1 header** (BLOCKER)
+   - 现象：跑 `posts-eval.py posts/x-2026-05-25-browse-sh-swap.md` 输出 0/0/0
+   - 原因：`POST_HEADER_RE` 只匹配 `^## ` (h2)；single-draft-per-file 用 h1
+   - 修：regex 改成 `^#{1,3} `（接受 h1/h2/h3）
+   - 影响：第一次 dogfood 就发现 parser 在 user 定的 "x-日期-主体.md" 命名规则下不工作
+
+2. **SKILL self-review 漏了 em dash 自查** (SKILL gap)
+   - 现象：我（agent）自己写的 draft 第一次跑就 9 个 em dash，触发 ai-flag:em-dash-abuse
+   - 原因：SKILL Step 4 self-review checklist 没列 em dash 自查；anti-patterns table 没"em dash 滥用"
+   - 修：Step 4 加 "em dash 自查"项；Anti-patterns table 加一行（dogfood post-2026-05-25-001 出处）
+   - **元观察**：dogfood 的最大价值就是"agent 自己也犯 contract 警告的错"——证明 SKILL 没把检查项内化到 self-review，eval 才抓得到。SKILL 升级让 self-review 与 eval 对齐。
+
+3. **posts-eval em dash 计数 likely overcounts** (eval bug, low priority)
+   - 现象：body 实际 3 个 `——`，eval 报 9 次（×3）
+   - 原因：`text.count("——") + text.count("—")` —— `——` 算 1 次 (count `——`) + 2 次 (count 单个 `—` 字符) = 3 次/个
+   - 留 v1.2 修（信号方向对，只是数字偏大，先不阻塞）
+
+### Dogfood 的"主编直觉对照"
+
+跑完 5 PASS / 0 WARN，直觉评分（我作为主编）也认为是 approved 级。样本量太小（1 条），但 **SKILL + eval 的输出和直觉一致**。
+
+这一条 dogfood **不足以**验证 SKILL 在"agent 想偷懒/绕过"场景下的强度——比如 agent 跳过 step 2 audience 确认直接 draft，或者选择 soften FAIL 而不是回 step 2/3。这些行为模式要等真实多 agent 多 session 后才能观察到。
+
+### Open items（给 v1.2 / phase 3 用）
+
+- [ ] **em dash 计数 overcounts**：留 v1.2 修 regex（用 `re.findall(r"——?", text)` 直接，或 `text.count("—") - text.count("——")`）
+- [ ] **SKILL self-review checklist 持续追加**：每次 dogfood 发现"agent 漏看的东西"，append 到 step 4。当前已加 em dash；下次可能是别的
+- [ ] **多 agent dogfood**：等其它 agent（Codex / Hermes / OpenClaw 用户）跑同样 SKILL，看是否会犯 Claude 不犯的错
+- [ ] **audience 字段升 FAIL 时机**：SKILL 已要求必填；当 posts/ 里 ≥3 个 draft 都带了 audience 后，把 contract WARN 升 FAIL（v1.2 候选）
+
+---
+
 ## How to append to this file
 
 - **人**：每次 contract 修订、checker 更新、或跑 dogfood 发现非显然的事，写一条
