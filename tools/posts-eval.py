@@ -14,6 +14,8 @@ Usage:
     python tools/posts-eval.py posts/x.md
     python tools/posts-eval.py posts/                  # walks .md files
     python tools/posts-eval.py --json posts/x.md       # for agent ingestion
+    python tools/posts-eval.py --all posts/            # include published/rejected posts
+    python tools/posts-eval.py -h                      # show help
 """
 
 from __future__ import annotations
@@ -322,7 +324,8 @@ def check_x_cn(post: PostBlock) -> list[CheckResult]:
     else:
         results.append(CheckResult("len:tweet", Severity.PASS))
 
-    hashtags = re.findall(r"#\S+", body)
+    # Hashtag detection: \w covers ASCII, add CJK range for Chinese hashtags
+    hashtags = re.findall(r"#[\w一-鿿]+", body)
     if len(hashtags) > 2:
         results.append(CheckResult(
             "fmt:hashtag-overflow",
@@ -394,12 +397,22 @@ def check_x_cn(post: PostBlock) -> list[CheckResult]:
             if not re.search(r"https?://", ctx):
                 dig_issues.append(f'"{w}" 附近无链接')
     if dig_issues:
-        results.append(CheckResult(
-            "retweet:dig-hole",
-            Severity.WARN,
-            "挖坑不给糖（v1.1 §2.4，默认 -5；Part 1/N + 时间锚点豁免 -1）",
-            detail=dig_issues,
-        ))
+        # Part 1/N exemption: series threads get lighter penalty
+        is_series = bool(re.search(r"(?:Part\s*)?[1１一]\s*/\s*[NnXx\d]|系列\s*[1一]", body))
+        if is_series:
+            results.append(CheckResult(
+                "retweet:dig-hole-series",
+                Severity.WARN,
+                "挖坑不给糖（系列 Part 1/N 豁免，-1 而非 -5）",
+                detail=dig_issues,
+            ))
+        else:
+            results.append(CheckResult(
+                "retweet:dig-hole",
+                Severity.WARN,
+                "挖坑不给糖（v1.1 §2.4，-5）",
+                detail=dig_issues,
+            ))
 
     # PR/issue 引用但无 github 链接
     pr_refs = re.findall(r"(?:PR\s*#\d+|issue\s*#\d+)", body)
@@ -464,8 +477,18 @@ def check_xiaohongshu(post: PostBlock) -> list[CheckResult]:
             "audience 未填，无法做路由检查",
         ))
     else:
-        tech = [w for w in XHS_TECH_AUDIENCE if w in audience]
-        semi = [w for w in XHS_SEMI_TECH_AUDIENCE if w in audience]
+        # Avoid false positives: "工程师的妻子" should NOT match as tech audience
+        # Only match if word is a primary subject (not preceded by 的/给/为/向)
+        def is_primary_audience(word: str, text: str) -> bool:
+            if word not in text:
+                return False
+            idx = text.find(word)
+            if idx > 0 and text[idx - 1] in "的给为向":
+                return False
+            return True
+
+        tech = [w for w in XHS_TECH_AUDIENCE if is_primary_audience(w, audience)]
+        semi = [w for w in XHS_SEMI_TECH_AUDIENCE if is_primary_audience(w, audience)]
         beginner = any(h in audience for h in XHS_BEGINNER_HINT)
         if tech and not beginner:
             results.append(CheckResult(
@@ -495,10 +518,14 @@ def check_xiaohongshu(post: PostBlock) -> list[CheckResult]:
 # ---------- moments checks (v1.1) ----------
 
 MOMENTS_PUBLIC_OPENING = ["今天想和大家分享", "借此机会", "今天和大家聊聊", "今天给大家"]
+# Jargon list: exclude high-penetration words ("agent", "topic") that are now mainstream
 MOMENTS_JARGON = [
-    "git", "commit", "PR", "merge", "rebase", "CI/CD", "webhook", "API", "CLI",
-    "k8s", "docker", "inbox", "topic", "draft", "MCP", "agent", "repo",
+    "git", "commit", "PR", "merge", "rebase", "CI/CD", "webhook", "CLI",
+    "k8s", "docker", "inbox", "draft", "MCP", "repo",
 ]
+# "agent" removed: AI agent is mainstream social discourse, not niche jargon
+# "topic" removed: common English word, not tech-specific
+# "API" kept: still relatively technical for moments audience
 
 
 def check_moments(post: PostBlock) -> list[CheckResult]:
@@ -653,14 +680,45 @@ def render_json(reports) -> str:
 # ---------- CLI ----------
 
 SKIP_FILES = {"README.md", "long-form-assessment.md"}
+SKIP_STATES = {"published", "rejected", "已发布", "已拒绝"}
+
+HELP_TEXT = """\
+posts-eval — Static checker for posts/ drafts against contracts/posts/v1.1
+
+Usage:
+    python tools/posts-eval.py [options] <file-or-dir> ...
+
+Options:
+    --json      Output JSON (for agent ingestion)
+    --all       Include posts with 状态: published/rejected (skipped by default)
+    -h, --help  Show this help message
+
+Exit codes:
+    0  No FAIL checks
+    1  At least one FAIL
+    2  Usage error
+
+Examples:
+    python tools/posts-eval.py posts/x.md
+    python tools/posts-eval.py posts/
+    python tools/posts-eval.py --json --all posts/
+"""
 
 
 def main():
     args = sys.argv[1:]
+
+    # Handle help
+    if "-h" in args or "--help" in args:
+        print(HELP_TEXT)
+        sys.exit(0)
+
     json_mode = "--json" in args
-    args = [a for a in args if not a.startswith("--")]
+    include_all = "--all" in args
+    args = [a for a in args if not a.startswith("-")]
     if not args:
-        print("usage: posts-eval.py [--json] <file-or-dir> ...", file=sys.stderr)
+        print("usage: posts-eval.py [--json] [--all] <file-or-dir> ...", file=sys.stderr)
+        print("       posts-eval.py -h  for help", file=sys.stderr)
         sys.exit(2)
 
     paths: list[Path] = []
@@ -687,11 +745,17 @@ def main():
             continue
         per_block = []
         for post in blocks:
+            # Skip published/rejected posts unless --all
+            if not include_all:
+                state = post.metadata.get("状态", "").strip().lower()
+                if state in SKIP_STATES or any(s in state for s in SKIP_STATES):
+                    continue
             results = eval_post(post)
             if any(r.severity == Severity.FAIL for r in results):
                 has_fail = True
             per_block.append((post, results))
-        reports.append((path, per_block))
+        if per_block:  # only add if there are posts to report
+            reports.append((path, per_block))
 
     if json_mode:
         print(render_json(reports))

@@ -17,6 +17,12 @@ python tools/posts-eval.py posts/
 
 # 输出 JSON（给 agent 消化）
 python tools/posts-eval.py --json posts/x.md
+
+# 包含已发布/已拒绝的 post（默认跳过）
+python tools/posts-eval.py --all posts/
+
+# 显示帮助
+python tools/posts-eval.py -h
 ```
 
 退出码：
@@ -24,6 +30,8 @@ python tools/posts-eval.py --json posts/x.md
 - `0` — 没有 FAIL
 - `1` — 至少一个 post 触发 FAIL
 - `2` — 用法错误
+
+**默认行为**：跳过 `状态: published / rejected` 的 post（已经发布或已拒绝的不需要每次重复报警）。使用 `--all` 可以扫描所有 post。
 
 ### 设计选择
 
@@ -48,7 +56,7 @@ python tools/posts-eval.py --json posts/x.md
 | x-cn §2.1 | `hook:anti-pattern` | 软抽象/元描述/无锚反问开场 |
 | x-cn §2.3 | `translationese:old` | 在...背景下 / 进行+动词 / 性字滥用 |
 | x-cn §2.3 | `translationese:new-rhetoric` | 短句自问自答 / setup-punch |
-| x-cn §2.4 | `retweet:dig-hole` | "详见/在 repo 里有记录" 无链接 |
+| x-cn §2.4 | `retweet:dig-hole` / `retweet:dig-hole-series` | "详见/在 repo 里有记录" 无链接（Part 1/N 系列豁免 -1） |
 | x-cn §3 | `len:tweet-overflow` | 单推 >140 中文字符 |
 | x-cn §3 | `fmt:hashtag-overflow / markdown-heading` | hashtag >2 / 出现 `# 标题` |
 | xiaohongshu §3.1 | `title:length` | 标题 >20 字 |
