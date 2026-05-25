@@ -35,6 +35,7 @@
    - 每个 WARN → 修复（首选）或在 post block 加 `acknowledged: <reason>`
    → 对应 posts-author.md **step 5**
 6. **去 AI 味**（详见 [`skills/humanizer-usage.md`](humanizer-usage.md)）
+   - **Pre-check**：`python tools/install-humanizer.py --check`；任何 `[MISS]` → 先 `python tools/install-humanizer.py` 装上；离线则走 `prompts/humanizer-{zh,}.md` fallback
    - 中文草稿 → 调用 `humanizer-zh` 能力
    - 英文草稿 → 调用 `humanizer` 能力
    - 调用入口因 agent 而异（Claude Code、Codex、Hermes、OpenClaw 等），统一约定见 humanizer-usage.md
