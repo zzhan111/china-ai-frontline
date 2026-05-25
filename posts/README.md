@@ -41,6 +41,10 @@ posts/moments.md
 
 <可直接复制粘贴发布的内容>
 
+### Humanizer
+
+humanizer: zh@<version-or-date> | en@<version-or-date> | skipped(reason: ...)
+
 ### 发布后反馈
 
 发布时间：
