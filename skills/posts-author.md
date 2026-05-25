@@ -99,6 +99,11 @@ These rules are derived from `contracts/posts/v1-common.md` + the three platform
    → Status: draft
 
 7. (handoff to humanizer)
+   → **Pre-check**: 跑 `python tools/install-humanizer.py --check`
+     - 全 [OK] → 进入下一步
+     - 任何 [MISS] → 跑 `python tools/install-humanizer.py` 装上再继续
+     - 如果联网 / git 都不行 → fallback 模式：在对话里贴 `prompts/humanizer-zh.md`
+       全文给 LLM 做（详见 skills/humanizer-usage.md "离线兜底"）
    → Now read skills/humanizer-usage.md
    → Run humanizer-zh on the "### 平台草稿 / X thread 草稿 / ..." section
    → Append humanizer signature to post block (see humanizer-usage.md §6)

@@ -1,0 +1,7 @@
+# Python
+__pycache__/
+*.pyc
+
+# Vendored upstream skills (installed by tools/install-humanizer.py)
+/external/*/
+!/external/.gitkeep

@@ -2,6 +2,44 @@
 
 Repo 工具脚本。每个工具单文件，stdlib only，跨平台。
 
+## install-humanizer.py
+
+Cross-platform installer for the humanize step of `skills/social-content-loop.md` / `skills/posts-author.md`. Clones upstream humanizer repos into `external/`（gitignored），so any LLM agent on any machine can run the humanize step without manual setup.
+
+### 用法
+
+```bash
+python tools/install-humanizer.py              # install/update both zh + en
+python tools/install-humanizer.py --check      # status report only, no changes
+python tools/install-humanizer.py --refresh-prompts  # also overwrite prompts/humanizer-{zh,}.md
+```
+
+退出码：
+
+- `0` — 全部 OK
+- `1` — 至少一项 missing / 失败
+- `2` — 缺前置（如 `git` 不在 PATH）
+
+### 装什么 / 装到哪
+
+| 上游 | 目标 | License |
+|---|---|---|
+| [op7418/Humanizer-zh](https://github.com/op7418/Humanizer-zh) | `external/humanizer-zh/` | MIT |
+| [blader/humanizer](https://github.com/blader/humanizer) | `external/humanizer/` | MIT |
+
+`external/` 整个目录 gitignored（保留空目录靠 `.gitkeep` 反规则），不污染仓库历史，不污染家目录。
+
+### Vendored fallback
+
+`prompts/humanizer-zh.md` 和 `prompts/humanizer.md` 是上游 SKILL.md 的 commit-pinned 副本（在 commit 历史里，无需 install），作为**无网络 / agent 不识别 SKILL.md 时**的兜底。`--refresh-prompts` 用 install 后的最新 SKILL.md 覆盖这两个 vendored 副本，保留 attribution header。
+
+### 设计选择
+
+- **Python stdlib only**：与 `posts-eval.py` 一致，单文件零依赖，Win/macOS/Linux 同一份代码
+- **不引 git submodule**：submodule 增加 clone/checkout 复杂度，对一次性工具脚本不值得
+- **不污染家目录**：所有上游内容集中在 `external/`，rm -rf 即可清理
+- **幂等**：再跑等于 `git pull --ff-only`
+
 ## posts-eval.py
 
 Static checker for `posts/` drafts against `contracts/posts/v1.1`.
