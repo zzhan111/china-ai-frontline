@@ -21,20 +21,21 @@
 
 > **跨文件 step 编号说明**：本 loop 是 inbox → 发布的整体节奏（10 步）；每条 draft 的内部 authoring 详细流程在 [`skills/posts-author.md`](posts-author.md) 里（8 步 authoring workflow）。每个 step 末尾标了 → posts-author.md 的对应 step 引用。
 
-1. 从 inbox 中选择最多 3 条最值得处理的想法
-2. 每条提炼一句话观点
-3. 为每条寻找近似产品、近似实现或相似内容方向
-4. 生成平台草稿（写入对应 `posts/*.md` 的"平台草稿"区）
+1. 对 inbox 每条未处理条目跑 eval（见下方 eval 规则），在条目末尾追加一行 `eval:` 标注；`vague` 或 `missing-task` 的条目跳过，等用户补充后再处理
+2. 从通过 eval（`ready`）的条目中选择最多 3 条最值得处理的想法
+3. 每条提炼一句话观点
+4. 为每条寻找近似产品、近似实现或相似内容方向
+5. 生成平台草稿（写入对应 `posts/*.md` 的"平台草稿"区）
    → 详细做法见 [`skills/posts-author.md`](posts-author.md) **step 1-4 + 6**（read contract → identify route → draft → self-review → write to file）
-5. **跑 posts-eval 静态检查**（详见 [`tools/README.md`](../tools/README.md)）
+6. **跑 posts-eval 静态检查**（详见 [`tools/README.md`](../tools/README.md)）
    - `python tools/posts-eval.py <draft 文件路径>`
    - 任何 FAIL → 按类型分别回跳（详见 posts-author.md step 5）：
-     • `hard-reject:audience-mismatch` / `hard-reject:ad-law` → 回 step 1-3（路由/audience 决策错了，不是稿子问题）
-     • `len:*` / `fmt:*` / `hook:*` / `ai-flag:hard-reject` → 回 step 4 改稿
+     • `hard-reject:audience-mismatch` / `hard-reject:ad-law` → 回 step 2-4（路由/audience 决策错了，不是稿子问题）
+     • `len:*` / `fmt:*` / `hook:*` / `ai-flag:hard-reject` → 回 step 5 改稿
      • 任何 FAIL **不允许** soften 绕过（rename audience / 把极限词改"次极限" / "压一压" AI 词汇等）
    - 每个 WARN → 修复（首选）或在 post block 加 `acknowledged: <reason>`
    → 对应 posts-author.md **step 5**
-6. **去 AI 味**（详见 [`skills/humanizer-usage.md`](humanizer-usage.md)）
+7. **去 AI 味**（详见 [`skills/humanizer-usage.md`](humanizer-usage.md)）
    - **Pre-check**：`python tools/install-humanizer.py --check`；任何 `[MISS]` → 先 `python tools/install-humanizer.py` 装上；离线则走 `prompts/humanizer-{zh,}.md` fallback
    - 中文草稿 → 调用 `humanizer-zh` 能力
    - 英文草稿 → 调用 `humanizer` 能力
@@ -42,13 +43,13 @@
    - 用 humanized 版本覆盖"平台草稿"区
    - 在 post block 末尾追加 `humanizer: zh@<version> | en@<version> | skipped(reason: ...)`
    - **顺序约束**：humanizer 必须在 posts-eval 之后跑——humanizer 重写自然语言会破坏链接/数字/专有名词，eval 抓不到原 draft 的真实问题
-   - **VERIFY**：humanize 若改了单推字数 / 列表结构 / 换行，**必须重跑 step 5 的 posts-eval**（防止 humanize 让 x-cn 单推超 140 字、小红书低于 500 字等）
+   - **VERIFY**：humanize 若改了单推字数 / 列表结构 / 换行，**必须重跑 step 6 的 posts-eval**（防止 humanize 让 x-cn 单推超 140 字、小红书低于 500 字等）
    → 对应 posts-author.md **step 7**
-7. 用 [`ops/social-post-checklist.md`](../ops/social-post-checklist.md) 做发布前检查
+8. 用 [`ops/social-post-checklist.md`](../ops/social-post-checklist.md) 做发布前检查
    → 对应 posts-author.md **step 8**
-8. 标记是否建议发布
-9. 发布后根据用户提供的数据补反馈
-10. 判断是否升级成长文 topic（标准见 [`docs/platform-strategy.md`](../docs/platform-strategy.md)）
+9. 标记是否建议发布
+10. 发布后根据用户提供的数据补反馈
+11. 判断是否升级成长文 topic（标准见 [`docs/platform-strategy.md`](../docs/platform-strategy.md)）
 
 ## 限制
 
@@ -58,8 +59,30 @@
 - 不直接改公众号长文（`drafts/`）
 - 不为单条想法创建 PR
 - 每次最多处理 3 条想法
+- `inbox/` 已有条目内只允许追加一行 `eval:` 标注（格式见 inbox/README.md）；其余内容（处理记录、调研结果、"已处理"标注）全部写入 `posts/`
 - 不得对 `inbox/`、`raw/`、`topics/`、`drafts/` 中的内容运行 humanizer
 - humanizer 只作用于 `posts/*.md` 的"平台草稿"区，不作用于"一句话观点"、"近似实现"、"发布后反馈"等结构化字段
+
+## inbox eval 规则
+
+评估每条未处理条目的 `原始想法 + 我想让 AI 帮我做` 组合，判断是否可处理：
+
+| status | 触发条件 |
+|--------|---------|
+| `ready` | 想法足够具体，AI 任务明确或可从想法推断 |
+| `vague` | 想法过于模糊，AI 无法判断内容方向 |
+| `missing-task` | 想法清晰但没有 `我想让 AI 帮我做` 且方向不明 |
+| `done` | 已处理并发布，跳过不再处理 |
+
+格式（追加到条目末尾，严格一行）：
+
+```
+eval: ready | X thread 方向清晰
+eval: vague | 需补充：具体是哪类 skill？
+eval: missing-task | 建议加：改成 X 内容 / 判断是否升级成长文
+```
+
+已有 `eval:` 的条目跳过，不重复评估。
 
 ## 日常 prompt 模板
 
