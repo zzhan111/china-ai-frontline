@@ -261,3 +261,114 @@ humanizer: zh@2026-05-25 (prompts/humanizer-zh.md vendored fallback by Claude Op
 转发：
 高质量反馈：
 下一步：
+
+---
+
+## post-2026-05-26-001：DeepSeek 月度 AI 成本 ¥33 vs 海外模型 ¥8,000+
+
+状态：draft
+来源：inbox/2026-05.md#2026-05-25-17-08
+首发平台：X
+audience：AI 开发者 / API 使用者，关注模型成本和性价比的人
+是否升级长文：待观察（先发布看反馈；有竞品研究基础，可扩展为完整 cost comparison 文章）
+
+### 一句话观点
+
+DeepSeek API 月度成本 ¥33 vs 海外模型同量 ¥8,000+，成本降 250 倍改变的不只是账单，是使用行为。
+
+### 近似实现 / 需要调查
+
+**成本对比工具和分析**
+- [artificialanalysis.ai](https://artificialanalysis.ai)：LLM 性能和价格对比，有详细的 token 成本可视化
+- [llm-price-check](https://github.com/thatlite/llm-price-check)：GitHub 上的 LLM 价格追踪
+- 多个 X 账号定期发 API pricing comparison chart（如 @ArtificialAnlys），但多为截图式汇总，缺个人实际使用数据的对比
+- Reddit r/LocalLLaMA 大量 DeepSeek API 成本讨论，但多为单次推理价格对比，少见月度真实账单拆解
+
+**差异化**：本文用个人真实月度使用数据做对比（4,155 次请求、410M tokens），而非公开定价表推算。读者能直接套用自己的 token 量算账。
+
+**定价来源**：海外模型价格为 OpenRouter 2026-05-26 实时 API 数据（openai/gpt-5.4: $2.50/$15.00, openai/gpt-5.4-mini: $0.75/$4.50; anthropic/claude-sonnet-latest: $3.00/$15.00, anthropic/claude-haiku-latest: $1.00/$5.00）。按 70/30 输入/输出比例估算，实际比例依赖 `~/Downloads/usage_data_2026_5.zip` 中的详细 breakdown。
+
+### X thread 草稿
+
+1/
+5 月 DeepSeek API 账单：4,155 次，410M tokens，¥33.36。
+
+同量换成海外模型，账单加两个零。
+
+¥33，一个月，4,155 次生产调用。
+
+2/
+钱花在哪：
+
+v4-pro：1,029 次 / 86.6M tokens → ¥33（99%）
+v4-flash：3,126 次 / 324M tokens → ¥0.36
+
+flash 量是 pro 的 4 倍。成本不到一毛钱。
+
+3/
+同量换海外模型（OpenRouter 实时定价，70/30 输入输出）：
+
+OpenAI GPT-5.4 + 5.4-mini：≈ $1,150 ≈ ¥8,300
+Anthropic Sonnet + Haiku：≈ $1,280 ≈ ¥9,200
+
+DeepSeek：¥33。
+
+差 250–280 倍。
+
+4/
+成本差到这个地步，怎么用也跟着变了。
+
+flash 平均每次 103K tokens。我把完整文件、超长上下文直接丢进去。不优化，不缩 prompt。
+
+¥33 管一个月。到这时候，没人还想精打细算了。
+
+5/
+算一笔账：把你 5 月的 token 量，用 OpenAI 公开价重算一次。
+
+¥33 → ¥8,300。
+
+能接受就继续。不能的话：不是你花多了，成本结构已经变了。
+
+### Humanizer
+
+humanizer: zh@2026-05-26 (prompts/humanizer-zh.md vendored fallback by Claude Sonnet 4.6 + manual touch-up)
+
+应用项：推 3 去"不是折扣"否定排比；推 4 口语化调整；推 4/5 em dash 改句号/冒号；metadata em dash 改中文冒号
+
+### 发布后反馈
+
+发布时间：
+链接：
+回复：
+收藏：
+转发：
+高质量反馈：
+下一步：
+
+---
+
+## post-2026-05-26-002：screenpipe+ASR 路演转录 — 路由分析
+
+状态：routing-only（无草稿，等待技术验证完成后再生成 thread）
+来源：inbox/2026-05.md#2026-05-26-15-20
+audience：AI builder（工具链/自动化/开源方向）
+是否升级长文：待技术验证结果
+
+### 路由建议
+
+建议路线：**先跑技术验证 → X thread → 视反馈升级长文**
+
+理由：
+- 角度独特：「我是怎么给 AI 装上眼睛和耳朵的」→ 这个叙事框架不是"介绍一个工具"，而是"我改造了我的 AI agent 的能力边界"
+- 技术验证是内容燃料：微信直播的实际截图、ASR 准确率数据、pipeline 架构图 → 这些是第一手素材，天然防同质化
+- 升级长文的触发条件：如果 thread 跑出 >50 likes / >10 retweets / 有人 fork 或 PR，就可以升级成 `drafts/004/`，走全套 humanizer + posts-eval
+
+### 与现有内容主线的关联
+
+- 和「browse.sh 换核 + bb-browser 浏览器自动化」形成 **"AI 能力扩展"话题线**——都是"给 agent 装上新的 I/O 通道"
+- 和「social content loop 的 feedback-ingest（截图+视觉 LLM 提取）」形成 **"截屏即数据"方法论线**——截屏不只是记录，是 pipeline 的输入
+- 这篇不同点：首次从"个人效率工具"跳到"输出给他人使用"→ 从 dogfood 到 product
+
+### 发布时机
+
+技术验证完成后再生成草稿。预估 1-2 周。
