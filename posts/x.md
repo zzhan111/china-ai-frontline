@@ -346,29 +346,3 @@ humanizer: zh@2026-05-26 (prompts/humanizer-zh.md vendored fallback by Claude So
 下一步：
 
 ---
-
-## post-2026-05-26-002：screenpipe+ASR 路演转录 — 路由分析
-
-状态：routing-only（无草稿，等待技术验证完成后再生成 thread）
-来源：inbox/2026-05.md#2026-05-26-15-20
-audience：AI builder（工具链/自动化/开源方向）
-是否升级长文：待技术验证结果
-
-### 路由建议
-
-建议路线：**先跑技术验证 → X thread → 视反馈升级长文**
-
-理由：
-- 角度独特：「我是怎么给 AI 装上眼睛和耳朵的」→ 这个叙事框架不是"介绍一个工具"，而是"我改造了我的 AI agent 的能力边界"
-- 技术验证是内容燃料：微信直播的实际截图、ASR 准确率数据、pipeline 架构图 → 这些是第一手素材，天然防同质化
-- 升级长文的触发条件：如果 thread 跑出 >50 likes / >10 retweets / 有人 fork 或 PR，就可以升级成 `drafts/004/`，走全套 humanizer + posts-eval
-
-### 与现有内容主线的关联
-
-- 和「browse.sh 换核 + bb-browser 浏览器自动化」形成 **"AI 能力扩展"话题线**——都是"给 agent 装上新的 I/O 通道"
-- 和「social content loop 的 feedback-ingest（截图+视觉 LLM 提取）」形成 **"截屏即数据"方法论线**——截屏不只是记录，是 pipeline 的输入
-- 这篇不同点：首次从"个人效率工具"跳到"输出给他人使用"→ 从 dogfood 到 product
-
-### 发布时机
-
-技术验证完成后再生成草稿。预估 1-2 周。
