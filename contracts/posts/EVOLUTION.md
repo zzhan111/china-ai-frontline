@@ -231,7 +231,76 @@ PR #22 review 要求"在 merge 之前用 SKILL 走一遍完整流程写一篇 dr
 - [ ] hashtag regex 排除单纯数字 issue/PR refs（本次新增）
 - [ ] em dash 计数 overcounts（phase 2b 已记）
 - [ ] audience 字段升 FAIL 时机：3 条 post 都已带 audience，已满足 v1.1 当时定的 "≥3 个 draft 都带了 audience" 门槛——**可以升 FAIL 了**
-- [ ] humanize step：本次只到 step 6 eval-clean，humanizer 没接入；等 humanizer skill 可用时补
+- [x] humanize step：本次只到 step 6 eval-clean，humanizer 没接入；等 humanizer skill 可用时补 → **done in phase 2d (PR #26) via vendored fallback path**
+
+---
+
+## 2026-05-25 — Phase 2d: humanize loop closed via vendored prompt fallback (PR #25 + #26)
+
+PR #25 (humanizer install bootstrap) merged 后，立即对 PR #24 改过的 3 条 posts/x.md draft 跑 SKILL step 7 humanize 闭环。
+
+**关键测试**：本次 humanize 走的是 **fallback path**（agent 读 `prompts/humanizer-zh.md` 自己做），不是 install path——因为 Claude Code 当前 session 没注册 humanizer-zh skill。这就验证了 PR #25 设计的 fallback 真的能闭环。
+
+### 跑通的事
+
+| 步骤 | 做了什么 | 结果 |
+|---|---|---|
+| install pre-check | `python tools/install-humanizer.py --check` | 全 [OK]（之前已 install）|
+| 读 fallback prompt | `prompts/humanizer-zh.md`（vendored from op7418 @ 91f3d39）| 501 行规则齐全 |
+| Conservative humanize | 3 个 post 共 5 处微调，保留所有数字/URL/专有名词 | 见下方对照 |
+| 加 humanizer signature | 每个 post block 加 `### Humanizer` section + 签注 | 3 个 post 都有 |
+| Re-run eval (VERIFY) | `python tools/posts-eval.py posts/x.md` | **15 PASS / 0 WARN / 0 FAIL**（无新增 WARN）|
+
+### Conservative humanize 改动对照
+
+| post | 改动 | 类型 |
+|---|---|---|
+| -001 推 4 | "GOVERNANCE.md 锁死这些规则——对 AI..." → "锁死这些规则，对 AI..." | em dash → 逗号 |
+| -001 推 7 | 删"后续会出一篇长文..." + "→ 关注 @[账号] 等更新" | 长文铺垫 dig-hole + 元承诺 |
+| -002 | 0 处改动（v1.1 workflow 已 cleaned）| — |
+| 12306 推 1 | "不是自己从零逆向，而是：我发现了..." → "原本以为...结果发现..." | 否定排比 → 时间叙述 |
+| 12306 推 2 | "研究它的描述——先试 API" → "研究它的描述：先试 API" | em dash → 冒号 |
+| 12306 推 6 | "这就是'不重复造轮子'在 AI 时代的工程实践。" → "只剩三步，不再重写 API。" | meta-value 断言 → 具体结论 |
+| 12306 推 8 | 删 "→ 关注 @[账号] 等后续内容" | 元承诺 |
+
+总计 5 处实质改动（不算 -002 的 zero-change）。Humanize 改动量 << v1.1 workflow 的 rewrite 量，因为 v1.1 workflow 已经把大部分 AI 痕迹清掉了。
+
+### 元观察：humanize 在 v1.1 workflow 后的 ROI
+
+v1.1 workflow（PR #24）已经主动重写了 hook anti-pattern / dig-hole / meta-value-assertion 等，**humanize step 只剩 em dash + 少数 dig-hole + 否定排比 等细节抓漏**。
+
+这印证 `raw/2026-05-25-add-humanizer-into-workflow.md` 末尾的判断："humanizer 在你这里的作用，不是把 AI 文本变人话，而是做发布前的最后一道安全网"——SKILL + eval + contract 已经在前面拦掉 80%，humanizer 处理最后 20%。
+
+### Fallback path 实战可行性
+
+| 维度 | 结论 |
+|---|---|
+| 找得到 | `prompts/humanizer-zh.md` 在 commit 历史里，永远可读 |
+| 跑得通 | Claude Opus 4.7 读完 prompt 直接按规则做 conservative humanize，5 处改动准确 |
+| 与 install path 等价 | install path 触发的是同一份 SKILL.md（vendored 是 commit-pinned 副本，内容相同）|
+| 签名格式 | `humanizer: zh@2026-05-25 (prompts/humanizer-zh.md vendored fallback by Claude Opus 4.7 + manual touch-up)` 已成型 |
+
+**结论**：PR #25 的 "fallback path 永远闭环" 设计目标达成。任何 LLM agent 在任何环境都能跑通 humanize step，不需要 install humanizer 框架。
+
+### 新发现：1 个 eval gap
+
+12306 推 6 原文 "这就是'不重复造轮子'在 AI 时代的工程实践。" — 这是**典型 meta-value 断言**（"在 X 时代的工程实践" / "新范式" 这种"自我加冕"句式），但 contract v1.1 §4.4 的 meta-value-assertion 清单只有 "真正的差异化" / "稀缺性" / "示范性" / "天然吸引" 4 个词，**没抓到 "AI 时代的工程实践" 这种 X-时代-Y-本质 结构**。
+
+eval 没报这个 WARN，是 humanize 手工抓的。
+
+**v1.2 候选**：扩展 `META_VALUE_ASSERTION` regex/list，加 "AI 时代的 X" / "新范式" / "X 时代的工程实践" 等"自我加冕" 句式。
+
+### Open items（v1.2 累积）
+
+之前 phase 2c 已列：
+- [ ] tweet[N] 0-indexed 说明
+- [ ] hashtag regex 排除 `#\d+`
+- [ ] em dash 计数 overcounts
+- [x] audience 升 FAIL 时机已满足
+
+本次新增：
+- [ ] meta-value-assertion 扩展（X-时代-Y-本质 句式）
+- [ ] humanize signature 在 post block 的标准位置（当前放在 X thread 草稿 后、发布后反馈 前；`posts/README.md` template 应同步更新——目前还是 `### Humanizer` 没有 `### posts-eval` 同级）
 
 ---
 

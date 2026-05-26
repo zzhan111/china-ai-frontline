@@ -60,7 +60,7 @@ AI 是常驻 collaborator，所有修改都可 review。
 
 raw/ 目录永远 append-only，原始想法不可覆盖。
 
-GOVERNANCE.md 锁死这些规则——对 AI 和未来协作者都生效。
+GOVERNANCE.md 锁死这些规则，对 AI 和未来协作者都生效。
 
 **5/**
 闭环：想法 → 竞品 → 发布 → 反馈 → 下一条。AI 执行每步。
@@ -73,11 +73,13 @@ GOVERNANCE.md 锁死这些规则——对 AI 和未来协作者都生效。
 没见过有人完整地用到中文自媒体运营上，还公开记录。
 
 **7/**
-如果你也在用类似系统运营内容，欢迎 reply。
+如果你也在用类似系统运营内容，欢迎 reply 聊聊你的方法和踩过的坑。
 
-如果你对这套结构感兴趣，后续会出一篇长文，把整个架构和踩坑经验写完整。
+### Humanizer
 
-→ 关注 @[账号] 等更新
+humanizer: zh@2026-05-25 (prompts/humanizer-zh.md vendored fallback by Claude Opus 4.7 + manual touch-up)
+
+应用项：去推 4 em dash；去推 7 长文铺垫 dig-hole 和"关注 @[账号]"元承诺；其它推保留（已 cleaned in v1.1 workflow）。
 
 ### 发布后反馈
 
@@ -145,6 +147,12 @@ AI 执行每一步。我负责想法和判断。
 
 特别想听：你的 contract 里有没有"audience 必须具体"这种硬规则？
 
+### Humanizer
+
+humanizer: zh@2026-05-25 (prompts/humanizer-zh.md vendored fallback by Claude Opus 4.7)
+
+应用项：本 post 已在 v1.1 workflow 中重写过（去元价值断言、dig-hole、em dash、价值预告 hook），humanize pass 无新增改动。
+
 ### 发布后反馈
 
 发布时间：
@@ -174,15 +182,15 @@ audience：AI builder + 独立创作者（海外华人 tech 圈层）
 **1/**
 最满意的 22 分钟。
 
-不是自己从零逆向 12306 的 API，而是：我发现了一个现成的库。
+原本以为要从零逆向 12306 的 API，结果发现一个现成的库 browse.sh，已经有 322 个网站的自动化方案。
 
-browse.sh 已经有 322 个网站的自动化方案。我只需把它的"引擎"换成我的本地浏览器。🧵
+我做的只是把它的"引擎"换成本地浏览器。🧵
 
 **2/**
 过程很简单：
 
 ① 发现 browse.sh 有 12306.cn/find-trains（104 次安装，hybrid 方法）
-② 研究它的描述——先试 API，不行走浏览器
+② 研究它的描述：先试 API，不行走浏览器
 ③ 从浏览器上下文调了 12306 的查询接口
 ④ 返回了 15 趟列车实时时刻 + 余票
 
@@ -221,7 +229,7 @@ browse.sh 已经整理了 322 个网站的自动化方案。我只需要：
 ② 把它的执行后端从 Browserbase 云端换成我本地的 CDP
 ③ 验证它能跑
 
-这就是"不重复造轮子"在 AI 时代的工程实践。
+只剩三步，不再重写 API。
 
 **7/**
 同样的模式已经验证了 4 个站点：
@@ -238,7 +246,11 @@ browse.sh 已经整理了 322 个网站的自动化方案。我只需要：
 完整项目记录：
 github.com/epiral/bb-sites/tree/feat/12306-find-trains
 
-→ 关注 @[账号] 等后续内容
+### Humanizer
+
+humanizer: zh@2026-05-25 (prompts/humanizer-zh.md vendored fallback by Claude Opus 4.7 + manual touch-up)
+
+应用项：推 1 去"不是 X 而是 Y"否定排比；推 2 去 em dash；推 6 去"AI 时代的工程实践"meta-value 断言；推 8 去"关注 @[账号]"元承诺。
 
 ### 发布后反馈
 
