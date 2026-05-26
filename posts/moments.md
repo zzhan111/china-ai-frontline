@@ -5,6 +5,7 @@
 状态：draft
 来源：inbox/2026-05.md#2026-05-24-21-25
 首发平台：朋友圈
+audience：熟人圈：同事 + tech 朋友 + 家人
 是否升级长文：待观察
 
 ### 一句话观点
@@ -24,11 +25,17 @@ AI 最有用的地方不是帮我"想更多"，而是帮我"推进一点"。
 
 很多想法其实早就有了，问题是没有被整理、没有被找近似实现、没有被发出去、也没有反馈。
 
-所以我准备把自己的内容 repo 改成一个执行闭环：
+所以我准备把自己的内容仓库改成一个执行闭环：
 
 想法进来 → AI 找相似实现 → 生成社媒草稿 → 发出去 → 收反馈 → 再更新。
 
 缺的不是想象力，是闭环。
+
+### Humanizer
+
+humanizer: zh@2026-05-25 (prompts/humanizer-zh.md vendored fallback by Claude Opus 4.7)
+
+应用项："repo"→"仓库"（去行话，关系适配 §3.3）。无其他改动。
 
 ### 发布后反馈
 
@@ -47,6 +54,7 @@ AI 最有用的地方不是帮我"想更多"，而是帮我"推进一点"。
 状态：draft
 来源：inbox/2026-05.md#2026-05-24-22-36
 首发平台：朋友圈
+audience：熟人圈：同事 + tech 朋友 + 家人
 是否升级长文：否
 
 ### 朋友圈草稿
@@ -60,6 +68,18 @@ AI 最有用的地方不是帮我"想更多"，而是帮我"推进一点"。
 不重复造轮子不是口号，是工程实践。
 
 完整的 X thread 和笔记在写，晚点发。
+
+### posts-eval
+
+acknowledged: ai-flag:over-structure（短文出现数字 emoji）— eval false positive：正文无数字 emoji (1️⃣2️⃣3️⃣4️⃣5️⃣)；bug 在 `text.count(c)` 对普通数字字符匹配到含 U+20E3 variant selector 的 codepoint 组合。本 post 正文纯文本，无结构化 emoji。
+
+acknowledged: ai-flag:count（1 red flag）— 上述 false positive 的副产品。
+
+### Humanizer
+
+humanizer: zh@2026-05-25 (prompts/humanizer-zh.md vendored fallback by Claude Opus 4.7)
+
+应用项：本 post 正文短且干净（5 句，168 字），无 em dash / 否定排比 / meta-value 断言 / 营销腔。0 处改动。
 
 ### 发布后反馈
 
