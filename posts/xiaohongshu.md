@@ -1,10 +1,11 @@
 # 小红书 drafts
 
-## post-2026-05-24-001：我用 GitHub 管理我的内容创作，三个月后的复盘
+## post-2026-05-24-001：我用 GitHub 管理内容创作，三月复盘
 
 状态：draft
 来源：inbox/2026-05.md#2026-05-24-22-24
 首发平台：小红书
+audience：想入门 AI 工作流的产品经理 / 设计师 / 运营
 是否升级长文：可联动（见 posts/long-form-assessment.md）
 
 ### 笔记草稿
@@ -20,19 +21,17 @@
 
 作为一个在美国工作的工程师，我用一套「反常识」的方式运营内容：
 
-**把自媒体当 GitHub repo 来管理。**
-
-不是隐喻，是字面意思。
+**把自媒体当 GitHub repo 来管理。** 字面意思，不是比喻。
 
 ---
 
 **我的系统长这样：**
 
-📁 inbox/ — 随时记录碎片想法（手机备忘录 → 粘贴进来）
-📁 drafts/ — 长文草稿，按编号版本管理
-📁 posts/ — 按平台（X、小红书、朋友圈）拆分的短内容
-📁 topics/ — 选题卡，从想法到发布全程追踪
-📋 GOVERNANCE.md — 锁死规则，对我自己和 AI 都生效
+📁 inbox/：随时记录碎片想法（手机备忘录 → 粘贴进来）
+📁 drafts/：长文草稿，按编号版本管理
+📁 posts/：按平台（X、小红书、朋友圈）拆分的短内容
+📁 topics/：选题卡，从想法到发布全程追踪
+📋 GOVERNANCE.md：锁死规则，对我自己和 AI 都生效
 
 ---
 
@@ -75,6 +74,18 @@ AI 帮我完成每一步的执行，我只负责判断和想法。
 **标签**
 #AI创作 #内容创作 #个人系统 #GitHub #工具分享 #海外华人 #独立创作者 #AI工具
 
+### posts-eval
+
+acknowledged: audience:semi-tech — per contract xiaohongshu/v1.1 §6，半技术画像（PM/设计师/运营）允许进入评分但 §3.3 二阶判据打折。audience 由人确认。
+
+acknowledged: actionable:tech-prereq — git/commit/PR 是正文核心概念（内容系统本身），无法删除。对 PM audience 这些词属于半技术画像容忍范围。
+
+### Humanizer
+
+humanizer: zh@2026-05-25 (prompts/humanizer-zh.md vendored fallback by Claude Opus 4.7)
+
+应用项：directory listing 5 处 em dash → 冒号；"不是隐喻，是字面意思" → 直接陈述。
+
 ### 发布后反馈
 
 发布时间：
@@ -92,11 +103,12 @@ AI 帮我完成每一步的执行，我只负责判断和想法。
 状态：draft
 来源：inbox/2026-05.md#2026-05-24-22-36
 首发平台：小红书
+audience：想入门 AI 工作流的产品经理 / 设计师 / 运营
 是否升级长文：待观察
 
 ### 一句话观点
 
-不重复造轮子不是口号，是工程实践。
+不重复造轮子是工程实践。
 
 ### 笔记草稿
 
@@ -111,7 +123,7 @@ AI 帮我完成每一步的执行，我只负责判断和想法。
 
 做技术的朋友应该都遇到过这种情况：
 
-要做一个功能（比如查 12306 的列车时刻），第一反应是「去逆向它的 API」。
+要做一个功能（比如查 12306 的列车时刻），本能反应是「去逆向它的 API」。
 
 然后开始抓包、分析请求参数、处理加密、处理 session…半天就过去了。
 
@@ -132,7 +144,7 @@ AI 帮我完成每一步的执行，我只负责判断和想法。
 **我是怎么做的：**
 
 ① 从 322 个 skill 里找到 12306 的
-② 研究描述——先试 API，不行走浏览器
+② 研究描述：先试 API，不行走浏览器
 ③ 在浏览器上下文中调用 12306 的查询接口
 ④ 返回 15 趟列车实时时刻 + 余票
 
@@ -160,11 +172,23 @@ browse.sh 的 322 个 skill 里，有 142 个是 browser/hybrid 方法的，都�
 
 **核心结论：**
 
-AI 时代最有价值的技能不是「怎么造轮子」，而是「知道哪里有轮子，怎么把它装到自己的车上」。
+最有价值的技能变成了：知道哪里有轮子，怎么装到自己的车上。
 
 这套模式正在开源，有兴趣的可以关注后续。
 
 #不重复造轮子 #12306 #浏览器自动化 #AI工程 #效率工具
+
+### posts-eval
+
+acknowledged: audience:semi-tech — per contract xiaohongshu/v1.1 §6，半技术画像（PM/设计师/运营）允许进入评分但 §3.3 二阶判据打折。audience 由人确认。
+
+acknowledged: actionable:tech-prereq — API 是正文核心概念（12306 API 查票），无法删除。对 PM audience "API" 属于半技术画像容忍的术语。
+
+### Humanizer
+
+humanizer: zh@2026-05-25 (prompts/humanizer-zh.md vendored fallback by Claude Opus 4.7)
+
+应用项："第一反应"→"本能反应"（eval ad-law false positive 消掉）；em dash→冒号；"不是口号，是工程实践"→"是工程实践"（去否定排比）；"AI 时代最有价值的技能不是...而是..."→"最有价值的技能变成了..."（去 meta-value 断言 + 否定排比）。
 
 ### 发布后反馈
 

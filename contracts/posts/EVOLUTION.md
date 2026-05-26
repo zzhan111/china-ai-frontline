@@ -231,7 +231,7 @@ PR #22 review 要求"在 merge 之前用 SKILL 走一遍完整流程写一篇 dr
 - [ ] hashtag regex 排除单纯数字 issue/PR refs（本次新增）
 - [ ] em dash 计数 overcounts（phase 2b 已记）
 - [ ] audience 字段升 FAIL 时机：3 条 post 都已带 audience，已满足 v1.1 当时定的 "≥3 个 draft 都带了 audience" 门槛——**可以升 FAIL 了**
-- [x] humanize step：本次只到 step 6 eval-clean，humanizer 没接入；等 humanizer skill 可用时补 → **done in phase 2d (PR #26) via vendored fallback path**
+- [x] humanize step：本次只到 step 6 eval-clean，humanizer 没接入；等 humanizer skill 可用时补 → **done in phase 2d (PR #26) + sibling platforms (phase 2e)**
 
 ---
 
@@ -301,6 +301,44 @@ eval 没报这个 WARN，是 humanize 手工抓的。
 本次新增：
 - [ ] meta-value-assertion 扩展（X-时代-Y-本质 句式）
 - [ ] humanize signature 在 post block 的标准位置（当前放在 X thread 草稿 后、发布后反馈 前；`posts/README.md` template 应同步更新——目前还是 `### Humanizer` 没有 `### posts-eval` 同级）
+
+---
+
+## 2026-05-25 — Phase 2e: apply v1.1 workflow to sibling platforms (xiaohongshu + moments)
+
+PR #24 的 sibling：对 `posts/xiaohongshu.md`（2 条）和 `posts/moments.md`（2 条）走 v1.1 workflow → humanize 闭环。**baseline 14P/14W/1F → 15P/6W/0F**。
+
+### 关键 decision
+
+1. **xiaohongshu audience routing**：x.md 的 audience "AI builder + 独立创作者" 在小红书属于「核心技术画像」→ contract §6 #5 硬禁 rejected。User 选择换成「想入门 AI 工作流的产品经理/设计师/运营」（半技术画像）→ 评分放行但 §3.3 tech-prereq 打折。这是第一次实战触发 audience routing 硬禁 —— contract 设计 work，把不可能 published 的 routing 在 draft 阶段挡掉。
+
+2. **ad-law false positive** (12306 post): "第一反应是去逆向它的 API" 触发 `hard-reject:ad-law`。User 确认是 false positive，"第一" 是日常用语不是广告极限词。选择改词（"本能反应"）消 FAIL 而不是 acknowledge 保持——因为 FAIL 是 blocking，acknowledge 不能 override FAIL。
+
+### 剩余 WARN 的 nature
+
+| post | WARN | 处理 |
+|---|---|---|
+| xiaohongshu 001 | audience:semi-tech, actionable:tech-prereq | acknowledged: per contract §6/§3.3 design |
+| xiaohongshu 002 | audience:semi-tech, actionable:tech-prereq | acknowledged: per contract §6/§3.3 design |
+| moments 002 | ai-flag:over-structure, ai-flag:count | acknowledged: eval false positive (见下方 bug) |
+
+全部 6 WARN 要么是 contract-intentional（design-level, not fixable）要么是 eval false positive——**没有 "contract 抓不到但直觉要改" 的项**。contract + eval + SKILL 三件套在跨平台场景下继续 work。
+
+### 新发现的 eval bug
+
+**`ai-flag:over-structure` 对普通数字字符误报**（moments post-002, 正文无数字 emoji）:
+- 原因：`sum(text.count(c) for c in "1️⃣2️⃣3️⃣4️⃣5️⃣")` — Python string literal 包含 combining enclosing keycap (U+20E3)，但 `str.count(c)` 在这种 codepoint representation 下可能匹配到普通数字字符
+- 影响：moments post-002 正文 "22 分钟"、"2 小时"、"12306"、"15 趟"、"0 token" 触发了 13 次数字 emoji 计数
+- **v1.2 fix**: 改用 Unicode-aware digit emoji detection（如 `\d\ufe0f\u20e3` regex 或 `unicodedata`）
+
+### Open items（v1.2 累积更新）
+
+- [ ] tweet[N] 0-indexed 说明（phase 2c）
+- [ ] hashtag regex 排除 `#\d+`（phase 2c）
+- [ ] em dash 计数 overcounts（phase 2b）
+- [x] audience 升 FAIL 时机已满足（phase 2c）→ 现在 5 条 post 全带 audience
+- [ ] meta-value-assertion 扩展 X-时代-Y-本质 句式（phase 2d）
+- [ ] **NEW** over-structure digit_emoji 对普通数字误报（本次）
 
 ---
 
