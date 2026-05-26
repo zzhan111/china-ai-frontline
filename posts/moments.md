@@ -90,3 +90,53 @@ humanizer: zh@2026-05-25 (prompts/humanizer-zh.md vendored fallback by Claude Op
 转发：
 高质量反馈：
 下一步：
+
+---
+
+## post-2026-05-26-001：DeepSeek 月度成本 ¥33 vs 海外 ¥8,000+
+
+状态：draft
+来源：inbox/2026-05.md#2026-05-25-17-08
+首发平台：朋友圈（同步 X thread）
+audience：熟人圈：同事 + tech 朋友 + 家人
+是否升级长文：否（X thread 先行）
+
+### 一句话观点
+
+¥33 买的不只是 token，是"不用精打细算"的自由。
+
+### 近似实现 / 待查
+
+见 posts/x.md post-2026-05-26-001。
+
+### 朋友圈草稿
+
+5 月 AI 账单：4,155 次调用，410M tokens，¥33.36。
+
+去 OpenRouter 查了同量用 OpenAI / Anthropic 的价格：$1,150 和 $1,280。差 250 倍。
+
+最意外的不在价格本身。在于便宜到一定程度之后，你就不再想优化 prompt 了。完整文件、超长上下文直接丢。¥33 一个月。
+
+某种意义上，AI 普及的根本是调用成本降到了你不用思考的程度。跟模型是不是更聪明没关系。
+
+### posts-eval
+
+acknowledged: ai-flag:over-structure（短文出现数字 emoji）— eval false positive：正文无数字 emoji，bug 在 text.count(c) 对普通数字字符匹配到含 U+20E3 variant selector 的 codepoint 组合。
+
+acknowledged: ai-flag:count（1 red flag）— 上述 false positive 的副产品。
+
+### Humanizer
+
+humanizer: zh@2026-05-26 (prompts/humanizer-zh.md vendored fallback by Claude Sonnet 4.6 + manual touch-up)
+
+应用项：轻量 pass，保留口语节奏
+
+### 发布后反馈
+
+发布时间：
+链接：
+回复：
+收藏：
+转发：
+高质量反馈：
+下一步：
