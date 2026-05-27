@@ -344,3 +344,103 @@ humanizer: zh@2026-05-26 (prompts/humanizer-zh.md vendored fallback by Claude So
 转发：
 高质量反馈：
 下一步：
+
+---
+
+## post-2026-05-26-002：API 不平等 — 中国平台不给 AI 开门
+
+状态：draft
+来源：inbox/2026-05.md#2026-05-26-16-30 + 微信群聊「AI 出海工具链」
+首发平台：X
+audience：AI builder + 跨境电商从业者（海外华人 tech + e-commerce 圈层）
+是否升级长文：是（见 posts/long-form-assessment.md）
+
+### 一句话观点
+
+API 不平等是 AI agent 时代的核心瓶颈：硅谷平台开放 API，中国平台封闭。但 agent 可以不靠平台施舍——通过浏览器自己"长"出 API。
+
+### 近似实现
+
+**browse.sh 社区**
+- [browse.sh](https://browse.sh)：400+ 站点内部 API 端点集合（Google、Amazon、eBay、Airbnb 等），以标准化 action 协议组织
+- 限制：绑定云端浏览器引擎，无法本地 agent 直接调用
+
+**bb-browser 适配器生态**
+- [epiral/bb-sites](https://github.com/epiral/bb-sites)：开源社区站点适配器库，每个适配器是一个 `async function` 在浏览器上下文运行
+- 已有 12306、淘宝、京东、小红书、Amazon、eBay 等 11 个中国优先站点适配器（PR #79）
+
+**跨境电商 AI 方案（竞品）**
+- 市面内容集中在「AI 写 listing 文案」（ChatGPT prompt 教程），解决生成但不解决推送
+- RPA/影刀/UiPath 等浏览器自动化工具：图形界面操作，脆弱、反爬升级即失效
+
+**差异化**：本方案的「0 token CDP 提取」不是抓 HTML 爬页面，而是直接调到站点内部数据 API，等效于官方 API 但不依赖平台开放。已有群聊 real-world validation（3 人表示要研究，1 人索要 PR 链接）。
+
+### X thread 草稿
+
+1/
+今天在跨境电商群里聊到一个共识：AI 写文案已经很稳了，但没人在聊"写完怎么推上去"。
+
+一个做亚马逊的朋友，listing 生成跑通两个品类，很稳定。但所有内容还是手动贴。
+
+不是不想自动化——是没 API。
+
+2/
+群里讨论暴露了三个现实：
+
+① API 不平等：Twitter、Cloudflare、Google 都开放 API；阿里国际站、1688、京东、小红书全部封闭
+② 浏览器自动化是死胡同：反爬不断升级，图形界面让大模型绕路
+③ 终极愿景只有一个："文字 AI 组织，工作 AI 推"
+
+3/
+我分享了一个正在做的东西，群里的反应超预期：
+
+三个人说"我去研究一下"，一个人直接要了 PR 链接。
+
+核心思路：browse.sh 收集了 400+ 网站的内部 API 端点，我把它翻译成了本地浏览器的适配器。
+
+4/
+怎么用：
+
+装 bb-browser → 拉到本地 → agent 直接调站点内部 API。
+
+不是爬 HTML，是调到站点自己的数据接口。等效于官方 API，但不依赖平台开放。
+
+0 token。全程不消耗 LLM 调用。
+
+5/
+已经跑通的：
+· 12306 查票：北京→上海，15 趟列车，时刻+余票
+· 京东搜索：30 件手机商品，¥718~¥13,199，全字段
+· 小红书热门：34 条推荐，点赞 10 万+的内容也在里面
+
+昨天验证完，今天就有人要试。
+
+6/
+能做的不止查数据。
+
+群里那个朋友已经在想：AI 生成 listing → AI 直接推上亚马逊。
+
+独立站用 shopify cli，平台端用适配器。
+
+全链路 agent 不再是想象。
+
+7/
+项目：https://github.com/epiral/bb-sites/pull/79
+
+我做的 11 个中国站点只是开始。browse.sh 上还有 amazon/ebay/etsy/booking/airbnb……400 多个。
+
+如果你也在做跨境电商+AI，想接上最后一公里，来看看。
+
+### Humanizer
+
+humanizer: zh@2026-05-26 (prompts/humanizer-zh.md vendored fallback)
+
+### 发布后反馈
+
+发布时间：
+链接：
+回复：
+收藏：
+转发：
+高质量反馈：
+下一步：
