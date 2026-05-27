@@ -140,3 +140,41 @@ humanizer: zh@2026-05-26 (prompts/humanizer-zh.md vendored fallback by Claude So
 转发：
 高质量反馈：
 下一步：
+
+---
+
+## post-2026-05-26-002：API 不平等 — 群里聊出来的灵感
+
+状态：draft
+来源：inbox/2026-05.md#2026-05-26-16-30 + 微信群聊
+首发平台：朋友圈
+audience：熟人圈：同事 + tech 朋友 + 跨境电商朋友
+是否升级长文：可联动
+
+### 一句话观点
+
+平台不给 API，AI agent 可以自己去"长"出来。
+
+### 朋友圈草稿
+
+今天群里聊阿里、京东、小红书的 API 问题。一个做亚马逊的朋友说 AI 写 listing 已经很稳，推不上去——因为没 API。
+
+我分享了一下正在做的东西：browse.sh 上有 400+ 网站的内部 API 端点，翻译成本地适配器后，AI agent 能 0 token 直接调用。12306 查票、京东搜索、小红书热门都跑通了。
+
+群里三个人立刻说要去研究。一个朋友已经在想"AI 生成 listing → AI 直接推上亚马逊"。
+
+感觉"API 不平等"这件事，不是只有我在意。发了个 PR：https://github.com/epiral/bb-sites/pull/79
+
+### Humanizer
+
+humanizer: zh@2026-05-26 (prompts/humanizer-zh.md vendored fallback)
+
+### 发布后反馈
+
+发布时间：
+链接：
+回复：
+收藏：
+转发：
+高质量反馈：
+下一步：
