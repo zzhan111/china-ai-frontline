@@ -264,3 +264,37 @@ humanizer: zh@2026-05-28 (prompts/humanizer-zh.md vendored fallback)
 转发：
 高质量反馈：
 下一步：
+
+
+---
+
+## post-2026-05-28-003：AI 产业三阶段——造车的窗口
+
+状态：draft
+来源：inbox/2026-05.md#2026-05-27-16-00
+首发平台：朋友圈
+audience：熟人圈：同事 + tech 朋友
+
+### 朋友圈草稿
+
+读到一篇蚂蚁的分析文章，里面把 AI 产业切成三个阶段：修路（2022-2026）→ 造车（2026-2028）→ 收过路费（2028-2035）。
+
+我对了一下自己在做的事——0 token 找 API、访谈方法论里 AI 穷举 + 人判断——全落在第二阶段「造车」上。不是刻意选的，是回头看才看清。
+
+知道自己在造车，比不知道自己在干嘛强。方向没偏。
+
+### Humanizer
+
+humanizer: zh@2026-05-28 (prompts/humanizer-zh.md vendored fallback by Claude Sonnet 4.6)
+
+应用项：去「文章在评论区」错误引用；「bb-browser 适配器」改为「0 token 找 API」；删「social content loop」未发布内容；全文无 em dash；无 meta-value 断言。
+
+### 发布后反馈
+
+发布时间：
+链接：
+回复：
+收藏：
+转发：
+高质量反馈：
+下一步：
