@@ -106,8 +106,10 @@ china-ai-frontline/
 │   │   ├── 002-draft-v1.1.md
 │   │   ├── 002-draft-V2.md
 │   │   └── 002-preview.md       ← #002 终稿候选（发送前预览稿）
-│   └── 004/                     ← #004 项目目录
-│       ├── README.md            ← 进度和发布数据
+│   └── 004/                     ← #004 项目目录（访谈型）
+│       ├── README.md            ← 进度、v1→v2 编辑案例、v2→发布版差异、发布数据
+│       ├── 004-draft-v1.md      ← 初稿（AI 铺满型）
+│       ├── 004-draft-v2.md      ← 文笔重写版
 │       └── preview.md           ← #004 已发布终稿（访谈Vol.01）
 ├── ops/                         ← 运营流程
 │   ├── publishing-checklist.md
