@@ -734,3 +734,63 @@ humanizer: zh@2026-05-28 (prompts/humanizer-zh.md vendored fallback by Claude So
 转发：
 高质量反馈：
 下一步：
+
+
+## post-2026-05-30-001：MiniMax M2 — Agent 训练范式转移
+
+状态：draft
+来源：inbox/2026-05.md#2026-05-30-00-30
+首发平台：X
+audience：AI builder + tech watchers
+是否升级长文：待观察
+
+### 一句话观点
+
+Agent 的能力不是接上去的插件，是长出来的——MiniMax M2 把 agent 训练做进了预训练阶段。
+
+### 近似实现 / 需要调查
+
+- **DeepSeek V3/R1**：同流派（大参数/小激活），但激活比 ~5.5% vs MiniMax 4.3%，且 agent 能力来自 post-train RL 而非 pre-train 内置
+- **Anthropic Claude Code**：agent 能力强的闭源模型，但训练方案未公开
+- **OpenAI Codex CLI / SWE-bench agent**：agent scaffold 层面强，但未见训练阶段 agent-native 管线公开
+
+差异化：MiniMax M2 的差异化不在 benchmark 绝对值，而在训练哲学——"训练就是 agent"。这与 Hermes delegate_task 多 backend 调度思路有架构共鸣。
+
+### X thread 草稿
+
+**1/**
+MiniMax 发了 M2 技术报告。229.9B 参数，每 token 只激活 9.8B。4.3%。
+
+**2/**
+抓人的不是参数。训练阶段模型就泡在 agent 环境里，coding、cowork、reasoning。每条轨迹都有可验证的 reward。
+
+**3/**
+传统做法：训好模型再接 agent tool。MiniMax 反过来，训练本身就是 agent 训练。Forge RL 同时吃白盒和黑盒 agent，train-inference-agent 三层解耦。
+
+**4/**
+M2.7 能自己 debug 训练失败、改自己的 agent scaffold。不是人在 loop 里调参，是模型在 loop 里修自己。
+
+**5/**
+路线和 DeepSeek 同流派（大参数/小激活），激活比更低：4.3% vs ~5.5%。约 1/20 计算量，SWE-bench Pro 56.2，AIME 2026 94.2。
+
+**6/**
+Forge 的白盒+黑盒 agent 统一训练，和 delegate_task 多 backend 调度同一个逻辑。不同后端同等对待，同一层协调。
+
+**7/**
+Agent 的能力不是接上去的插件，是长出来的。arXiv:2605.26494，三个子报告。
+
+### Humanizer
+
+humanizer: zh@2026-06-01 (prompts/humanizer-zh.md vendored fallback by deepseek-v4-pro)
+
+应用项：删 signposting（"一个数字"）、删 em dash、删"核心创新在"前缀、删"不是巧合"过度论证、合并 7/8 为一条
+
+### 发布后反馈
+
+发布时间：
+链接：
+回复：
+收藏：
+转发：
+高质量反馈：
+下一步：
