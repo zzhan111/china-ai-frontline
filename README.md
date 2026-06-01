@@ -21,6 +21,7 @@ idea → AI 整理 → 找近似实现 → 平台草稿 → 发布检查 → 手
 | 001 | [我认识的 7 个 UIUC 校友，过去 12 个月里 4 个回国了](drafts/001/README.md) | 四 | ✅ 已发 | [`001-final-final.md`](drafts/001/001-final-final.md) | 2026-05-12 |
 | 002 | [海外华人团队正在重做 AI 家教：教育 AI 出海的第一批用户从哪来？](drafts/002/README.md) | 二+五 | ✅ 已发 | [`002-preview.md`](drafts/002/002-preview.md) | 2026-05-16 |
 | 003 | 中国 AI 生态地图:海外华人最容易误读的差异 | 二 | ✅ 已发  | [`003-preview.md`](drafts/003/003-preview.md)  | 2026-05-21 |
+| 004 | [让大模型走出屏幕，去拧动工厂里的阀门](drafts/004/README.md) | 三 | ✅ 已发 | [`preview.md`](drafts/004/preview.md) | 2026-05-29 |
 
 > 状态说明：💡 idea → 📝 drafting → ✅ final-candidate → 🚀 published
 
@@ -100,11 +101,16 @@ china-ai-frontline/
 │   │   ├── 001-draft-v2.1.md
 │   │   ├── 001-Final.md
 │   │   └── 001-final-final.md   ← #001 终稿候选
-│   └── 002/                     ← #002 项目目录
-│       ├── README.md            ← 进度、三版演进分析（v1.1→V2→Preview）、发布数据
-│       ├── 002-draft-v1.1.md
-│       ├── 002-draft-V2.md
-│       └── 002-preview.md       ← #002 终稿候选（发送前预览稿）
+│   ├── 002/                     ← #002 项目目录
+│   │   ├── README.md            ← 进度、三版演进分析（v1.1→V2→Preview）、发布数据
+│   │   ├── 002-draft-v1.1.md
+│   │   ├── 002-draft-V2.md
+│   │   └── 002-preview.md       ← #002 终稿候选（发送前预览稿）
+│   └── 004/                     ← #004 项目目录（访谈型）
+│       ├── README.md            ← 进度、v1→v2 编辑案例、v2→发布版差异、发布数据
+│       ├── 004-draft-v1.md      ← 初稿（AI 铺满型）
+│       ├── 004-draft-v2.md      ← 文笔重写版
+│       └── preview.md           ← #004 已发布终稿（访谈Vol.01）
 ├── ops/                         ← 运营流程
 │   ├── publishing-checklist.md
 │   ├── distribution-channels.md

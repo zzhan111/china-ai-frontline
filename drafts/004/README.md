@@ -1,16 +1,45 @@
-# 004 — 端侧 AI 与黑客松：一个非科班连续创业者的访谈
+# 004 — 让大模型走出屏幕，去拧动工厂里的阀门
 
-本目录沉淀第 004 期**人物访谈**（受访者：闫露 / 公众号「顽皮的程序员」）从访谈准备到成稿的全过程。它和 [`drafts/001/README.md`](../001/README.md)（人/AI 分工）、[`drafts/002/README.md`](../002/README.md)（版本演进 + 写作原则）一起，逐步固化 china-ai-frontline 的写作工作流——**004 补上的是"长篇人物特稿"这一体裁**。
+> 支柱三：连接节点 · 访谈Vol.01 · 闫露（端侧AI创业者）
+
+本目录沉淀第 004 期**人物访谈**（受访者：闫露 / 公众号「顽皮的程序员」）从访谈准备到发布的全过程。它和 [`drafts/001/README.md`](../001/README.md)（人/AI 分工）、[`drafts/002/README.md`](../002/README.md)（版本演进 + 写作原则）一起，逐步固化 china-ai-frontline 的写作工作流——**004 补上的是"长篇人物特稿"这一体裁**。
+
+---
+
+## 状态
+
+| 字段 | 值 |
+|---|---|
+| status | `published` |
+| 终稿文件 | [`preview.md`](preview.md) |
+| 选题卡片 | [`topics/pillar-3/004-edge-ai-hackathon-founder-interview.md`](../../topics/pillar-3/004-edge-ai-hackathon-founder-interview.md) |
+| published_url | https://mp.weixin.qq.com/s?__biz=MjM5MzM0MTM1Ng==&mid=...（预览链接，已过期） |
+| published_at | 2026-05-29 |
+| 阅读 / 在看 / 转发 | — / — / — |
 
 ## 文件说明
 
 | 文件 | 角色 | 状态 |
 |---|---|---|
-| `004-draft-v1.md` | 初稿（AI 铺满型，7 节约 5000 字） | 归档 |
-| `004-draft-v2.md` | 文笔重写版（活人感 + 内在对话共情 + 去喧嚣） | **当前主版本** |
-| `README.md` | 本文件：工作流固化 + v1→v2 编辑案例 | — |
+| [`004-draft-v1.md`](004-draft-v1.md) | 初稿（AI 铺满型，7 节约 5000 字） | 归档 |
+| [`004-draft-v2.md`](004-draft-v2.md) | 文笔重写版（活人感 + 内在对话共情 + 去喧嚣） | 文笔定版 |
+| [`preview.md`](preview.md) | 公众号「UIEVENTS事历」发布版全文存档 | **当前主版本·已发** |
+| `README.md` | 本文件：工作流固化 + v1→v2 编辑案例 + 发布差异 | — |
 
-关联：选题卡片 [`topics/pillar-3/004-edge-ai-hackathon-founder-interview.md`](../../topics/pillar-3/004-edge-ai-hackathon-founder-interview.md)｜素材 [`materials/004/`](../../materials/004/)（含访谈转写清洗稿）｜长文 contract building block [`contracts/longform/building-blocks.md`](../../contracts/longform/building-blocks.md)｜范文 [`raw/references/2026-05-29-nanfang-profile-detox-school-11-days.md`](../../raw/references/2026-05-29-nanfang-profile-detox-school-11-days.md)。
+关联：素材 [`materials/004/`](../../materials/004/)（含访谈转写清洗稿）｜长文 contract building block [`contracts/longform/building-blocks.md`](../../contracts/longform/building-blocks.md)｜范文 [`raw/references/2026-05-29-nanfang-profile-detox-school-11-days.md`](../../raw/references/2026-05-29-nanfang-profile-detox-school-11-days.md)。
+
+---
+
+## 版本演进全景
+
+```
+v1（初稿）──── v2（重写）──── preview（发布版）
+纯AI铺满       人工反馈+文笔重写   公众号定稿
+```
+
+- **v1**：初稿，中心线索改走「AI 重构物理世界」+ 个人史（原「黑客松=新路演场」脊柱在采访里最弱，舍去）。文件：[`004-draft-v1.md`](004-draft-v1.md)
+- **v2**：基于人工评审反馈重写，架构保留、文笔主攻——场景化开场、活人感、概念锚定、内在对话共情、去直播间喧嚣、删硬伤。文件：[`004-draft-v2.md`](004-draft-v2.md)
+- **preview**：公众号「UIEVENTS事历」发布的最终版本，署名之哲。与 v2 的差异见 §三。文件：[`preview.md`](preview.md)
 
 ---
 
@@ -70,7 +99,34 @@
 
 ---
 
-## 三、发布后数据（待填）
+## 三、v2 → 发布版 核心差异
+
+v2 定文笔后，公众号定稿（preview）又做了一层编辑收口：
+
+| 维度 | v2 | 发布版 |
+|---|---|---|
+| 标题 | 候选三选一 | 定稿「让大模型走出屏幕，去拧动工厂里的阀门」 |
+| 副标题 | 无 | 标注「访谈Vol.01」+ 受访者定位介绍 |
+| 封号 | "年过古稀" | "60年"（更具体） |
+| 药盒描述 | "智能药盒" | "像老式打印机那么大的智能药盒" |
+| 章节 | 无编号 | 01-06 编号 |
+| function call | 2018 年前后 | 2024 年前后（校正时间线） |
+| to C / to B | 未强调 | 新增 "我们的家庭也许还没准备好...但是也许一家药店可以" |
+| 脚注 | "线上连麦的方式" | "视频号「顽皮的程序员」的直播间长谈" |
+
+---
+
+## 四、写作资产（本稿沉淀）
+
+本稿的写作方法论已固化为可复用资产：
+
+- [`contracts/longform/building-blocks.md`](../../contracts/longform/building-blocks.md) — LF-1~6 六维度：活人感/内在对话/概念锚定/反流水账/藏露/场景调性
+- [`contracts/longform/EVOLUTION.md`](../../contracts/longform/EVOLUTION.md) — 长文 contract 演进日志
+- [`raw/references/2026-05-29-nanfang-profile-detox-school-11-days.md`](../../raw/references/2026-05-29-nanfang-profile-detox-school-11-days.md) — 范文存档（南方人物周刊·失控的爱）
+
+---
+
+## 五、发布后数据（待填）
 
 > 发布后由 `express:` commit 填充，无需走 PR。
 
@@ -83,6 +139,7 @@
 | 留言精选 | | | |
 
 ### 复盘
+
 （发布 7 天后填写）
 
-_Last updated: 2026-05-29_
+_Last updated: 2026-05-30_
