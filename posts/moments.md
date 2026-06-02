@@ -298,3 +298,34 @@ humanizer: zh@2026-05-28 (prompts/humanizer-zh.md vendored fallback by Claude So
 转发：
 高质量反馈：
 下一步：
+
+
+## post-2026-06-01-001：周榜 5 个高星 AI 项目实测
+
+状态：draft
+来源：inbox/2026-06.md#2026-06-01-14-30
+首发平台：朋友圈
+audience：熟人圈：同事 + tech 朋友 + 家人
+是否升级长文：否
+
+### 朋友圈草稿
+
+这周把 GitHub 周榜 10 个项目里值得装的全装了。
+
+5 个实测：Understand-Anything（45.9k 知识图谱）→ markitdown（132k 文档转 markdown）→ ECC（199k skill 库）→ Anthropic 20 个官方插件 → stop-slop（AI 写作痕检测）。
+
+最值的发现：5 个工具刚好串成 Agent 三件套——理解、执行、数据。下周写一下 ECC 那 249 个 skill 怎么快速摸清全貌。
+
+### Humanizer
+
+humanizer: zh@2026-06-02 (prompts/humanizer-zh.md vendored fallback by deepseek-v4-pro)
+
+应用项：删 em dash、删引号装饰
+
+### 发布后反馈
+
+发布时间：
+链接：
+回复：
+高质量反馈：
+下一步：
