@@ -58,7 +58,8 @@ china-ai-frontline/
 │   └── platform-strategy.md     ← 多平台职责与升级规则
 ├── inbox/                       ← 碎片想法捕捉（按月份一个文件）
 │   ├── README.md
-│   └── 2026-05.md
+│   ├── 2026-05.md
+│   └── 2026-06.md
 ├── posts/                       ← 社媒发布包（X / 小红书 / 朋友圈）
 │   ├── README.md
 │   ├── x.md

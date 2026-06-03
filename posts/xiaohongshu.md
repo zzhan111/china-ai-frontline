@@ -671,6 +671,70 @@ humanizer: zh@2026-05-28 (prompts/humanizer-zh.md vendored fallback by Claude So
 下一步：
 
 
+## post-2026-06-01-001：周榜 5 个 GitHub 高星 AI 项目，全部实测
+
+状态：draft
+来源：inbox/2026-06.md#2026-06-01-14-30
+首发平台：小红书
+audience：半技术画像：PM、设计师、运营、对 AI 感兴趣的从业者
+是否升级长文：可联动
+
+### 笔记草稿
+
+**标题（候选）**
+- 周榜 5 个 GitHub 高星 AI 项目，全部实测，给个结论
+- 199k 星的 AI 工具你装了吗？我跑了 5 个，留下 3 个
+- 5 个 GitHub 高星 AI 项目实测，附 1 个我立刻卸载的
+
+---
+
+**正文**
+
+🤖 这周我把 GitHub 周榜翻了 10 个项目，挑了 5 个真正能跑的全部实测。下面按推荐度排序：
+
+**🥇 Understand-Anything（45.9k）**
+理解一个陌生代码库。111 文件的 JS 项目，8 分钟出知识图谱（115 节点 135 边 7 层）。Dashboard 跑起来可以交互式浏览——再也不用肉眼读项目结构。
+
+**🥈 markitdown（132.4k）**
+微软官方工具。HTML/JSON/TXT 转纯净 Markdown 一次过。pip install 即可，零配置。给 LLM 准备资料必备。
+
+**🥉 ECC（199.3k）**
+Claude 技能库，249 skills + 63 agents。两个最值看的：
+- brand-voice：保证多模型输出风格一致
+- cost-aware-llm-pipeline：自动选最便宜的模型
+
+**Anthropic knowledge-work-plugins（18.2k）**
+官方 20 个插件。draft-content 实测写了一篇博客，stop-slop 自检 42/50。
+
+**stop-slop（7.4k）**
+10 维度 AI 写作痕评分体系。和 ECC brand-voice 互补。中文 AI 内容创作者值得装。
+
+**🚫 跳过：taste-skill**
+看名字以为是内容质量工具，实际是前端 UI 设计框架。和我的场景不匹配，卸了。
+
+**🔧 三件套管线（核心发现）：**
+- Understand-Anything（理解）
+- ECC（执行）
+- markitdown（数据）
+
+刚好拼出 Agent 基础设施的三层。
+
+**🎁 Bonus：**
+我把 ECC 全部 249 个 skill 用 Understand-Anything 做了知识图谱，262 节点 13 分类层。Dashboard 在本机跑（http://localhost:5175），可交互浏览。
+
+---
+
+**标签**
+#AI工具 #GitHub推荐 #Claude #Anthropic #AI开发 #开发者 #AI实战 #工具实测
+
+### Humanizer
+
+humanizer: zh@2026-06-02 (prompts/humanizer-zh.md vendored fallback by deepseek-v4-pro)
+
+应用项：删"5 个项目"装饰性重复、删"这意味着什么"signposting、删引号装饰
+
+---
+
 ## post-2026-05-30-001：Agent 的能力是长出来的，不是接上去的
 
 状态：draft
