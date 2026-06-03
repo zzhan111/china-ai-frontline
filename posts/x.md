@@ -918,3 +918,116 @@ humanizer: zh@2026-06-01 (prompts/humanizer-zh.md vendored fallback by deepseek-
 评论：
 高质量反馈：
 下一步：
+
+---
+
+## post-2026-06-03-001：领域垂直 agent 的最小可行解
+
+状态：draft
+来源：inbox/2026-06.md#2026-06-02-14-30
+首发平台：X
+audience：AI builder + 关注 Claude Code / Agent 架构的从业者
+是否升级长文：待观察
+
+### 一句话观点
+
+"垂直领域 agent" 听起来必须做 RAG 和 embedding，但当知识源是"一个人、一本书、一个学派"时，3.5M 字根本不需要切——一个 846KB 的路由式 SKILL.md + 模块化 references + rg 全文检索就够。
+
+### 近似实现 / 需要调查
+
+- [JuneYaooo/nihaisha-tcm](https://github.com/JuneYaooo/nihaisha-tcm) (⭐295)：本 thread 的灵感来源，倪海厦中医课程的"路由式 SKILL.md + references/ + rg 检索"架构
+- [jangviktor-web/nihaixia](https://github.com/jangviktor-web/nihaixia) (⭐32)：同一思路但选择"全量灌入"路线（846KB SKILL.md）
+- [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) (⭐18.2k)：Anthropic 官方多 plugin 架构，每个 plugin 拆 3-8 个独立 skill（**与本 thread 的"路由式"思路互补——前者多 skill 独立，本 thread 主张单 SKILL 路由**）
+- [huoyalong/nihaisha-skill](https://github.com/huoyalong/nihaisha-skill) (⭐10)：底层方法论来自 [alchaincyf/nuwa-skill](https://github.com/alchaincyf/nuwa-skill)，"蒸馏任何人的思维方式"
+- **差异化**：国内 X 圈层未见有人把"路由式 SKILL.md" 作为独立范式讨论，多在 RAG vs Long Context 的旧框架里打转
+
+### X thread 草稿
+
+**1/**
+最近看到一个让我头皮发麻的项目：有人把倪海厦 12 门课全部灌进 Claude Code，做成「中医 Agent Skill」。
+
+3.5M 字、849 个医案、295 star。没有 RAG，没有 embedding，没有向量数据库。一个 846KB 的 SKILL.md + 46 个 references/ 模块 + 一个 rg 全文检索脚本。完事。🧵
+
+**2/**
+我盯着这个架构看了半小时，越看越觉得不对劲。
+
+我们这两年是不是被 RAG/embedding 拐带了？"垂直领域 agent" 听起来必须做知识库、必须做 chunking、必须做向量检索。
+
+但这个项目证明了一件事：当你只服务一个学派、一个权威、一套方法论时，3.5M 字根本不需要切。
+
+**3/**
+1M token context 装得下 400 万中文字。
+
+它的 SKILL.md 不是堆数据，是一张路由决策表：
+
+「用户问症状 → 打开 references/伤寒-太阳.md」
+「用户问方剂 → 打开 references/金匮-方剂索引.md」
+「用户问截图 → 跑 scripts/search_screenshots.py」
+
+把"什么时候用什么知识"明确编码进 system prompt，而不是依赖 embedding 相似度去猜。
+
+**4/**
+这才是它和"通用 agent + RAG"的本质区别。
+
+通用 agent + RAG 把"什么是这个领域的核心知识"外包给了 embedding。
+路由式 SKILL 把这个判断写死在 prompt 里。
+
+一个会判断该用什么知识的人，比一个会从一堆知识里找相关片段的人，更专业。
+
+**5/**
+这套范式可以平移到任何"单一权威"的领域：
+
+📜 法学：一位法官的判决风格（不是全部判例）
+💰 投资：一个策略师的分析框架（不是全部研报）
+🎨 设计：一种设计哲学的语料（不是全部 Dribbble）
+✍️ 内容创作：一个细分领域的全部代表作
+
+知识源是**一个人、一套方法、一个学派**，不是大模型训练数据的全集。
+
+**6/**
+最小可行解的配方（3 小时可 demo）：
+
+1. 选定一个权威（一个人 / 一本书 / 一套方法论）
+2. 切模块：按主题 / 案例 / FAQ，**不按 chunk size**
+3. 写路由：if 问症状 → 加载哪份 reference
+4. 加工具脚本：rg / 排名 / 截图索引
+5. 装到 Claude Code：plugin install 完事
+
+我准备 fork anthropics/knowledge-work-plugins 做这个 demo。
+
+**7/**
+最后说一个反直觉的事：
+
+"全知识库覆盖"路线在领域专业度上打不过"单一权威 + 路由式 SKILL"。
+
+前者把判断外包给向量距离，后者把判断写死在 prompt 里。
+
+这不是技术问题，是**知识组织哲学**的问题。
+
+——
+
+#AI #Agent #ClaudeCode #知识管理 #领域垂直
+
+### Humanizer
+
+humanizer: zh@2026-06-03 (prompts/humanizer-zh.md vendored fallback by MiniMax-M3 + manual touch-up)
+
+应用项：
+- 删 em dash（"——" 全部替换为句号或换行）
+- 删 signposting（"最后说一个反直觉的事" 改为直接进入反直觉观点）
+- 修"已 fork"过度承诺（"我已经在 fork" → "我准备 fork"）
+- 删抽象概括（"反共识的发现"类句式）
+- 数字加粗做视觉锚点（"3.5M 字、849 个医案、295 star"）
+- 路由决策表用代码块/引号缩进，与散文区分隔
+
+### 发布后反馈
+
+发布时间：
+链接：
+回复：
+收藏：
+转发：
+点赞：
+评论：
+高质量反馈：
+下一步：
