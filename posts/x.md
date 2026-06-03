@@ -1031,3 +1031,172 @@ humanizer: zh@2026-06-03 (prompts/humanizer-zh.md vendored fallback by MiniMax-M
 评论：
 高质量反馈：
 下一步：
+
+---
+
+## post-2026-06-03-002：我把 Coze 上的爆款标题 skill 装进本地 agent，零 token 跑通
+
+状态：draft
+来源：inbox/2026-06.md#2026-06-03（Coze skill → 本地 agent 反哺路径调研 — 路径 A 真实跑通）
+首发平台：X
+audience：AI builder + 关注 Coze / 字节生态 + 本地 agent 的从业者
+是否升级长文：待观察
+
+### 一句话观点
+
+Coze 行业 skill 蒸馏到本地的路径 A（直接 fork）真实跑通：从 huajianjiu000/coze-skills clone 一个 0 star 的子目录，补 19 行 frontmatter，0 token 成本变成可被 Hermes / Claude Code 自动调用的 skill。
+
+### 近似实现 / 需要调查
+
+- [huajianjiu000/coze-skills](https://github.com/huajianjiu000/coze-skills/tree/main/title-generator)：本次 demo 的 fork 源，0 star 但内部 3 个 skill 都完整
+- [Coze 上架版](https://xiaping.coze.site/skill/0f8086fd-0442-4712-b6e4-827e6bf07414)：原始上架地址，验证"该 skill 真在 Coze 跑过"
+- [LingyiChen-AI/workflow-skill](https://github.com/LingyiChen-AI/workflow-skill) (⭐96)：路径 A+C 双料命中，金融研报自动生成 workflow
+- [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) (⭐18.2k)：Hermes 装入的 plugin 协议参考
+- **差异化**：Coze 官方 `github.com/coze-dev` org 22 个仓库**没有**公开的行业 skill 集市——skill 都在第三方仓库或 Coze 平台私域。社区 fork 是唯一入口。
+
+### 实跑过程（端到端 4 步）
+
+**1️⃣ 找到目标 skill**
+
+```bash
+# 真实命令 + 真实输出
+$ curl -s "https://api.github.com/orgs/coze-dev/repos" | jq -r '.[].name' | head -22
+# 22 个官方仓库，无行业 skill
+# 转向社区搜索
+$ git clone --depth 1 https://github.com/huajianjiu000/coze-skills
+```
+
+**2️⃣ 验证零字节依赖**
+
+```bash
+$ grep -rE "豆包|飞书|feishu|bytedance|coze\.com|api\.coze" coze-skills/title-generator/
+# 输出：无匹配
+# → 结论：纯本地 Python 标准库，可剥离
+```
+
+**3️⃣ 装入 Hermes（4 行命令）**
+
+```bash
+SKILLS=~/AppData/Local/hermes/profiles/w-hermes/skills
+mkdir -p $SKILLS/wechat-viral-title
+cp -r title-generator/{SKILL.md,references,scripts} $SKILLS/wechat-viral-title/
+# 补 frontmatter（19 行 YAML）
+```
+
+**4️⃣ 实跑验证**
+
+```bash
+$ python scripts/title_generator.py \
+    --content "低成本改造出租屋" \
+    --platform wechat --num 5
+
+# 真实输出：
+# 1. 为什么低成本改造出租屋的人越来越多了 狠狠
+# 2. 低成本改造出租屋内幕曝光，评论区炸了 YYDS
+# 3. 难怪低成本改造出租屋，原来一直都做错了 破防
+# 4. 那个低成本改造出租屋的人，后来怎么样了 🔥
+# 5. 低成本改造出租屋之后，我整个人都变了 狠狠
+```
+
+skill_view 调用验证：`readiness_status: "available"` ✅
+
+### X thread 草稿
+
+**1/**
+今天把 Coze 上的爆款标题生成 skill 装进了我的本地 agent。
+
+端到端 4 步，0 token 成本，跑了 1 小时。
+
+起点是 github 上一个 0 star 的小仓库。🧵
+
+**2/**
+我想验证的事很简单：Coze 平台上的行业 skill，能不能不通过 Coze、不付 token 成本，剥离成本地 agent 能力？
+
+答案是：**能**，而且意外地简单。
+
+**3/**
+真实路径：
+
+① `git clone --depth 1 huajianjiu000/coze-skills`
+② `grep -rE "豆包|飞书|coze.com"` → 无匹配（**关键**：剥离字节内部依赖）
+③ 复制到 `~/AppData/Local/hermes/profiles/w-hermes/skills/`
+④ 补 19 行 YAML frontmatter，让系统能识别
+
+完事。
+
+**4/**
+实跑：
+
+```bash
+$ python scripts/title_generator.py \
+    --content "低成本改造出租屋" \
+    --platform wechat --num 5
+```
+
+输出 5 个公众号爆款标题，0 网络，0 token，0 延迟。
+
+skill_view 验证 `readiness_status: "available"` ✅
+
+**5/**
+为什么这事有意思：
+
+Coze 平台的价值主张是"打开就能用"——但**装到自己机器上**后，反而比 Coze 平台更优：
+- 🚀 0 延迟（本地 Python 调用）
+- 💰 0 成本（不消耗 Coze token）
+- 🔒 0 数据泄露（不上传云端）
+- ⚙️ 0 平台依赖（Coze 倒了也能用）
+
+**6/**
+这印证了 inbox 2026-06-03 调研里的一个判断：
+
+> 路径 A（直接 fork）不是最性感，但**是最快赢**。
+> 路径 C（蒸馏）价值最大但成本高。
+> 路径 B（MCP 桥接）适合早期探索。
+
+很多"AI 行业 know-how"是开源的，只是被平台封装成了商品。
+
+**7/**
+反共识：
+
+> "AI 能力过剩"的说法在 B 端可能是错的。
+
+Coze 这种平台的爆火不是技术过剩——是**封装过剩**。
+
+底层很多 skill 是**纯模板 + Python 标准库**，根本不需要 LLM。Coze 的"AI"是表层封装。
+
+剥掉这层，know-how 本身比 AI 更稀缺。
+
+**8/**
+下一步：
+
+📁 装入产物：`~/AppData/Local/hermes/profiles/w-hermes/skills/wechat-viral-title/`
+📝 技术细节写进 posts/x.md（this thread）
+🧪 接下来跑路径 C：选 1 个真用 LLM 的 Coze skill 蒸馏成本地 SKILL.md
+📦 蒸馏模板存为 shared skill（`~/.shared-skills/`）
+
+——
+
+#AI #Agent #Coze #ClaudeCode #Hermes #零token
+
+### Humanizer
+
+humanizer: zh@2026-06-03 (prompts/humanizer-zh.md vendored fallback by MiniMax-M3 + manual touch-up)
+
+应用项：
+- 全用真实命令 + 真实输出，不用"假想代码"
+- 数字加粗做视觉锚点（"4 步 / 0 token / 1 小时"）
+- 删"反共识"过度元评论 → "反共识" 标题用小标题，正文直接进入观点
+- 删"颠覆/革命"AI 痕迹词
+- 关键判断（路径 A 不是最性感但是最快赢）用引用块呈现
+
+### 发布后反馈
+
+发布时间：
+链接：
+回复：
+收藏：
+转发：
+点赞：
+评论：
+高质量反馈：
+下一步：
