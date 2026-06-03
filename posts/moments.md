@@ -320,6 +320,30 @@ audience：熟人圈：同事 + tech 朋友 + 家人
 
 humanizer: zh@2026-06-02 (prompts/humanizer-zh.md vendored fallback by deepseek-v4-pro)
 
+---
+
+## post-2026-05-30-001：读 MiniMax M2 技术报告
+
+状态：draft
+来源：inbox/2026-05.md#2026-05-30-00-30
+首发平台：朋友圈
+audience：熟人圈：同事 + tech 朋友 + 家人
+是否升级长文：否
+
+### 朋友圈草稿
+
+读完了 MiniMax M2 技术报告。
+
+229B 参数，每 token 只激活 4.3%。不是大所以强，是够大但跑起来轻。
+
+最让我在意的：训练阶段就把模型泡在 agent 环境里。不是训好再接 agent，训练本身就是 agent。还有个版本能自己 debug 训练失败。
+
+Agent 的能力不该是接上去的，应该是长出来的。第二阶段 Agent 工具链的窗口，越来越实了。
+
+### Humanizer
+
+humanizer: zh@2026-06-01 (prompts/humanizer-zh.md vendored fallback by deepseek-v4-pro)
+
 应用项：删 em dash、删引号装饰
 
 ### 发布后反馈

@@ -733,6 +733,57 @@ humanizer: zh@2026-06-02 (prompts/humanizer-zh.md vendored fallback by deepseek-
 
 应用项：删"5 个项目"装饰性重复、删"这意味着什么"signposting、删引号装饰
 
+---
+
+## post-2026-05-30-001：Agent 的能力是长出来的，不是接上去的
+
+状态：draft
+来源：inbox/2026-05.md#2026-05-30-00-30
+首发平台：小红书
+audience：半技术画像：PM、设计师、运营、对 AI 感兴趣的从业者
+是否升级长文：可联动
+
+### 笔记草稿
+
+**标题（候选）**
+- 229B 参数的模型，每次只用 4.3%，这是什么操作？
+- 一个能自己 debug 自己的 AI，不是科幻
+- Agent 训练范式变了：不再是"接上 agent"，而是"训练就是 agent"
+
+---
+
+**正文**
+
+🤖 MiniMax 发了 M2 系列模型。先看一个数字：229.9B 总参数，每 token 只激活 9.8B，4.3%。
+
+大部分参数是静默的。关键是谁被唤醒、什么时候唤醒。
+
+但这篇报告让我兴奋的不是参数设计。三个东西：
+
+🔄 **Agent-native 数据管线**
+传统做法：训好模型，然后给它接 agent 工具。MiniMax 反过来：训练阶段模型就泡在 agent 环境里，写代码、协作、推理。每一步都有可验证的 reward。不是"学完再干活"，是"边干活边学"。
+
+🔧 **Forge RL**
+同时支持白盒 agent（能看内部状态）和黑盒 agent（只看输入输出）的统一训练系统。训练、推理、agent 三层解耦，各自可以独立换。
+
+🦎 **自进化（M2.7）**
+模型能自己 debug 训练失败、改自己的 agent scaffold。不是工程师手动调参，是模型在 loop 里修自己。
+
+📊 成绩：只激活约 1/20 计算量，SWE-bench Pro 56.2，AIME 2026 94.2。追近前沿闭源。
+
+💡 做 AI 应用的人可能更关心这个：Agent 的能力不是接上去的插件，是长出来的。训练阶段就把 agent 做进去，上层工具链才可能轻。
+
+---
+
+**标签**
+#MiniMax #AI技术报告 #Agent训练 #大模型架构 #MoE #AI前沿 #技术解读
+
+### Humanizer
+
+humanizer: zh@2026-06-01 (prompts/humanizer-zh.md vendored fallback by deepseek-v4-pro)
+
+应用项：删"就像一个巨大的图书馆"工整 analogy → "大部分参数是静默的"、删"这意味着什么"signposting、删 em dash
+
 ### 发布后反馈
 
 发布时间：
