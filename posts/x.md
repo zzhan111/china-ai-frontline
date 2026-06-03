@@ -804,12 +804,66 @@ humanizer: zh@2026-06-02 (prompts/humanizer-zh.md vendored fallback by Claude So
 - "他沉默了" 类具体细节：保留 "CJ 用一张 RTX 卡训练"、"2299 亿总参数，每次推理只激活 98 亿" 两处具体数据
 - "不是 X，而是 Y" 否定排比改为正向陈述（"不是先读完世界上所有的书再去学怎么用筷子" 是反向类比，保留为类比不算排比）
 
+---
+
+## post-2026-06-01-001：周榜 5 个高星仓库实测
+
+状态：draft
+来源：inbox/2026-06.md#2026-06-01-14-30
+首发平台：X
+audience：AI builder + tech watchers
+是否升级长文：待观察
+
+### 一句话观点
+
+5 个实测项目刚好串成 Agent 基础设施三件套——理解（Understand-Anything）→ 执行（ECC）→ 数据（markitdown）。
+
+### 近似实现 / 需要调查
+
+- **awesome-AI-tools / weekly-rank aggregator**：多数榜单停留在 star 数比较，无实测。差异化：本文 5/5 跑通，每项有可验证的产出
+- **类似组合**：Anthropic knowledge-work-plugins + 微软 markitdown（已实测，14 个插件能力互补）
+- **ECC 知识图谱化（差异化关键）**：用 Understand-Anything 把 ECC 249 skill 建成 262 节点 / 13 层图谱，全可交互浏览
+
+### X thread 草稿
+
+**1/**
+GitHub 周榜，5 个项目，我全部装了一遍。
+
+**2/**
+Understand-Anything（45.9k）：111 文件 JS 项目 8 分钟出知识图谱。115 节点 135 边 7 层。
+
+**3/**
+markitdown（132.4k）：微软官方。HTML/JSON/TXT 转纯净 Markdown 一次过。pip install 即可，零配置。
+
+**4/**
+ECC（199.3k）：249 skills + 63 agents。品牌声音和成本感知 pipeline 是两个最值看的。
+
+**5/**
+Anthropic knowledge-work-plugins（18.2k）：20 个官方插件。draft-content 实测写了一篇博客，stop-slop 自检 42/50。
+
+**6/**
+stop-slop（7.4k）：10 维度 AI 写作痕评分体系。和 ECC 的 brand-voice 互补。
+
+**7/**
+把这五个串成管线：Understand-Anything（理解）→ ECC（执行）→ markitdown（数据）。刚好拼出 Agent 基础设施的三层。
+
+**8/**
+已用 Understand-Anything 把 ECC 全部 249 个 skill 建成知识图谱，262 节点 13 分类层。Dashboard 跑在 localhost:5175，可交互浏览。下一个帖子讲怎么做的。
+
+### Humanizer
+
+humanizer: zh@2026-06-02 (prompts/humanizer-zh.md vendored fallback by deepseek-v4-pro)
+
+应用项：删 signposting（"5 个项目"装饰前缀）、删"刚好拼出"对仗式结论、引号装饰清理
+
 ### 发布后反馈
 
 发布时间：
 链接：
-点赞：
+回复：
 收藏：
+转发：
+点赞：
 评论：
 高质量反馈：
 下一步：
