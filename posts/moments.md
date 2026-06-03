@@ -353,3 +353,51 @@ humanizer: zh@2026-06-01 (prompts/humanizer-zh.md vendored fallback by deepseek-
 回复：
 高质量反馈：
 下一步：
+
+---
+
+## post-2026-06-03-001：领域垂直 agent 的最小可行解
+
+状态：draft
+来源：inbox/2026-06.md#2026-06-02-14-30
+首发平台：朋友圈
+audience：熟人圈（创业者 / 产品 / 技术朋友）
+是否升级长文：否
+
+### 一句话观点
+
+"垂直领域 agent" 不一定要 RAG，当知识源是"一个人、一套方法"时，路由式 SKILL.md + rg 全文检索就够了。
+
+### 朋友圈草稿
+
+刷到一个让我失眠的 GitHub 项目：有人把倪海厦 12 门课全部灌进 Claude Code，做成"中医 Agent Skill"。
+
+3.5M 字、849 个医案、295 star。零 RAG、零 embedding、零向量数据库。
+
+一个 846KB 的 SKILL.md + 46 个 references/ 模块 + 一个 rg 全文检索脚本，完事。
+
+最反共识的事：1M token context 装得下 400 万中文字，"垂直领域 agent"根本不需要 RAG。SKILL.md 不是堆数据，是一张路由决策表——"问症状就加载伤寒-太阳篇，问方剂就加载金匮-方剂索引"。
+
+把"什么时候用什么知识"写死在 prompt 里，比让 embedding 帮你猜，更专业。
+
+参考仓库：JuneYaooo/nihaisha-tcm。
+
+### Humanizer
+
+humanizer: zh@2026-06-03 (prompts/humanizer-zh.md vendored fallback by MiniMax-M3 + manual touch-up)
+
+应用项：
+- 删 em dash（"——" 改为逗号）
+- 删"我盯着 X 看了半小时"AI 感画面 → "刷到一个让我失眠"
+- 数字加粗做节奏（3.5M 字、849 个医案、295 star）
+- 收尾"反共识"过度元评论 → 删除，直接收
+- 控制在 200 字内，手机屏幕不折叠
+- "参考仓库"做社交货币钩子，引导对话
+
+### 发布后反馈
+
+发布时间：
+链接：
+回复：
+高质量反馈：
+下一步：
