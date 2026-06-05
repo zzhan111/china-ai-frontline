@@ -1,0 +1,41 @@
+#!/bin/sh
+# pre-commit — posts-eval gate, scoped to posts/ only.
+#
+# Why: contracts/posts/* is a real authoring contract, but it was only ever
+# enforced by documents agents read voluntarily — compliance decayed
+# (see contracts/posts/EVOLUTION.md). This makes the FAIL line mechanical:
+# you cannot commit a posts/*.md that posts-eval rejects.
+#
+# Scope: fires ONLY when the commit stages posts/*.md. Any other commit
+# (contracts, tools, GOVERNANCE, docs, ...) passes instantly — no constraint.
+# Threshold: FAIL blocks, WARN passes (posts-eval exits 1 only on FAIL).
+#
+# Setup (once per clone):  git config core.hooksPath .githooks
+# Escape hatch (only when you truly mean it):  git commit --no-verify
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR -- 'posts/*.md')
+
+# Nothing under posts/ in this commit → not our concern.
+[ -z "$staged" ] && exit 0
+
+echo "[posts-eval gate] staged posts files:"
+printf '  %s\n' $staged
+
+python tools/posts-eval.py $staged
+status=$?
+
+if [ "$status" -ne 0 ]; then
+  cat <<'MSG'
+
+[posts-eval gate] BLOCKED — at least one FAIL in a staged posts file.
+  Fix the FAIL, do not soften it (re-route / rewrite / strip private-tooling).
+  WARN does not block; FAIL does.
+  Note: the whole file is evaluated, so a pre-existing FAIL in an untouched
+  block of the same file blocks too — fix it or the file stays frozen.
+  Deliberate override:  git commit --no-verify
+MSG
+  exit 1
+fi
+
+echo "[posts-eval gate] clean (no FAIL) — commit allowed."
+exit 0
