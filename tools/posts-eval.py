@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""posts-eval — Static checker for posts/ drafts against contracts/posts/v1.1.
+"""posts-eval — Static checker for posts/ drafts against contracts/posts/v1.2.
 
 Mechanical checks only. Subjective dimensions (hook strength, retweetability,
 真实感) require LLM judgment and live in the agent SKILL, not here.
@@ -146,6 +146,26 @@ VAGUE_ATTR = ["专家表示", "研究显示", "数据表明", "业内人士"]
 CHATBOT_ARTIFACTS = ["希望对你有帮助", "如有疑问欢迎评论"]
 META_VALUE_ASSERTIONS = ["真正的差异化", "稀缺性", "示范性", "天然吸引", "可以自我繁殖", "自我繁殖"]
 
+# v1.2 §3 #7 — 未公开个人工具私货（封闭清单，命中即 FAIL）。
+# 公开可复现工具（bb-browser / browse.sh / github / Coze）不在此列，故不会误报。
+PRIVATE_TOOLING = [
+    r"\bOpenClaw\b",
+    r"\bReasonix\b",
+    r"\bHermes\b",                 # 作者未公开的个人 agent 项目
+    r"w-hermes",
+    r"\.hermes\b",
+    r"AppData[/\\]Local[/\\]hermes",
+    r"delegate_task",
+]
+
+# v1.2 §4.4 — 自问自答句式（自设问题再自答）。面向读者的 engagement 提问
+# （"你怎么看？"）不在这些 pattern 内，不会误报。
+SELF_QA_RE = re.compile(
+    r"(?:为什么[^。！？：\n]{1,30}"
+    r"|[^。！？\n]{0,15}干(?:啥|嘛|什么)"
+    r"|[^，。！？\n]{2,18}有什么[^。！？\n]{0,8})[？：]"
+)
+
 
 def ai_smell_score(n: int) -> str:
     if n == 0:
@@ -174,6 +194,26 @@ def check_required_fields(post: PostBlock) -> list[CheckResult]:
             "缺 audience 字段（v1.1 §2 要求；当前 posts/ 普遍未填）",
         ))
     return results
+
+
+def check_private_tooling(post: PostBlock) -> list[CheckResult]:
+    """v1.2 common §3 #7 — 未公开个人工具私货（命中封闭清单即 FAIL）。
+
+    只扫可发布正文（body），不扫 humanizer 签名等过程性元数据
+    （签名里 "by Hermes" 是工具记录，不是 reader-facing 私货）。
+    """
+    text = post.body or post.raw
+    hits = []
+    for pat in PRIVATE_TOOLING:
+        if re.search(pat, text, re.IGNORECASE):
+            hits.append(pat)
+    if hits:
+        return [CheckResult(
+            "private-tooling",
+            Severity.FAIL,
+            f"正文出现未公开个人工具私货 {hits}（v1.2 §3 #7）→ 删除或翻译成通用能力词",
+        )]
+    return [CheckResult("private-tooling", Severity.PASS)]
 
 
 def check_ai_red_flags(post: PostBlock) -> list[CheckResult]:
@@ -223,6 +263,11 @@ def check_ai_red_flags(post: PostBlock) -> list[CheckResult]:
     meta_hits = [t for t in META_VALUE_ASSERTIONS if t in text]
     if meta_hits:
         flags.append(("meta-value-assertion", f"元价值断言 {meta_hits}"))
+
+    # 自问自答句式 (v1.2)：自设问题再自答作为论证骨架 ≥2 处
+    self_qa = SELF_QA_RE.findall(text)
+    if len(self_qa) >= 2:
+        flags.append(("self-qa", f"自问自答句式 {len(self_qa)} 处（v1.2 §4.4）"))
 
     # em dash 滥用
     em_count = text.count("——") + text.count("—")
@@ -597,7 +642,11 @@ PLATFORM_CHECKS = {
 
 
 def eval_post(post: PostBlock) -> list[CheckResult]:
-    results = check_required_fields(post) + check_ai_red_flags(post)
+    results = (
+        check_required_fields(post)
+        + check_private_tooling(post)
+        + check_ai_red_flags(post)
+    )
     if post.platform in PLATFORM_CHECKS:
         results += PLATFORM_CHECKS[post.platform](post)
     return results
@@ -683,7 +732,7 @@ SKIP_FILES = {"README.md", "long-form-assessment.md"}
 SKIP_STATES = {"published", "rejected", "已发布", "已拒绝"}
 
 HELP_TEXT = """\
-posts-eval — Static checker for posts/ drafts against contracts/posts/v1.1
+posts-eval — Static checker for posts/ drafts against contracts/posts/v1.2
 
 Usage:
     python tools/posts-eval.py [options] <file-or-dir> ...

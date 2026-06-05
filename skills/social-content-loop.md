@@ -27,6 +27,7 @@
 4. 为每条寻找近似产品、近似实现或相似内容方向
 5. 生成平台草稿（写入对应 `posts/*.md` 的"平台草稿"区）
    → 详细做法见 [`skills/posts-author.md`](posts-author.md) **step 1-4 + 6**（read contract → identify route → draft → self-review → write to file）
+   → **v1.2 三条硬要求**（self-review 必查）：① 不写私货（Hermes/OpenClaw/Reasonix/本地路径，换成通用能力词）；② 不用"为什么X？因为Y"自问自答骨架；③ 承重论断（市场/因果/趋势）缺信源时**联网检索补真源**，否则降级为"我猜/据我观察"
 6. **跑 posts-eval 静态检查**（详见 [`tools/README.md`](../tools/README.md)）
    - `python tools/posts-eval.py <draft 文件路径>`
    - 任何 FAIL → 按类型分别回跳（详见 posts-author.md step 5）：
