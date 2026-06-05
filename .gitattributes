@@ -1,0 +1,2 @@
+# Git hooks must stay LF — a CRLF shebang breaks /bin/sh on Git-for-Windows.
+.githooks/** text eol=lf
