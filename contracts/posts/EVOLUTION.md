@@ -342,6 +342,39 @@ PR #24 的 sibling：对 `posts/xiaohongshu.md`（2 条）和 `posts/moments.md`
 
 ---
 
+## 2026-06-05 — v1.2: 全量 posts 复盘 → 私货 / 自问自答 / 承重论断信源
+
+用户提出三条修改方向，要求**先验证准不准确再进 contract**。对 2026-05~06 的 posts 全量复盘（`x.md` ~1200 行 / `xiaohongshu.md` ~870 / `moments.md` ~390，30+ draft），逐条核对三条方向。
+
+### 验证结论（不是照搬，2 条做了修正）
+
+| 方向 | 验证结论 | 落地处理 |
+|---|---|---|
+| ① 剥离对内私货 | **完全准确**，最大缺口。证据：`x.md` #06-03-002 正文挂 `~/AppData/Local/hermes/...` + `#Hermes`；#05-30-001 "Hermes delegate_task" 读者零上下文。**反证**：humanizer 注释里已多次手动剥离（"删 bb-browser 行话"），但 x.md 的 MiniMax/Coze 版仍漏 → 有实践无规则 | 新增 §3 #7 硬禁（封闭清单，FAIL）+ eval `private-tooling` 检测 |
+| ② 自问自答→可证伪 | **半准确，拆两件事**：(a) 自问自答真实高频（"为什么不需要 RAG？""剩 95.7% 干啥？睡觉"），但 eval `TRANSL_NEW` 只抓特定 PR setup-question；(b)「可证伪」与既有 §4.4 元价值断言重叠 | (a) 升级为 common §4.4 通用 red flag + eval 放宽检测；(b) 在既有元价值断言下补"如何改"，不另开维度（避免双重计分） |
+| ③ 补信源缺口 | **半准确，"几乎全是推理"夸大**：技术 demo 类（12306/Coze/周榜/领域垂直）信源扎实（真实链接+命令+输出）；只有观点/趋势类薄（三阶段压单篇公众号、"三个独立证据"实为同源+一推、控价市场断言零信源） | 收窄为 §5 #6"承重论断"才要求信源；技术 demo / 个人体验不在此列。判断重，**不机械化**，靠 SKILL + 人工 |
+
+### 改了什么
+
+- `contracts/posts/v1-common.md` v1.1 → **v1.2**：§3 #7（私货硬禁）、§4.4（自问自答 flag + 元价值断言可证伪化）、§5 #6（承重论断信源 + 联网补真源）
+- `tools/posts-eval.py`：新增 `check_private_tooling`（FAIL，封闭清单，排除 bb-browser/browse.sh/github 公开工具）+ `check_ai_red_flags` 加通用自问自答检测（WARN）
+- `skills/posts-author.md` + `skills/social-content-loop.md`：reading-order/version 注记升 v1.2；anti-patterns 表加 3 行；authoring workflow 加"承重论断联网补真源"步
+
+### 设计取舍（为什么不照原话进 contract）
+
+- 私货做**硬禁 FAIL** 而非 WARN：因为它二元（点没点名私有项目）、改起来 trivial（删/换词）、永远不该 ship。封闭清单保证高精度，不会冤枉 `bb-browser` 这类公开工具。
+- 自问自答放 **common** 而非 x-cn：corpus 显示三平台都犯（xhs "为什么不需要 RAG？"、moments 同款），所以归通用层。
+- 承重论断信源**不机械化**：「哪句是承重论断」「信源够不够」是判断题，正则会大面积误报，留给 SKILL + 人。
+
+### Open items
+
+- [ ] v1.2 跑全量 posts 看新 3 检测的真实触发分布（private-tooling 预期至少命中 x.md MiniMax + Coze 两条；self-qa 命中领域垂直/MiniMax）
+- [ ] 历史 draft 是否要按 v1.2 回修（尤其 x.md Coze/MiniMax 的 Hermes 私货）——单独 PR，本次只动 contract + 工具
+- [ ] 自问自答正则可能与 x-cn §2.3 既有 `短句自问自答` 双触发（同一句两个 WARN）——观察是否需要去重；当前按"WARN 越多信号越强"接受
+- [ ] 元价值断言"可证伪"判据机械化难（与 EVOLUTION 既存 "X-时代-Y" 扩展 open item 合并考虑）
+
+---
+
 ## How to append to this file
 
 - **人**：每次 contract 修订、checker 更新、或跑 dogfood 发现非显然的事，写一条

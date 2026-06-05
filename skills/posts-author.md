@@ -22,12 +22,17 @@ Read these in order. **Do not skip — each file establishes context the next on
 
 ### ⚠ Version check before using this SKILL
 
-本 SKILL 基于 `contracts/posts/v1.1`（编写日期 2026-05-25）。**开始 authoring 前必须确认**：
+本 SKILL 基于 `contracts/posts/v1-common.md` **v1.2**（2026-06-05）+ 平台层 v1.1。**开始 authoring 前必须确认**：
 
-- 当前 `contracts/posts/v1-common.md` 第一行声明的版本是否仍是 v1.1（或本 SKILL 已经升级）？
+- 当前 `contracts/posts/v1-common.md` 第一行声明的版本是否仍是 v1.2（或本 SKILL 已经升级）？
 - 目标平台 `contracts/posts/<platform>/v1.md` 是否仍是 v1.1？
 
-如果 contract 已升级到 v1.2+ 但本 SKILL 还是 v1.1，**先读 contract 的 Changelog 区**，本 SKILL 的 anti-patterns / workflow 可能不完全反映最新规则。如果差异较大，停下来 ask 人是否要等 SKILL 同步升级。
+v1.2 新增三条（务必内化到下面的 self-review）：
+- **§3 #7 私货硬禁**：正文不得点名作者未公开的个人 agent 项目（OpenClaw / Hermes / Reasonix）或本地路径 / 内部 API。公开可复现工具（bb-browser / browse.sh / github）不受限。
+- **§4.4 自问自答**："为什么 X？因为 Y" 自设问题再自答 ≥2 处 → red flag。
+- **§5 #6 承重论断信源**：市场 / 因果 / 趋势断言必须配可核实信源（缺则**联网补真源**）或降级为显式个人推测。
+
+如果 contract 已升级到 v1.3+ 但本 SKILL 还是 v1.2，**先读 contract 的 Changelog 区**，本 SKILL 的 anti-patterns / workflow 可能不完全反映最新规则。如果差异较大，停下来 ask 人是否要等 SKILL 同步升级。
 
 ## Inviolable rules
 
@@ -42,7 +47,9 @@ These rules are derived from `contracts/posts/v1-common.md` + the three platform
 4. **Run `posts-eval` before declaring done.** Every FAIL must be fixed by re-drafting (not by deleting the check). Every WARN must be either fixed or explicitly acknowledged in the post block (`acknowledged: <reason>`).
 5. **Mandatory order: draft → posts-eval → humanizer → checklist.** Never humanize before eval — humanizer rewrites natural language and may break links, numbers, or proper nouns that eval relies on.
 6. **Dig-hole must have candy.** Any phrase like "详见 / 在 repo 里有完整记录 / 后续会讲" requires an adjacent URL, screenshot, or explicit Part 1/N declaration with publish-time anchor. See x-cn/v1.md §2.4.
-7. **Don't bypass hard rejects.** If posts-eval returns FAIL on audience-mismatch (xiaohongshu §6 #5), AI-red-flag count ≥3 (common §3 #5), or ad-law极限词 (xiaohongshu §6 #1) — do not "soften" the draft to pass. Re-route the draft to a different platform or discard.
+7. **Don't bypass hard rejects.** If posts-eval returns FAIL on audience-mismatch (xiaohongshu §6 #5), AI-red-flag count ≥3 (common §3 #5), ad-law极限词 (xiaohongshu §6 #1), or **private-tooling (common §3 #7)** — do not "soften" the draft to pass. Re-route, rewrite, or discard.
+8. **No private-tooling 私货 (v1.2 common §3 #7).** Never name the author's unreleased agent projects (OpenClaw / Hermes / Reasonix) or their local paths / internal APIs (`~/AppData/Local/hermes/...`, `delegate_task`) in publishable body. Translate to a generic capability ("本地 agent", "多后端任务调度"). Public, cloneable tools (bb-browser, browse.sh, github repos, Coze) are fine — the test is "can the reader reproduce this reference".
+9. **Load-bearing claims need a source (v1.2 common §5 #6).** Any market-size / causal / trend claim that the post *rests on* must carry a verifiable source (search the web and add a real link if missing) or be explicitly downgraded to personal conjecture ("我猜 / 据我观察"). Personal experience and link-backed tech demos are exempt.
 
 ## Authoring workflow
 
@@ -73,7 +80,14 @@ These rules are derived from `contracts/posts/v1-common.md` + the three platform
    → Hook: does the first line / first tweet stand alone in 0.5s?
      Not "一个不寻常的 X" / "聊聊 X" / "今天分享一个" / "说一下 X 为什么值得"
    → 营销腔: any "不是 X 是 Y" pairs? 三/四字短句堆叠? 元价值断言
-     ("真正的差异化" / "稀缺性" / "天然吸引")?
+     ("真正的差异化" / "稀缺性" / "天然吸引")? 不可证伪的"可平移到任何领域"
+     类断言（v1.2：想不出反例就是空话，改成带边界条件的表述或删）?
+   → 私货自查 (v1.2 §3 #7): grep `Hermes|OpenClaw|Reasonix|hermes|delegate_task`——
+     命中即删或换成通用能力词。公开工具（bb-browser/browse.sh/github）不算。
+   → 自问自答自查 (v1.2 §4.4): "为什么 X？因为 Y" / "…干啥？…" 这类自设问题再自答
+     ≥2 处？直接给结论，删掉自问的过门。
+   → 承重论断信源 (v1.2 §5 #6): 市场/因果/趋势断言有可核实信源吗？没有就联网补真源，
+     或降级为"我猜/据我观察"。纯个人体验、带链接的技术 demo 不在此列。
    → em dash 自查 (v1.1 SKILL dogfood): body 区 `——` 数量 ≤4？grep 一下，
      超 5 个就考虑替换成句号/逗号/冒号（contract 设 ≥5 触发 ai-flag:em-dash-abuse）
    → 挖坑给糖: every "详见/后续/答案在" has a URL or Part N+time anchor?
@@ -131,6 +145,9 @@ From `contracts/posts/EVOLUTION.md` dogfood (PR #16 → posts-eval v1) and from 
 | Soften draft to dodge FAIL (e.g. rename audience to bypass routing) | (gaming the rubric) | bb-adapter-evolver hard rule #8: honesty over politeness; if a FAIL is the right outcome, accept it |
 | List-item marketing stack ("1. 真正的差异化 / 2. 不消耗 / 3. 自我繁殖 / 4. 天然吸引") | post-002 third tweet | posts-eval can't catch this (structural, not string); SKILL is responsible: if items are all 元价值断言, rewrite them as concrete consequences with examples |
 | em dash 滥用（thread 区 `——` ≥5 个） | post-2026-05-25-001 dogfood 第 1 次跑分 | common §4.4 red flag — 现代 GPT 中文输出最爱用 `——` 制造"反差感"；posts-eval 自动抓，但 SKILL self-review step 4 应该先发现：写完后 grep 一下 `——`，超过 4 个就考虑换成句号/冒号 |
+| 私货泄漏（正文挂 Hermes / w-hermes 路径 / delegate_task） | post-2026-05-30-001 (MiniMax)、post-2026-06-03-002 (Coze skill) | v1.2 common §3 #7 硬禁 — 读者无法复现作者未公开的个人 agent；"作者动机" ≠ "读者价值"。删或翻译成通用能力词。公开工具不算 |
+| 自问自答骨架（"为什么不需要 RAG？因为…"） | post-2026-06-03-001 (领域垂直, x + xhs) | v1.2 common §4.4 — 英文 setup-Q-A 直译，中文原生很少这样搭支架。直接给结论 |
+| 承重论断无源（"品牌方已经在付费"、"三个独立证据"实为同源） | post-2026-05-28-001 控价、post-2026-06-02-001 | v1.2 common §5 #6 — 市场/因果/趋势断言要么配可核实信源（联网补），要么降级为个人推测 |
 
 ## Workflow gates — stop and ask the human
 
