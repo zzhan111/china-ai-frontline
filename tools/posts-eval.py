@@ -473,11 +473,23 @@ def check_x_cn(post: PostBlock) -> list[CheckResult]:
 
 # ---------- xiaohongshu checks (v1.1) ----------
 
-XHS_AD_WORDS = ["最佳", "第一", "唯一", "绝对", "最强", "最神", "永远不"]
+XHS_AD_WORDS = ["最佳", "唯一", "绝对", "最强", "最神", "永远不"]
+# "第一" 单独处理：序数/惯用语（第一步 / 第一阶段 / 第一时间 / 第一次）不是广告法
+# 极限词，只有排名/极限语境（全网第一 / 排名第一 / 第一品牌）才 FAIL。
+# 判据：紧跟 "第一" 的下一个字若属序数/惯用语名词，则放行（contract xiaohongshu §6 #1）。
+DIYI_ORDINAL_NEXT = set("步阶章节部次轮页季期版代天周月年层条点位件个类种篇时手线反感印")
 XHS_TECH_AUDIENCE = ["工程师", "程序员", "后端", "前端", "coding agent", "AI builder", "DevOps", "运维"]
 XHS_SEMI_TECH_AUDIENCE = ["产品经理", "PM", "数据分析师", "运营", "增长"]
 XHS_BEGINNER_HINT = ["想学", "入门", "小白", "新手"]
 TECH_PREREQ_TERMS = ["git", "commit", "PR", "命令行", "CLI", "API", "function", "json", "yaml", "terminal", "bash"]
+
+
+def _diyi_is_superlative(body: str) -> bool:
+    """"第一" 仅在非序数/非惯用语语境算广告法极限词（第一步/第一阶段等放行）。"""
+    for m in re.finditer("第一", body):
+        if body[m.end():m.end() + 1] not in DIYI_ORDINAL_NEXT:
+            return True
+    return False
 
 
 def check_xiaohongshu(post: PostBlock) -> list[CheckResult]:
@@ -507,6 +519,8 @@ def check_xiaohongshu(post: PostBlock) -> list[CheckResult]:
         ))
 
     ad_hits = [w for w in XHS_AD_WORDS if w in body]
+    if _diyi_is_superlative(body):
+        ad_hits.append("第一")
     if ad_hits:
         results.append(CheckResult(
             "hard-reject:ad-law",

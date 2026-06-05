@@ -876,7 +876,7 @@ Agent 的能力不是接上去的插件，是长出来的——MiniMax M2 把 ag
 - **Anthropic Claude Code**：agent 能力强的闭源模型，但训练方案未公开
 - **OpenAI Codex CLI / SWE-bench agent**：agent scaffold 层面强，但未见训练阶段 agent-native 管线公开
 
-差异化：MiniMax M2 的差异化不在 benchmark 绝对值，而在训练哲学——"训练就是 agent"。这与 Hermes delegate_task 多 backend 调度思路有架构共鸣。
+差异化：MiniMax M2 的差异化不在 benchmark 绝对值，而在训练哲学——"训练就是 agent"。这与本地 agent 多后端调度思路有架构共鸣。
 
 ### X thread 草稿
 
@@ -896,7 +896,7 @@ M2.7 能自己 debug 训练失败、改自己的 agent scaffold。不是人在 l
 路线和 DeepSeek 同流派（大参数/小激活），激活比更低：4.3% vs ~5.5%。约 1/20 计算量，SWE-bench Pro 56.2，AIME 2026 94.2。
 
 **6/**
-Forge 的白盒+黑盒 agent 统一训练，和 delegate_task 多 backend 调度同一个逻辑。不同后端同等对待，同一层协调。
+Forge 的白盒+黑盒 agent 统一训练，和本地多后端调度同一个逻辑。不同后端同等对待，同一层协调。
 
 **7/**
 Agent 的能力不是接上去的插件，是长出来的。arXiv:2605.26494，三个子报告。
@@ -1044,14 +1044,14 @@ audience：AI builder + 关注 Coze / 字节生态 + 本地 agent 的从业者
 
 ### 一句话观点
 
-Coze 行业 skill 蒸馏到本地的路径 A（直接 fork）真实跑通：从 huajianjiu000/coze-skills clone 一个 0 star 的子目录，补 19 行 frontmatter，0 token 成本变成可被 Hermes / Claude Code 自动调用的 skill。
+Coze 行业 skill 蒸馏到本地的路径 A（直接 fork）真实跑通：从 huajianjiu000/coze-skills clone 一个 0 star 的子目录，补 19 行 frontmatter，0 token 成本变成可被本地 agent / Claude Code 自动调用的 skill。
 
 ### 近似实现 / 需要调查
 
 - [huajianjiu000/coze-skills](https://github.com/huajianjiu000/coze-skills/tree/main/title-generator)：本次 demo 的 fork 源，0 star 但内部 3 个 skill 都完整
 - [Coze 上架版](https://xiaping.coze.site/skill/0f8086fd-0442-4712-b6e4-827e6bf07414)：原始上架地址，验证"该 skill 真在 Coze 跑过"
 - [LingyiChen-AI/workflow-skill](https://github.com/LingyiChen-AI/workflow-skill) (⭐96)：路径 A+C 双料命中，金融研报自动生成 workflow
-- [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) (⭐18.2k)：Hermes 装入的 plugin 协议参考
+- [anthropics/knowledge-work-plugins](https://github.com/anthropics/knowledge-work-plugins) (⭐18.2k)：本地 agent 装入的 plugin 协议参考
 - **差异化**：Coze 官方 `github.com/coze-dev` org 22 个仓库**没有**公开的行业 skill 集市——skill 都在第三方仓库或 Coze 平台私域。社区 fork 是唯一入口。
 
 ### 实跑过程（端到端 4 步）
@@ -1074,10 +1074,10 @@ $ grep -rE "豆包|飞书|feishu|bytedance|coze\.com|api\.coze" coze-skills/titl
 # → 结论：纯本地 Python 标准库，可剥离
 ```
 
-**3️⃣ 装入 Hermes（4 行命令）**
+**3️⃣ 装入本地 agent（4 行命令）**
 
 ```bash
-SKILLS=~/AppData/Local/hermes/profiles/w-hermes/skills
+SKILLS=~/.agent/skills
 mkdir -p $SKILLS/wechat-viral-title
 cp -r title-generator/{SKILL.md,references,scripts} $SKILLS/wechat-viral-title/
 # 补 frontmatter（19 行 YAML）
@@ -1119,7 +1119,7 @@ skill_view 调用验证：`readiness_status: "available"` ✅
 
 ① `git clone --depth 1 huajianjiu000/coze-skills`
 ② `grep -rE "豆包|飞书|coze.com"` → 无匹配（**关键**：剥离字节内部依赖）
-③ 复制到 `~/AppData/Local/hermes/profiles/w-hermes/skills/`
+③ 复制到 `~/.agent/skills/`
 ④ 补 19 行 YAML frontmatter，让系统能识别
 
 完事。
@@ -1169,14 +1169,14 @@ Coze 这种平台的爆火不是技术过剩——是**封装过剩**。
 **8/**
 下一步：
 
-📁 装入产物：`~/AppData/Local/hermes/profiles/w-hermes/skills/wechat-viral-title/`
+📁 装入产物：`~/.agent/skills/wechat-viral-title/`
 📝 技术细节写进 posts/x.md（this thread）
 🧪 接下来跑路径 C：选 1 个真用 LLM 的 Coze skill 蒸馏成本地 SKILL.md
 📦 蒸馏模板存为 shared skill（`~/.shared-skills/`）
 
 ——
 
-#AI #Agent #Coze #ClaudeCode #Hermes #零token
+#AI #Agent #Coze #ClaudeCode #零token
 
 ### Humanizer
 
