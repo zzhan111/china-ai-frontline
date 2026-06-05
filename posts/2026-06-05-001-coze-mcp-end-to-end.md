@@ -107,8 +107,8 @@ list_bots 返回空 ≠ "账号 0 个 bot"。
 **8/**
 下一步：
 
-📁 装入位置：~/AppData/Local/hermes/profiles/w-hermes/mcp.json
-🔑 凭据：~/.hermes/profiles/w-hermes/.env (COZE_API_BASE, COZE_API_TOKEN)
+📁 装入位置：你的 MCP 客户端配置目录下的 mcp.json
+🔑 凭据：同目录 .env (COZE_API_BASE, COZE_API_TOKEN)
 🤖 Bot 真实存在：simple-bot-2026-06-03 (id 7647398669641826350)
 📝 完整 setup 指南：~/.shared-skills/devops/coze-mcp-setup/SKILL.md
 

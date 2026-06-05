@@ -375,6 +375,27 @@ PR #24 的 sibling：对 `posts/xiaohongshu.md`（2 条）和 `posts/moments.md`
 
 ---
 
+## 2026-06-05 — Phase 2g: v1.2 全量回修 + ad-law 序数误报修复 + pre-commit gate
+
+PR #49（v1.2 contract + 工具）合并后跑全量 `posts-eval posts/`：**153P / 78W / 5F**。回修这 5 个 FAIL，使全仓回到 0 FAIL（pre-commit gate #50 才能在干净基线上守住）。
+
+### 关键 decision
+
+1. **private-tooling（3 处）按合同翻译**：coze 文的 `~/AppData/Local/hermes/...` 私有路径 → 通用「MCP 客户端配置目录」；x.md MiniMax 的 `Hermes delegate_task 多 backend` → 「本地 agent 多后端调度」；x.md Coze 标题 thread 的 `Hermes` / `w-hermes` 路径 → 「本地 agent」+ `~/.agent/skills`。删 `#Hermes` 标签。
+
+2. **ad-law「第一」误报修工具而非改文案**：2 个 ad-law FAIL 命中的是序数词 `第一步` / `第一阶段`（非排名/极限语境）。这是 §6 #1 裸子串匹配的已知 false positive（2026-05-25 "第一反应" 同款，见上）。User 选择**修 eval** 而非再改一次文案——给 "第一" 加序数/惯用语白名单（紧跟字属 `DIYI_ORDINAL_NEXT` 则放行），`全网第一 / 排名第一 / 第一品牌` 仍 FAIL。contract xiaohongshu §6 #1 同步加豁免子句，工具↔合同不漂移。内容零改动。
+
+### 验证
+
+`posts-eval posts/` → **0 FAIL**（5F 清零，无新 FAIL）。
+
+### 关闭的 open items（来自 Phase 2f）
+
+- [x] v1.2 跑全量 posts 看新检测触发分布 → private-tooling 命中 3 条（coze 文 + x.md MiniMax + Coze 标题），符合预期
+- [x] 历史 draft 按 v1.2 回修（Hermes 私货）→ 本 PR 完成
+
+---
+
 ## How to append to this file
 
 - **人**：每次 contract 修订、checker 更新、或跑 dogfood 发现非显然的事，写一条
