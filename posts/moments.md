@@ -412,7 +412,7 @@ audience：熟人圈：同事 + tech 朋友 + 家人
 
 ### 朋友圈草稿
 
-晚上刷到一个直播间，卖 OpenClaw 安装教程，1500 一节课，1000 多人在线。
+晚上刷到一个直播间，卖 AI Agent 安装教程，1500 一节课，1000 多人在线。
 
 免费能搜到的命令，为什么有人花 1500 买？"能搜到"和"能看懂"之间有条巨大的沟。
 
@@ -435,5 +435,39 @@ humanizer: zh@2026-06-04 (prompts/humanizer-zh.md vendored fallback by DeepSeek-
 发布时间：
 链接：
 回复：
+高质量反馈：
+下一步：
+
+## post-2026-06-06-001：主动型 Agent
+
+状态：draft
+来源：inbox/2026-06.md#2026-06-05 17:30
+首发平台：朋友圈
+audience：熟人圈：同事 + tech 朋友
+是否升级长文：否
+
+### 朋友圈草稿
+
+今天测了一个 agent，开着摄像头看我写代码。它主动问我：「在调API吧，我这里有文档，帮你查？」
+
+第一反应是不适。但缓过来之后觉得：当一个 AI 能看到你、在合适的时机主动开口。这不只是效率工具，这是一种新的交互关系。
+
+感知 + 时机 + 知识 + 执行。四层里，最难的是「什么时候该闭嘴」。
+
+### Humanizer
+
+humanizer: zh@2026-06-06 (prompts/humanizer-zh.md vendored fallback by DeepSeek-V4-Pro-A)
+
+应用项：
+- 删 em dash ×1，替换为句号
+- 删 signposting / 删 persuasive authority
+
+### 发布后反馈
+
+发布时间：
+链接：
+回复：
+收藏：
+转发：
 高质量反馈：
 下一步：
