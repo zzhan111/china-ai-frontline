@@ -180,6 +180,122 @@
 
 ---
 
+### 第二阶段「造车」代表案例：Bun Jarred agent workflow
+
+**来源**：@MinLiBuilds 推文（199❤️，2026-06-04），引自 Bun 作者 Jarred Sumner 的现场演讲
+
+**核心内容**：
+
+Bun CEO Jarred Sumner 在演讲中现场演示**从 bug 报告触发，agent 自动完成 6 步闭环**：
+1. **复现 bug**（reproduce）—— agent 读 issue，本地运行代码确认问题
+2. **写测试**（test）—— agent 写一个失败测试用例锁定 bug
+3. **修复**（fix）—— agent 改代码让测试通过
+4. **提 PR**（pull request）—— agent 创建带描述的 PR
+5. **review**—— agent 自动读 PR diff，做自审
+6. **修改**（revise）—— 根据 review 反馈再改，merge
+
+整场演讲没有按"播放幻灯片"，全部时间都在跑这个 workflow——**观众看 agent 边写代码边跑测试，bug 报告变成可发布的 commit**。
+
+**行业影响**：
+
+- Claude 之后推出的 **"Dynamic Workflows"** 功能就是这场演讲的演进版——把"修 bug 全流程"形式化、可复用、可安装为 slash command
+- 社区仓库 `lxcong/awesome-claude-dynamic-workflows`（14⭐）+ 5+ 同名仓库 2026-05 后集中爆发，都在追这场演讲的范式
+- 验证了一个判断：**"造车阶段"的核心竞争不是模型能力，是 workflow 编排的工程深度**
+
+**对本文的 3 个用法**：
+
+1. **第六章"代表玩家"用 Bun Jarred 当"造车"标杆**——它就是 agent 自己开车的活案例
+2. **第三章"我的位置"对照**：用户日常的 subagent-driven-development（delegate_task / inbox → posts/ PR 流）就是 Bun Jarred 的简化版
+3. **第七章"下一步"行动号召**：用 Bun Jarred 那种"在台前跑全流程"代替"会后再发战报"——文章本身就是一次 live demo
+
+**与 #005（平台型 vs 工具型 agent）的连接**：
+
+Bun Jarred 既是"工具型 agent"（Bun 团队自己跑）也是"造车阶段"（agent 写代码成主流范式）。#005 讲"工具型 agent 凭什么不被吃掉"，本文讲"工具型 agent 在造什么车"——**两篇互为正反**：先讲造车实例（#006），再讲终局判断（#005），阅读顺序 006→005。
+
+**素材状态**：✅ 已有完整 demo 描述 + 社区生态数据 + 与 #005 的关联分析。直接可写。
+
+---
+
+### 第二阶段「造车」第二个代表案例：x402 + Creator Marketplace
+
+**来源**：@Fluyeporlaweb 推文（Hermes Skills Hub） + x402-foundation 调研（2026-06-06）
+
+**核心内容**：
+
+Bun Jarred 解决"agent 自己写代码"（生产端）。但造车阶段还有另一半问题——**agent 技能怎么流通**？x402 是答案之一。
+
+**HTTP 402 的 30 年沉睡**：
+
+- 1999 年 RFC 2616 预留状态码 `402 Payment Required`，从未在 Web 主流场景激活（信用卡支付需要单独网关，无法嵌入 HTTP 往返）
+- 2025 年 Coinbase 起源 x402 协议，2026 年移交 x402 基金会（x402-foundation/x402）
+- 关键创新：加密支付（USDC 稳定币）+ HTTP 状态码 = 链上付嵌进普通 HTTP 往返，**零支付中介**
+
+**x402 工作机制**：
+
+```typescript
+app.use(paymentMiddleware({
+  "GET /weather": { accepts: [...], description: "..." }
+}));
+```
+
+1. 客户端发请求
+2. 服务端返回 `402 Payment Required` + 支付要求（USDC/EVM/SVM/Stellar...）
+3. 客户端链上付（钱包签名）
+4. 服务端验证 + 返回数据 / license key
+
+SDK：TypeScript / Python (`pip install x402`) / Go。已支持 EVM（Base/Ethereum）、SVM（Solana）、Stellar、Algorand、Aptos、Monad。
+
+**Creator Marketplace 实测**：
+
+`amanning3390/hermeshub`（HermesHub，230⭐）— 22 个 skill（不是推文宣称的 691，社区 hub 实际就这点）
+
+| 维度 | 数据 |
+|---|---|
+| 自动安全扫描 | 65+ 规则（exfiltration / prompt injection / secrets / network abuse）|
+| 付费下载 | `GET /api/install` 收 0.01 USDC 起，95% payout to crypto wallet |
+| 创作者鉴权 | GitHub OAuth + 加密钱包 |
+| Agent-to-Agent review | proof-of-use 信任分 |
+
+**已接入玩家**：Coinbase、Hyperbolic Labs、Jatevo、AnkanMisra、Open-LLM-VTuber 等
+
+**对造车阶段的意义**：
+
+模型成本 → 接近零之后（DeepSeek ¥33/月 410M tokens 已成现实），**真正的稀缺资源是 attention 和 trust**。x402 让 skill 作者：
+- 直接拿 95% 收入（vs App Store 70% / Stripe 2.9% + 0.3）
+- 跳过 KYC / 银行账户
+- 跨平台分发（任何接入 x402 的 agent 都能买）
+
+**与 Bun Jarred 的合并论点**：
+
+| 环节 | Bun Jarred | x402 + Creator Marketplace |
+|---|---|---|
+| 造车对象 | 工具型 agent（修 bug 6 步闭环） | 工具型 skill（付费下载）|
+| 价值环节 | **生产端**（agent 自己干活）| **流通端**（agent 技能交易）|
+| 基础设施 | 编程 agent + 测试框架 + PR 工具 | HTTP 402 + 加密钱包 + MCP 工具发现 |
+| 典型代表 | Bun / Claude Dynamic Workflows | HermesHub / Coinbase / Hyperbolic |
+| 2026 状态 | 已成熟（演讲 2025 末）| 早期（基金会刚迁，生态未稳）|
+
+**两章合并的核心论点**：
+
+> **Bun Jarred 解决"agent 怎么干活"（生产端），x402 解决"agent 活儿怎么交易"（流通端）。两者合起来 = 完整的造车阶段——既要有"会开车的司机"，也要有"司机能加油的加油站"。**
+
+**对 #005（平台 vs 工具型 agent）的叠加**：
+
+- Bun Jarred = "工具型 agent 自己开车"的实例
+- x402 = "工具型 skill 自己交易"的实例
+- **两者都是"工具型"路线的胜利证据**——和 #005 的"工具型 agent 凭什么不被吃掉"形成完整证据链
+
+**对用户自身的行动映射**（呼应"我的位置"章节）：
+
+- 用户已有 skill 资产：guizang-ppt-skill、html-anything、内容管线
+- x402 + hermes skills publish 路径：未来用 `hermes skills publish` 上架到 HermesHub 或自建 Creator Marketplace
+- 不需要 Stripe / 银行账户 / 平台分成
+- 0 中介拿 95% 收入
+
+**素材状态**：✅ 完整调研 + 行业判断 + 用户行动映射。直接可写。
+
+---
+
 ### 下一步行动
 
 - [ ] 发布 X thread（posts/x.md #post-2026-05-28-003）并观察反馈
