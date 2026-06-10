@@ -1,16 +1,7 @@
 # Fable 5 封神了吗：一次发布 24 小时内的全面调研
 
-此为临时预览链接，将在短期内失效
+原创 之哲 [UIEVENTS事历](javascript:void\(0\);)
 
----
-
-原创 之哲 之哲 [UIEVENTS事历](javascript:void\(0\);)
-
-在小说阅读器读本章
-
-去阅读
-
-在小说阅读器中沉浸阅读
 
 ![](https://mmbiz.qpic.cn/mmbiz_jpg/JDDwYKEZ0CwdcCPGOmiaX9YHDib1icibVAaKloBwAj8sGPEo3o5zzMa9zpWovfARCR5f9Vn0dlI1DVicypLia3kaCHJygOAebBXOon9kNsgZcSFt4/640?wx_fmt=jpeg)
 
