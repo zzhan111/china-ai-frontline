@@ -1090,6 +1090,17 @@ humanizer: zh@2026-06-06 (prompts/humanizer-zh.md vendored fallback by DeepSeek-
 转发：
 高质量反馈：
 下一步：
+
+## post-2026-06-10-001：Fable5封神又半价
+
+状态：draft
+来源：fable5-research（50+ 来源社区舆情分析）
+首发平台：小红书
+audience：AI 重度用户 / 开发者 / 关注 AI 行业趋势的从业者
+是否升级长文：待观察（社区反馈量大，可升级）
+
+**封面图**：`assets/post-2026-06-10-001/xhs-01.png`（暗底橙红风，5 张 carousel 卡片）
+
 ### 笔记草稿
 
 **标题（候选）**
