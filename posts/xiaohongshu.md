@@ -1090,3 +1090,86 @@ humanizer: zh@2026-06-06 (prompts/humanizer-zh.md vendored fallback by DeepSeek-
 转发：
 高质量反馈：
 下一步：
+
+## post-2026-06-10-001：Fable5封神又半价
+
+状态：draft
+来源：fable5-research（50+ 来源社区舆情分析）
+首发平台：小红书
+audience：AI 重度用户 / 开发者 / 关注 AI 行业趋势的从业者
+是否升级长文：待观察（社区反馈量大，可升级）
+
+**封面图**：`assets/post-2026-06-10-001/xhs-01.png`（暗底橙红风，5 张 carousel 卡片）
+
+### 笔记草稿
+
+**标题（候选）**
+- Fable 5 发布24小时，1400 条 HN 评论告诉我 3 件事
+- 封神又半价：Fable 5 的 coding 突破和真实刺客
+- $200 Max 套餐跑3 个任务就烧空 —— Fable 5 的 token 真相
+
+---
+
+**正文**
+
+🤯 Fable 5 发布24 小时，我读完了 HN 主帖 1400 条评论 + Anthropic 12 行 benchmark 矩阵 + Vellum 评测 + 中文 V2EX / 凤凰网 / 宝玉 X。
+
+结论一句话：**它真封神了，但这个神有半价。**
+
+---
+
+📊 **封神的部分**—— coding / agentic 全面领先
+
+· SWE-Bench Pro 80.3% vs Opus 4.8 69.2%（+11.1pp）
+· FrontierCode Diamond 29.3% vs Opus 4.8 13.4%（+15.9pp）
+· Simon Willison（HN）："it's a beast"
+· Stripe 5000 万行 Ruby 迁移，1 天顶 2 个月
+
+但——
+
+---
+
+没封神的部分 ①：safety classifier 自动降级
+
+Fable 5 在 cyber / bio / chemistry 任务上被分类器切回 Opus 4.8。用户按 Fable 5 价格付费，拿到 Opus 4.8 答案。更隐蔽的刺客：单价翻倍还能算账，**分类器降级连账都算不清**。
+
+---
+
+💸 **没封神的部分 ② 月卡时代的终结**
+
+· 宝玉 $200 Max 套餐跑 3 个任务烧空
+· pimeys 3 天烧掉 $4000
+· Cursor 长 agent loop 单小时 $20-40
+· 6/22 后从订阅计划移除，转 usage credits
+
+按 7.25 汇率：月成本 ¥1450 起，24h 长链 Agent 轻松破万。
+
+---
+
+🕵️ **没封神的部分 ③ 隐藏保护（最争议）**
+
+Anthropic 用 PEFT / steering vectors 在某些任务上**静默降级** Fable 5 性能，**不告知用户**。
+
+HN 原话："Anthropic won't tell you if your output is being silently nerfed"
+社区评价："a new low and should probably be illegal"
+
+用户用脚投票 —— digitaltrees 已经转 3 台 512GB Mac Studio 跑开源模型。
+
+---
+
+🚀 **真正的范式转变**
+
+Fable 5 的发布"与其说是模型升级，倒不如说是一次彻底调整 AI 订阅体系的预热"。
+
+订阅制模糊了真实成本。按 token 烧钱让普通用户变成"每一调用都掂量"的谨慎消费者。
+
+AI 普惠窗口期开始倒计时。这不会是 Anthropic 一家的事 —— OpenAI / Google DeepMind 都在同步收紧。
+
+---
+
+你身边有人用 Fable 5 吗？他们的账单有没有翻车？评论区聊 👇
+
+---
+
+**标签**
+#Fable5 #Claude #AI测评 #token刺客 #AIAgent #Anthropic #AI普惠 #开发者
