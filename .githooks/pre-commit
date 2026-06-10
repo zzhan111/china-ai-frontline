@@ -21,7 +21,7 @@ staged=$(git diff --cached --name-only --diff-filter=ACMR -- 'posts/*.md')
 echo "[posts-eval gate] staged posts files:"
 printf '  %s\n' $staged
 
-python tools/posts-eval.py $staged
+python3 tools/posts-eval.py $staged
 status=$?
 
 if [ "$status" -ne 0 ]; then
