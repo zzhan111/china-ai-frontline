@@ -8,6 +8,21 @@
 
 这些信号叠加在一起，指向的不是一次普通模型升级。
 
+我花了 已按新规则修订：正文里不再出现任何内联链接，只保留 `[1]` 这类引用编号；所有来源统一放到文尾「参考资料」里，采用公众号常见的文尾引用格式。
+
+下面是修订后的 `drafts/006/006-draft-v1.1.md`：
+
+```markdown
+# Fable 5 封神了吗：一次发布 24 小时内的全面调研
+
+6 月 9 日深夜，Anthropic 发布了 Claude Fable 5 和 Mythos 5。
+
+不到 12 小时，中文圈已经出现了一个说法：Claude 史上最强模型，普通人慎用。这个标题同时击中了两个情绪：新王登基了，而且你可能用不起。
+
+紧接着，更具体的数字开始出现。200 美元的 Claude Max 月费会员，跑 3 个任务就直接烧空。英文社区里有人一个 session 三天烧了 4000 美元。6 月 23 日之后，Fable 5 将从订阅套餐中移除，改为按 usage credits 计费。
+
+这些信号叠加在一起，指向的不是一次普通模型升级。
+
 我花了 24 小时把英文社区、中文社区、官方 benchmark、定价机制和社区争议全部跑了一遍。结论可以三句话讲完。
 
 Fable 5 在 coding / agentic 任务上确实是目前最强的。但它只在特定任务上封神。而且它带来的真正变化，不只是能力变强，是三件事同时浮出水面：最强模型开始分层发售；月卡时代正在结束，前沿模型变成按量燃烧的云资源；用户以为自己买的是能力，实际买到的可能是一个会被静默降级的模型入口。
@@ -18,11 +33,11 @@ Fable 5 在 coding / agentic 任务上确实是目前最强的。但它只在特
 
 从公开 benchmark 看，Fable 5 在软件工程、工具调用、视觉理解、复杂任务自动化上都是明显的第一梯队，多项断层领先。
 
-SWE-Bench Pro 上，Fable 5 达到 80.3%，Opus 4.8 是 69.2%，领先 11.1 个百分点。SWE-Bench Verified 上，Fable 5 是 95.0%，Opus 4.8 是 88.6%。FrontierCode Diamond 上，Fable 5 是 29.3%，Opus 4.8 是 13.4%，GPT-5.5 是 5.7%。数据来源是 Anthropic 官方 system card，Vellum 做了完整转引。[Vellum](https://www.vellum.ai/blog/claude-fable-5-and-mythos-5-benchmarks-explained)
+SWE-Bench Pro 上，Fable 5 达到 80.3%，Opus 4.8 是 69.2%，领先 11.1 个百分点。SWE-Bench Verified 上，Fable 5 是 95.0%，Opus 4.8 是 88.6%。FrontierCode Diamond 上，Fable 5 是 29.3%，Opus 4.8 是 13.4%，GPT-5.5 是 5.7%。这些数据来自官方 system card，Vellum 做了完整转引。[1]
 
 这些数字指向同一个结论：如果你的任务是写代码、改代码、跑复杂工程、接工具链完成长流程，Fable 5 是一次明显跨越，不是小升级。
 
-英文社区第一批开发者的反应也印证了这一点。Django 联合创始人 Simon Willison 在 HN 上的评价很直接：他已经在 Claude Code 里花了足够时间，结论是 it's a beast。他把一些拖了几个月的难题扔给它，Fable 5 能相当顺畅地推进。[HN](https://news.ycombinator.com/item?id=48463808)
+英文社区第一批开发者的反应也印证了这一点。Django 联合创始人 Simon Willison 在 HN 上的评价很直接：他已经在 Claude Code 里花了足够时间，结论是 it's a beast。他把一些拖了几个月的难题扔给它，Fable 5 能相当顺畅地推进。[2]
 
 另一个用户 boc 提到，高 effort 下跑两个大重构，没有很快撞到 context 上限，感觉它更聪明，也更少在原地打转消耗 token。用户 bottlepalm 说 Fable 5 用 30 分钟完成了 Opus 4.8 和 ChatGPT Codex 5.5 都没解出来的逆向工程题。
 
@@ -36,7 +51,7 @@ SWE-Bench Pro 上，Fable 5 达到 80.3%，Opus 4.8 是 69.2%，领先 11.1 个�
 
 英文社区的负反馈同样具体。有人拿它做 Stockfish 优化循环，结果无法恢复近期优化，感觉不如 Opus 4.8 有创造力。有人拿它做极难数学题，直接烧穿额度，最后也没有明显答案。
 
-METR 的第三方评估结论是，Mythos 5 仍然 likely unable to fully and reliably automate R&D for frontier projects spanning multiple weeks。[Anthropic System Card](https://www-cdn.anthropic.com/d00db56fa754a1b115b6dd7cb2e3c342ee809620.pdf)
+METR 的第三方评估结论是，Mythos 5 仍然 likely unable to fully and reliably automate R&D for frontier projects spanning multiple weeks。[3]
 
 翻译成白话：它已经很强，但还不能稳定地替你完成跨数周的前沿研发。
 
@@ -50,7 +65,7 @@ METR 的第三方评估结论是，Mythos 5 仍然 likely unable to fully and re
 
 ## 真正的刺客不是标价，是长任务
 
-Fable 5 的官方 API 价格是每百万 input token 10 美元、每百万 output token 50 美元，大约是 Opus 4.8 的 2 倍。[Anthropic Pricing](https://platform.claude.com/docs/en/about-claude/pricing)
+Fable 5 的官方 API 价格是每百万 input token 10 美元、每百万 output token 50 美元，大约是 Opus 4.8 的 2 倍。[4]
 
 单看标价，一个 200K input + 50K output 的任务大约是 4.50 美元。如果启用 90% prompt-cache，成本可以降到 2.70 美元左右，只比 Opus 4.8 贵 0.45 美元。
 
@@ -58,7 +73,7 @@ Fable 5 的官方 API 价格是每百万 input token 10 美元、每百万 outpu
 
 Agent 不是一次问答。它会读文件、查资料、写代码、跑测试、改错、再读文件、再写代码、再跑测试。只要循环跑起来，token 消耗就像水龙头没关一样持续流出。
 
-社区里已经出现了非常夸张的账单。HN 上有人提到，一个 Opus session 三天烧了 4000 美元。OpenCode session 里也出现过 4365.02 美元的实时显示。Lushbinary 的观察是，Fable 5 在 Cursor 这类 long-running agent loop 里连续跑时，token 燃烧容易达到每小时 20 到 40 美元。[Lushbinary](https://lushbinary.com/blog/claude-fable-5-vs-gpt-5-5-vs-gemini-3-1-pro-comparison/)
+社区里已经出现了非常夸张的账单。HN 上有人提到，一个 Opus session 三天烧了 4000 美元。OpenCode session 里也出现过 4365.02 美元的实时显示。Lushbinary 的观察是，Fable 5 在 Cursor 这类 long-running agent loop 里连续跑时，token 燃烧容易达到每小时 20 到 40 美元。[5]
 
 中文圈的体感更直接。宝玉的原话是：Fable 5 真的消耗流量超快，我刚升级了 200 美元的套餐，根本不够用。卡兹克的说法更夸张：200 美元 Claude Max 会员，跑了 3 个任务，其中一个还没跑完，直接就干没了。
 
@@ -82,9 +97,9 @@ Fable 5 和 Mythos 5 的关系，很像同一套能力在不同安全边界下�
 
 如果你付的是 Fable 5 的价格，但某些任务实际拿到的是 Opus 4.8 的答案，而且系统没有明确告诉你，这就是信息不对称。
 
-这是英文社区争议最大的地方。HN 上有人把这种机制类比成社交平台的 shadow banning——不是直接告诉你「这不允许」，而是不声不响地改变你的问题、改变你的回答，甚至降低模型能力。HN moderator 原话是：Anthropic won't tell you if your output is being silently nerfed。[HN](https://news.ycombinator.com/item?id=48463808)
+这是英文社区争议最大的地方。HN 上有人把这种机制类比成社交平台的 shadow banning：不是直接告诉你「这不允许」，而是不声不响地改变你的问题、改变你的回答，甚至降低模型能力。HN moderator 原话是：Anthropic won't tell you if your output is being silently nerfed。[2]
 
-Reddit r/ClaudeAI 上一篇 1567 赞的帖子标题直接叫：Claude Fable 5 feels less like a model launch and more like a preview of AI inequality。[Reddit](https://old.reddit.com/r/ClaudeAI/comments/1u1fsdi/claude_fable_5_feels_less_like_a_model_launch_and/)
+Reddit r/ClaudeAI 上一篇高赞帖子标题直接叫：Claude Fable 5 feels less like a model launch and more like a preview of AI inequality。[6]
 
 这句话比所有 benchmark 都更值得警惕。它意味着未来模型竞争不只是能力竞争，也是透明度竞争。用户真正害怕的不是模型说「我不能做这个」，而是模型看起来正常工作，但实际上已经换了脑子、降了能力、改了输出，而你不知道。
 
@@ -104,7 +119,7 @@ Reddit r/ClaudeAI 上一篇 1567 赞的帖子标题直接叫：Claude Fable 5 fe
 
 ## 这不是一次模型升级，而是一次订阅体系调整
 
-APPSO 在 Fable 5 发布后的判断是：与其说是一次模型升级，倒不如说是一次彻底调整 AI 订阅体系的预热。[APPSO](https://mp.weixin.qq.com/s/1iKHpL0g2iKK0ztojOqZzw)
+APPSO 在 Fable 5 发布后的判断是：与其说是一次模型升级，倒不如说是一次彻底调整 AI 订阅体系的预热。[7]
 
 我同意这个判断。如果只看能力，Fable 5 的故事会被写成：Claude 又变强了，coding 更强了，agent 更强了，benchmark 又刷新了。但如果把定价、订阅、分层发售、安全分类器、静默降级、社区账单放在一起看，它更像一个行业拐点。
 
@@ -127,3 +142,19 @@ Fable 5 不是一个「神降临了」的故事。它是一个分水岭。在它
 这篇调研跑完之后，我留下的不是兴奋，而是一个更实际的判断：未来真正有价值的，不只是会调用最强模型的人。是把强模型、便宜模型、开源模型、中转服务、缓存、预算、评测和降级监控组织成一套稳定工作流的人。
 
 模型封神只是新闻。谁能把神请进生产系统里，还不把账单烧穿，才是下一阶段真正的能力。
+
+## 参考资料
+
+[1] Vellum: [Claude Fable 5 and Mythos 5 Benchmarks Explained](https://www.vellum.ai/blog/claude-fable-5-and-mythos-5-benchmarks-explained)
+
+[2] Hacker News: [Claude Fable 5 discussion](https://news.ycombinator.com/item?id=48463808)
+
+[3] Anthropic: [Fable 5 System Card](https://www-cdn.anthropic.com/d00db56fa754a1b115b6dd7cb2e3c342ee809620.pdf)
+
+[4] Anthropic: [Claude pricing documentation](https://platform.claude.com/docs/en/about-claude/pricing)
+
+[5] Lushbinary: [Claude Fable 5 vs GPT-5.5 vs Gemini 3.1 Pro comparison](https://lushbinary.com/blog/claude-fable-5-vs-gpt-5-5-vs-gemini-3-1-pro-comparison/)
+
+[6] Reddit: [Claude Fable 5 feels less like a model launch and more like a preview of AI inequality](https://old.reddit.com/r/ClaudeAI/comments/1u1fsdi/claude_fable_5_feels_less_like_a_model_launch_and/)
+
+[7] APPSO: [实测 Claude 史上最强模型 Fable 5，普通人慎用](https://mp.weixin.qq.com/s/1iKHpL0g2iKK0ztojOqZzw)
