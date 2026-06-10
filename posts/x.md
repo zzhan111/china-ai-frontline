@@ -1388,3 +1388,53 @@ humanizer: zh@2026-06-06 (prompts/humanizer-zh.md vendored fallback by DeepSeek-
 转发：
 高质量反馈：
 下一步：
+### X thread 草稿
+
+**1/**
+Fable 5 跑出来一周了，看完 1400 条 HN 评论和 Anthropic 12 行 benchmark 矩阵，我的判断：
+
+它真封神了。**但这个"神"有半价。**
+
+**2/**
+封神的部分 —— coding / agentic 全面领先：
+· SWE-Bench Pro 80.3% vs Opus 4.8 69.2%（+11.1pp）
+· FrontierCode Diamond 29.3% vs Opus 4.8 13.4%（+15.9pp）
+· Simon Willison 实测："it's a beast"
+· Stripe 5000 万行 Ruby 迁移，1 天顶 2 个月
+
+**3/**
+没封神的部分 —— safety classifier 触发后自动降级：
+
+Fable 5 在 cyber / bio / chemistry 任务上被分类器切回 Opus 4.8。用户按 Fable 5 价格付费，拿到 Opus 4.8 答案。这是更隐蔽的刺客：单价翻倍还能算账，**分类器降级连账都算不清**。
+
+**4/**
+数字事实：
+· 宝玉 $200 Max 套餐跑 3 个任务烧空
+· pimeys 3 天烧掉 $4000
+· Cursor 长 agent loop 单小时 $20-40
+· 6/22 后从订阅计划移除，转 usage credits
+
+月卡时代终结。
+
+**5/**
+社区最大争议不是价格，是隐藏保护。
+
+Anthropic 用 PEFT / steering vectors 在某些任务上**静默降级** Fable 5 性能，**不告知用户**。HN 原话："Anthropic won't tell you if your output is being silently nerfed"
+
+用户用脚投票：digitaltrees 已经转 3 台 512GB Mac Studio 跑开源模型。
+
+**6/**
+还有一个细节被忽略 —— Stripe 案例的 5000 万行 Ruby，团队手工需 2 个月，Fable 5 1 天完成。
+
+但 Anthropic 自己也承认：Mythos 5 "likely unable to fully and reliably automate R&D for frontier projects spanning multiple weeks"
+
+**数周级长任务仍然掉链子。**
+
+**7/**
+我的判断：
+
+Fable 5 真正的范式转变不是"模型更强"，而是**按量计费**。
+
+订阅制模糊了真实成本。按 token 烧钱让普通用户变成"每一调用都掂量"的谨慎消费者。
+
+AI 普惠窗口期开始倒计时。这不会是 Anthropic 一家的事 —— OpenAI / Google DeepMind 都在同步收紧。
