@@ -5,3 +5,14 @@ __pycache__/
 # Vendored upstream skills (installed by tools/install-humanizer.py)
 /external/*/
 !/external/.gitkeep
+
+# Asset binaries (rendered PNG/JPG/MP4/WEBP — too large for git, regenerate from source scripts)
+# IMAGES.md and source render scripts in each draft folder are kept; only binaries ignored.
+/assets/**/*.png
+/assets/**/*.jpg
+/assets/**/*.jpeg
+/assets/**/*.webp
+/assets/**/*.mp4
+/assets/**/*.gif
+
+
