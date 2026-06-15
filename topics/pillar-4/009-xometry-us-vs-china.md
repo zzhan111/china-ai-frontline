@@ -3,7 +3,7 @@ id: 009
 title: "中美 AI 制造平台差了一个 Xometry：为什么中国跑不出全球级 asset-light 按需制造 marketplace？"
 pillar: 4
 secondary_pillar: 2
-status: idea
+status: drafting
 target_persona: B
 uiuc_anchor: false
 hook_type: insight
