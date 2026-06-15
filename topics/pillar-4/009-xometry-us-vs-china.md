@@ -8,8 +8,11 @@ target_persona: B
 uiuc_anchor: false
 hook_type: insight
 role: "作为 007 Agent 经济回路文章的中美产业对照案例——Xometry 证明了 AI 把工程师知识工作 API 化可以跑通，但不是 agent 经济。中国有玩家但缺了三个结构性条件。"
+status: published
 created: 2026-06-15
-updated: 2026-06-15
+updated: 2026-06-27
+published_url: https://mp.weixin.qq.com/s/3d1H48bbVu_BuVBwJbv0KA
+published_title: "12年亏出来的护城河：Xometry如何用AI把工程师经验变成印钞机"
 data_windows:
   - "2026-06-15 SEC EDGAR 直接抓取 — Xometry 10-K 2025 + S-1 2021 + Q1 2026 10-Q"
   - "2026-06-15 官网抓取 — Protolabs 10-K 2025 / Fast Radius 10-K 2021 (已退市) / Fictiv.com / Hubs(Protolabs Network) / Rapiddirect.com / 嘉立创 5 个子站"
