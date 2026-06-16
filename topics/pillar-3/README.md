@@ -16,6 +16,7 @@
 | 编号 | 标题 | 状态 | 备注 |
 |---|---|---|---|
 | [004](004-edge-ai-hackathon-founder-interview.md) | 让大模型走出屏幕，去拧动工厂里的阀门 | ✅ 已发 | **内容簇 #004**，连接轴萌芽。终稿：[`drafts/004/preview.md`](../../drafts/004/preview.md)。访谈对象：闫露/「顽皮的程序员」 |
+| 011 | 见 pillar-2 → [011-ubtech-dual-front](../pillar-2/011-ubtech-dual-front.md) | idea | 交叉选题，pillar-2 为主 pillar-3 为辅 |
 
 ## 启用前需准备
 
