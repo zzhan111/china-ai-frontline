@@ -3,7 +3,7 @@ id: 012
 title: "微信 vs 蚂蚁 vs 银联：AI 支付的三条路线在 48 小时内同时撞线"
 pillar: 2
 secondary_pillar: 4
-status: idea
+status: drafting
 target_persona: B
 uiuc_anchor: false
 hook_type: insight
