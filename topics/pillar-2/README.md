@@ -17,7 +17,8 @@
 | 002 | 华人团队正在重做海外 AI 家教:从拍题工具到课堂 Copilot | **published** | ✅ 内容簇 #002(已发),实操轴;本支柱与支柱五交叉 |
 | 003 | 中国 AI 生态地图：海外华人最容易误读的差异 | 待写 | **内容簇 #003**，实操轴;详见 cold-start-plan 003 设计要点 |
 | 011 | 人形机器人同时打进家里和工厂：优必选的双线战 | idea | **内容簇 #011**，具身智能产品化信号卡；C 端 3800 台预售 vs B 端比亚迪 2 万台目标，两端的数字是否可信？ |
-| 012 | 微信 vs 蚂蚁 vs 银联：AI 支付的三条路线在 48 小时内同时撞线 | **published** | **内容簇 #012**，✅ 已发布（mp.weixin.qq.com/s/jSZIKZfjRRnXxNOLiPmS4g），draft v1.3 → published 正文零删改，标题+排版升级 |
+|| 012 | 微信 vs 蚂蚁 vs 银联：AI 支付的三条路线在 48 小时内同时撞线 | **published** | **内容簇 #012**，✅ 已发布（mp.weixin.qq.com/s/jSZIKZfjRRnXxNOLiPmS4g），draft v1.3 → published 正文零删改，标题+排版升级 |
+|| 014 | 当所有人都在谈模型参数的时候，刘强东在谈70万人的饭碗 | idea | **内容簇 #014**，A+C类混合（人物+调研）；v1.0→v1.5失败复盘后重构脊柱（v2.0），v2.0→v2.1加入06-22外部网络调研证据，v2.2骨架精简，v2.3收束A+C合并（A段数据喂养视角+C段曹鹏原话「用出来是企业战略」+开放问题「技术纯净 vs 实用自立」）；关联 `aihot-research/jd-ai-deepdive-2026-06-22-1145.md` + `drafts/014/failure-postmortem.md` + `drafts/014/external-research-2026-06-22.md` + `drafts/014/closing-v2.3-draft.md` |
 
 ## TODO
 
