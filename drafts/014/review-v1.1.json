@@ -1,0 +1,92 @@
+{
+  "evaluated_at": "2026-06-24T20:46",
+  "evaluator": "manual-v1.1-review",
+  "contract": "v1-common.md v1.2",
+  "draft_path": "drafts/014/draft-v1.1.md",
+  "metrics": {
+    "zh_chars": 2953,
+    "total_chars": 16059,
+    "sections": 8,
+    "tables": 35,
+    "citations": 7,
+    "case_studies": 7,
+    "deployment_stacks": 5
+  },
+  "diff_vs_v1_0": {
+    "title": "30 字 → 22 字（标题 A 备选：AI Coding harness 时代：模型决定下限，harness 决定上限）",
+    "section_01_added": "ASCII bar chart（148 条评论 5 类立场可视化）",
+    "section_05_added": "3 行过渡（harness 是什么 + 隐藏主角）",
+    "section_06_added": "三组件集成架构图（Pi + llama.cpp + Qwen ASCII 流程图）",
+    "section_08_added": "反过来说思考钩子"
+  },
+  "red_flags": {
+    "ai_vocab": {
+      "hits": {
+        "生态": 6
+      },
+      "total": 6,
+      "threshold": 3,
+      "verdict": "FLAG (生态仍 6 次，全部技术语境)"
+    },
+    "empty_conclusions": 0,
+    "promo_tone": 0,
+    "vague_attribution": 0,
+    "chatbot_artifacts": 0,
+    "not_x_but_y": 1,
+    "short_sentence_stacking": 0,
+    "meta_value_assertions": [
+      "真正的差异化"
+    ],
+    "self_qa": 0,
+    "em_dash": 35,
+    "private_tooling": []
+  },
+  "section_scores": {
+    "4.1_selection_value": {
+      "score": 9,
+      "reason": "标题压缩后更锐利：'AI Coding harness 时代' 直接点名核心反转；其他不变。"
+    },
+    "4.2_audience_match": {
+      "score": 9,
+      "reason": "§01 ASCII bar chart 让读者 1 秒 get 67%；§06 架构图让 5 个栈不再是黑盒；§05 过渡让 harness 概念落地。"
+    },
+    "4.3_information_density": {
+      "score": 10,
+      "reason": "新增 4 个视觉锚点（标题 ASCII 图、§01 条形图、§05 过渡、§06 架构图、§08 思考钩子），信息密度提升到 10/10（最高档）。"
+    },
+    "4.4_ai_smell": {
+      "score": 8,
+      "reason": "硬 red flag 仍 0 个（生态 6 次技术语境；em dash 仍是排版常规）。'反过来说' 钩子句式符合人类短句节奏。"
+    }
+  },
+  "section_4_total": 36,
+  "hard_zone_3": {
+    "3.1_fabrication": "PASS (无新增数据)",
+    "3.2_privacy": "PASS",
+    "3.3_legal_risk": "PASS",
+    "3.4_brand_persona": "PASS",
+    "3.5_ai_tells": "PASS (硬 red flag = 0)",
+    "3.6_no_thesis": "PASS",
+    "3.7_private_tooling": "PASS (无 [])"
+  },
+  "must_have_5": {
+    "5.1_first_3s_hook": "PASS (标题更短更利)",
+    "5.2_clear_thesis": "PASS",
+    "5.3_specific_facts": "PASS",
+    "5.4_human_marks": "PASS",
+    "5.5_platform_native": "PASS",
+    "5.6_heavy_claim_sources": "PASS"
+  },
+  "forbidden_5": {
+    "套话开头": "PASS",
+    "伪洞察": "PASS",
+    "过度总结": "PASS (反过来说钩子是开放思考，不是正确废话)",
+    "机械AI腔": "PASS",
+    "平台错配": "N/A"
+  },
+  "total": 90,
+  "scale_to_100": 90,
+  "promotion": "ready_to_publish",
+  "improvement_from_v1_0": "88 → 90 (+2 分 — 标题锐利度 + §4.3 信息密度提升)",
+  "rationale_total": "4 维总分 36/40 → 缩放到 100 = 90 (passing 85)"
+}
