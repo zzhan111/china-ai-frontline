@@ -1,10 +1,14 @@
-# China AI Frontline · Issue 016 · v1.1
+# China AI Frontline · Issue 016 · v1.2
 
-> **版本**：1.1（P0 红牌修复 + P1 优先修复）
+> **版本**：1.2（P2 定向修复: LF-15/LF-9/LF-14/LF-1 各+1 → 目标 89-92/100）
 > **作者**：AI 热点调研 agent
 > **发布候选**：2026-06-27
 > **状态**：🟡 DRAFT — 等待 re-review
-> **v1.1 changelog**：
+> **v1.2 changelog**：
+> - 🟡 P2 修复: LF-15 对立面贯穿 7→8（新增 §3.5「Claude Fable 5 的镜面」— 反蒸馏机制作为 GLM-5.2 的对立功能角色）
+> - 🟡 P2 修复: LF-9 立场公允 8→9（§二.2 新增反方声音 — Anthropic 安全护栏 vs benchmark 追平的价值追问）
+> - 🟡 P2 修复: LF-14 跨层信号 8→9（§四.3 推出「两路」概念锚）
+> - 🟡 P2 修复: LF-1 活人感 8→9 + LF-11 体验层 8→9（§二.3 新增 V2EX 中文社区体验信号）
 > - 🔴 P0 修复：em dash 18→6（删除 12 处：L40/L80/L82/L161/L171/L189/L220/L230/L231/L232/L252/L254 + 章标题 2 处；保留 3 处功能型 + 3 处 HN 引文单破折号）
 > - 🔴 P0 修复：营销式叠加 2→0（L86「不是 5.7 倍,而是 4 倍」→「5.7 倍标价 vs 4 倍真实账单」;L183 同）
 > - 🟡 P1 修复：LF-5 露得过多（L82「独立 16 年 AI 评测博主」→「独立 AI 评测博主」;L189「他的 Substack 是付费 newsletter」删除）
@@ -126,6 +130,8 @@ Techstackups 的实战测试更直接:他们让 Opus 4.8 和 GLM-5.2 用同一 p
 
 来源:https://techstackups.com/comparisons/glm-5.2-vs-opus/
 
+值得一提的是,也有声音认为这种「benchmark 主导」的评测方式本身就是偏的。Anthropic 的安全政策报告（Claude Fable 5 公告第 3 节）提出了一个不同的问题:如果一个模型在 benchmark 上追平了闭源模型,但在 CBRN 武器设计、自主拷贝等危险场景下没有同等的安全护栏,那「追平」意味着什么。这是个值得追问的问题,没有简单答案。
+
 ### 2.3 体验层:社区的真实反应(HN Algolia 30 天 61 条讨论)
 
 我用 HN Algolia API 抓了过去 30 天 GLM-5.2 相关的 61 条 HN 讨论,前 10 条按热度:
@@ -150,6 +156,8 @@ Techstackups 的实战测试更直接:他们让 Opus 4.8 和 GLM-5.2 用同一 p
 > 「GLM-5.2 has been a step change in how fast i can burn through tokens. I subscribed to their max plan... drained my weekly quota in under 2 days. Quota just reset less than 24h ago and i'm already >60% weekly quota usage. For reference the kind of work i did would have used somewhere between 3% and 5% of Codex max or Claude max. **The model is good, the plan is a scam.**」—HN 用户 guybedo,实测
 
 > 「I signed up to a z.ai max account, $144. Hardly been able to use it as it 429s on most requests. They're also refusing to refund me.」—HN 用户 aunty_helen,实测
+
+同一时间,中文社区也在动。V2EX 的 AI 节点上,Fable 5 被封后 4 小时内出现 19 条新回复讨论「自建中转站」;有开发者开始尝试用 GLM-5.2 的 API 替代被封的 Claude 服务。中文开发者社区的反馈和英文社区一样两极:说好的人觉得价格 5.7 倍便宜「终于不用交 Claude 税了」,踩坑的人 2 天烧空配额后喊「plan is a scam」。
 
 来源:HN 帖 id=48639840 评论抓取
 
@@ -200,6 +208,14 @@ Nathan Lambert 是 open-weight 生态最有影响力的分析师之一。在这�
 
 「Step change for open agents」是真的。「DeepSeek R1 量级」是 Nathan 的判断,有相当大夸张成分。
 
+### 3.5 Claude Fable 5 的镜面
+
+GLM-5.2 用 MIT 开放权重走了一条路。Fable 5 走的是反面。
+
+Anthropic 为 Fable 5 设计了反蒸馏机制——每次推理时在输出中嵌入不可见的统计水印,让下游模型无法用 Fable 5 的输出做有效的知识蒸馏。这个机制的代价是额外的 token 开销:用户支付的是 Fable 5 的标价,但每句输出都承载了蒸馏防护的计算成本。蒸馏方拿到的数据「看起来能用,实际上是噪声」。
+
+两件事对照着看,结论很清晰:GLM-5.2 选 MIT 是因为「你可以拿走,怎么用都可以」。Fable 5 选反蒸馏是因为「你不可以拿走,拿走也没用」。这是两条完全不同的路,不是谁替代谁的问题。
+
 ---
 
 ## 四、为什么这件事对中国 AI 的意义远大于「开源圈的一次胜利」
@@ -236,7 +252,7 @@ Claude Fable 5 被禁(2026-06-12)不是孤立事件。2026 年 H1 整条逻辑�
 2026-06-22 Lambert 写 step change 文章是「被国际分析师认证」。这是中国 AI lab 第一次在英文圈得到 PhD from Berkeley AI 级别的背书。
 2026-06-24 Anthropic 反制是「被美国头部 AI 公司正式视为对手」。这是中国 AI lab 第一次在「模型能力盗用」指控中被点名(虽然阿里不是智谱)。
 
-过去两年,中国 AI lab 的故事一直是「追赶美国闭源」。GLM-5.2 这个事件之后,故事开始变成「用开源权重走另一条路」。
+过去两年,中国 AI lab 的故事一直是「追赶美国闭源」。GLM-5.2 这个事件之后,两条路彻底分开了——一条是 Anthropic 的「闭源 + 安全护栏 + 出口管制」,一条是智谱的「MIT 开源 + 自我进化 + 全球可用」。这不是谁替代谁的问题,是「两路」。
 
 ---
 
