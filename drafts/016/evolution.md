@@ -148,7 +148,17 @@
 
 ---
 
-## 2026-06-27 — Contract Re-Review v1.1（subagent editor-agent 重评分）
+## 2026-06-27 — v1.3 Re-Review（LF-3/LF-4/LF-12 各+1）
+
+### 做了什么
+
+3 项定向修复全部验证通过：LF-3 ELO白话 8→9、LF-4 基准2+4合并 8→9、LF-12 11天时间窗论证 8→9。
+
+### 评分: 110/120 = 91.7/100 ready
+
+### v1.4 dispatched (P4: LF-3 Lambert压缩、LF-4 LLMStats散文、LF-12 时间窗进正文, 目标 93-95)
+
+---
 
 ### 做了什么
 
