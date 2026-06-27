@@ -1,5 +1,5 @@
 ---
-id: 016
+id: "016"
 title: "GLM-5.2: 开源 agent 的 step change,还是又一次 DeepSeek R1 时刻?"
 pillar: 4
 secondary_pillar: 2
@@ -16,11 +16,10 @@ data_windows:
   - "2026-06-22 — Interconnects 文章 (HN 351p/208c)"
   - "2026-06-24 — Anthropic 指控阿里 distillation (HN 391p/664c)"
 related_topics:
-  - id: 010
+  - id: "010"
     relation: "前序 52h 跨源追踪 (Fable 5 ban → GLM-5.2 跃升) — 本文做单点深度"
 related_data:
   - "/home/zhang/glm52-deepdive/REPORT.md"
-  - "/home/zhang/glm52-deepdive/data/ (73 文件, 41MB raw evidence)"
   - "/home/zhang/china-ai-frontline/topics/pillar-4/010-fable5-vs-opensource.md"
 ---
 
