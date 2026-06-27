@@ -12,7 +12,7 @@
 
 我们花了 16 分钟用 Python 直接抓取了 26 个 URL、13 个独立第三方来源、Hacker News 30 天 61 条讨论和 50 条原始 HN 评论。这篇文章的每一个数字都可以在文末「参考资料」里逐条验证。
 
-**01** 「step change」的三层真相
+## 一、「step change」的三层真相
 
 2026 年 6 月 22 日，Nathan Lambert——伯克利 AI 博士，曾任 Meta FAIR / DeepMind / HuggingFace——在 Substack 上发了篇文章，标题直接：**「GLM-5.2 is the step change for open agents」**[3]。他的核心主张是：GLM-5.2 是开源权重模型第一次在 Claude Code 类代理工作流里「感觉对了」。
 
@@ -32,7 +32,7 @@ Techstackups 的结论直接：「We're not switching our main off Opus。」[5]
 
 同一时间，中文社区也在动。V2EX AI 节点上，Fable 5 被封后 4 小时内出现 19 条新回复讨论「自建中转站」[9]。
 
-**02** 四个边界条件——为什么「step change」是部分真
+## 二、四个边界条件
 
 **Text-only**：GLM-5.2 完全不支持图像输入。截图改 UI、设计稿生成代码——这类工作流仍然需要 Claude。
 
@@ -42,7 +42,7 @@ Techstackups 的结论直接：「We're not switching our main off Opus。」[5]
 
 **作者立场偏向**：Nathan Lambert 的文章本身就带 Substack 订阅号召。他判断 GLM-5.2 是「DeepSeek R1 时刻」，但 DeepSeek R1 在 2025 年 1 月触发了美股暴跌和全球 AI 政策重审。GLM-5.2 的发布没有同等级别的市场震荡。「Step change for open agents」是真的。「DeepSeek R1 量级」是 Nathan 的判断，有相当大夸张成分。
 
-**03** Fable 5 的镜面：两条路的彻底分叉
+## 三、Fable 5 的镜面：两条路的彻底分叉
 
 GLM-5.2 用 MIT 开放权重走了一条路。Claude Fable 5 走的是反面。
 
@@ -54,7 +54,7 @@ Anthropic 为 Fable 5 设计了反蒸馏机制——在输出中嵌入不可见�
 
 6 月 12 日 Fable 5 被禁 export → 6 月 16 日 GLM-5.2 公开权重 → 6 月 22 日 Interconnects 文章引爆英文圈 → 6 月 24 日 Anthropic 指控阿里蒸馏——这是一个正在闭合的循环。美国用出口禁令保护前沿模型，中国用开源权重对冲被锁定的能力，美国再指控中国 AI lab 盗用模型能力。截至本文写作时，循环还没有停止。
 
-**04** 给读者的四个建议
+## 四、给读者的四个建议
 
 **如果你还没用过 GLM-5.2**：从 OpenRouter 开始，跑一个中等复杂度的 coding 任务，实测你自己的 token 消耗和真实账单。不要相信标价，相信你自己的数字。
 
